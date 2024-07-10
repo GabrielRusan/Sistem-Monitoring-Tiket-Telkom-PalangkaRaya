@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:telkom_ticket_manager/constants/style.dart';
-import 'package:telkom_ticket_manager/controllers/menu_controller.dart';
-import 'package:telkom_ticket_manager/controllers/navigation_controller.dart';
+import 'package:telkom_ticket_manager/utils/style.dart';
+import 'package:telkom_ticket_manager/presentations/controllers/menu_controller.dart';
+import 'package:telkom_ticket_manager/presentations/controllers/navigation_controller.dart';
 import 'package:telkom_ticket_manager/layout.dart';
-import 'package:telkom_ticket_manager/pages/authentication/authentication.dart';
-import 'package:telkom_ticket_manager/pages/not_found/not_found.dart';
-import 'package:telkom_ticket_manager/routing/routes.dart';
+import 'package:telkom_ticket_manager/presentations/pages/authentication/authentication.dart';
+import 'package:telkom_ticket_manager/presentations/pages/not_found/not_found.dart';
+import 'package:telkom_ticket_manager/utils/routes.dart';
 
 void main() {
   Get.put(MyMenuController());

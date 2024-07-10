@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:telkom_ticket_manager/helpers/responsivennes.dart';
-import 'package:telkom_ticket_manager/widgets/large_screen.dart';
-import 'package:telkom_ticket_manager/widgets/side_menu.dart';
-import 'package:telkom_ticket_manager/widgets/small_screen.dart';
-import 'package:telkom_ticket_manager/widgets/top_nav.dart';
+import 'package:telkom_ticket_manager/utils/responsivennes.dart';
+import 'package:telkom_ticket_manager/presentations/widgets/large_screen.dart';
+import 'package:telkom_ticket_manager/presentations/widgets/side_menu.dart';
+import 'package:telkom_ticket_manager/presentations/widgets/small_screen.dart';
+import 'package:telkom_ticket_manager/presentations/widgets/top_nav.dart';
 
 class SiteLayout extends StatelessWidget {
   SiteLayout({super.key});
