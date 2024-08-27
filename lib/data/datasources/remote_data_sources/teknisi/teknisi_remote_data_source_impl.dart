@@ -19,8 +19,7 @@ class TeknisiRemoteDataSourceImpl extends TeknisiRemoteDataSource {
     if (token == null) throw NoCredentialException();
 
     try {
-      final result = await _dio.get(
-          'https://6kh4g3z0-3020.asse.devtunnels.ms/teknisi/',
+      final result = await _dio.get('$baseUrl/teknisi/',
           options: Options(headers: {'Authorization': 'Bearer $token'}));
       return TeknisiResponseModel.fromJson(result.data);
     } on DioException catch (e) {
@@ -74,6 +73,8 @@ class TeknisiRemoteDataSourceImpl extends TeknisiRemoteDataSource {
             case 404:
               throw NotFoundException();
             case 405:
+              throw DuplicateException(e.response?.data['message']);
+            case 407:
               throw DuplicateException(e.response?.data['message']);
           }
         default:

@@ -21,6 +21,14 @@ class TokenFailure extends Failure {
   const TokenFailure(super.message);
 }
 
+class FieldValidationFailure extends Failure {
+  const FieldValidationFailure(super.message);
+}
+
+class DuplicateFailure extends Failure {
+  const DuplicateFailure(super.message);
+}
+
 class NotFoundFailure extends Failure {
   const NotFoundFailure(super.message);
 }
