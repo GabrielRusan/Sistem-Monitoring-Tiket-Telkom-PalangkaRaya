@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
-import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/bar_chart.dart';
 import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/ticket_gangguan_info.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
 
@@ -35,11 +34,11 @@ class TicketGangguanSectionSmall extends StatelessWidget {
                   weight: FontWeight.bold,
                   color: lightGrey,
                 ),
-                SizedBox(
-                  width: 600,
-                  height: 200,
-                  child: SimpleBarChart.withSampleData(),
-                ),
+                // SizedBox(
+                //   width: 600,
+                //   height: 200,
+                //   child: SimpleBarChart.withSampleData(),
+                // ),
               ],
             ),
           ),

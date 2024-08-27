@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/user_cubit/user_cubit.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 import 'package:telkom_ticket_manager/utils/responsivennes.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
@@ -7,6 +9,7 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
     AppBar(
       elevation: 0,
       // backgroundColor: Colors.white,
+      surfaceTintColor: Colors.white,
       leading: !ResponsiveWidget.isSmallScreen(context)
           ? Padding(
               padding: const EdgeInsets.only(left: 14.0),
@@ -74,7 +77,15 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
           const SizedBox(
             width: 24,
           ),
-          CustomText(text: 'Cinthya Angelina', color: lightGrey),
+          BlocBuilder<UserCubit, UserState>(
+            builder: (context, state) {
+              if (state is UserLoaded) {
+                return CustomText(text: state.nama, color: lightGrey);
+              } else {
+                return CustomText(text: '...', color: lightGrey);
+              }
+            },
+          ),
           const SizedBox(
             width: 24,
           ),

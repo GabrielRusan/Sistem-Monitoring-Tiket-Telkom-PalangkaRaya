@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart' as getx;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:telkom_ticket_manager/injection.dart' as di;
+import 'package:telkom_ticket_manager/presentations/blocs/login_bloc/login_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/user_cubit/user_cubit.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 import 'package:telkom_ticket_manager/presentations/controllers/menu_controller.dart';
 import 'package:telkom_ticket_manager/presentations/controllers/navigation_controller.dart';
 import 'package:telkom_ticket_manager/layout.dart';
-import 'package:telkom_ticket_manager/presentations/pages/authentication/authentication.dart';
+import 'package:telkom_ticket_manager/presentations/pages/authentication/authentication_page.dart';
 import 'package:telkom_ticket_manager/presentations/pages/not_found/not_found.dart';
 import 'package:telkom_ticket_manager/utils/routes.dart';
 
 void main() {
-  Get.put(MyMenuController());
-  Get.put(NavigationController());
+  di.init();
+  getx.Get.put(MyMenuController());
+  getx.Get.put(NavigationController());
   runApp(const MyApp());
 }
 
@@ -20,34 +26,47 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Telkom",
-      initialRoute: authenticationPageRoute,
-      unknownRoute: GetPage(
-          name: "/not-found",
-          page: () => const NotFoundPage(),
-          transition: Transition.fadeIn),
-      getPages: [
-        GetPage(name: rootRoute, page: () => SiteLayout()),
-        GetPage(
-            name: authenticationPageRoute,
-            page: () => const AuthenticationPage()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginBloc>(
+          create: (_) => di.locator<LoginBloc>(),
+        ),
+        BlocProvider<UserCubit>(
+          create: (_) => di.locator<UserCubit>(),
+        ),
+        BlocProvider<TeknisiBloc>(
+          create: (_) => di.locator<TeknisiBloc>(),
+        ),
       ],
-      theme: ThemeData(
-        scaffoldBackgroundColor: light,
-        textTheme:
-            GoogleFonts.mulishTextTheme(Theme.of(context).textTheme).apply(
-          bodyColor: Colors.black,
+      child: getx.GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Telkom",
+        initialRoute: authenticationPageRoute,
+        unknownRoute: getx.GetPage(
+            name: "/not-found",
+            page: () => const NotFoundPage(),
+            transition: getx.Transition.fadeIn),
+        getPages: [
+          getx.GetPage(name: rootRoute, page: () => const SiteLayout()),
+          getx.GetPage(
+              name: authenticationPageRoute,
+              page: () => const AuthenticationPage()),
+        ],
+        theme: ThemeData(
+          scaffoldBackgroundColor: light,
+          textTheme:
+              GoogleFonts.mulishTextTheme(Theme.of(context).textTheme).apply(
+            bodyColor: Colors.black,
+          ),
+          pageTransitionsTheme: const PageTransitionsTheme(
+            builders: {
+              TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
+              TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+              TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
+            },
+          ),
+          primaryColor: Colors.blue,
         ),
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: {
-            TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
-            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-            TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
-          },
-        ),
-        primaryColor: Colors.blue,
       ),
     );
   }

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/login_bloc/login_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/user_cubit/user_cubit.dart';
 import 'package:telkom_ticket_manager/utils/controllers.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 import 'package:telkom_ticket_manager/utils/responsivennes.dart';
 import 'package:telkom_ticket_manager/utils/routes.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/side_menu_item.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({super.key});
@@ -58,9 +62,24 @@ class SideMenu extends StatelessWidget {
                       itemName: item.name,
                       onTap: () {
                         if (item.route == authenticationPageRoute) {
-                          Get.offAllNamed(authenticationPageRoute);
-                          menuController
-                              .changeActiveItemTo(overviewPageDisplayName);
+                          AwesomeDialog(
+                            context: context,
+                            width: 400,
+                            headerAnimationLoop: false,
+                            dialogType: DialogType.warning,
+                            animType: AnimType.scale,
+                            title: 'Warning!',
+                            desc: 'Apakah anda yakin ingin logout?',
+                            btnOkOnPress: () {
+                              context.read<UserCubit>().signOut();
+                              context.read<LoginBloc>().add(ClearLoginField());
+                              Get.offAllNamed(authenticationPageRoute);
+                              menuController
+                                  .changeActiveItemTo(overviewPageDisplayName);
+                            },
+                            btnCancelOnPress: () {},
+                          ).show();
+
                           return;
                         }
 

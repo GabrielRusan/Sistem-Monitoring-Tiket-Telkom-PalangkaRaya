@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:telkom_ticket_manager/presentations/pages/authentication/authentication.dart';
+import 'package:telkom_ticket_manager/presentations/pages/authentication/authentication_page.dart';
 import 'package:telkom_ticket_manager/presentations/pages/clients/clients.dart';
 import 'package:telkom_ticket_manager/presentations/pages/overview/overview.dart';
-import 'package:telkom_ticket_manager/presentations/pages/teknisi/teknisi.dart';
+import 'package:telkom_ticket_manager/presentations/pages/teknisi/teknisi_page.dart';
 import 'package:telkom_ticket_manager/utils/routes.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
