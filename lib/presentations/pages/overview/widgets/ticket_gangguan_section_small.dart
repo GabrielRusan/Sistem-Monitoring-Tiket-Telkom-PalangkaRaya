@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/last_month_count_info.dart';
+import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/last_week_count_info.dart';
+import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/last_year_count_info.dart';
+import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/today_count_info.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
-import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/ticket_gangguan_info.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
 
 class TicketGangguanSectionSmall extends StatelessWidget {
@@ -53,31 +56,13 @@ class TicketGangguanSectionSmall extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Row(
-                  children: [
-                    TicketGangguanInfo(
-                      title: "Hari ini",
-                      amount: "5",
-                    ),
-                    TicketGangguanInfo(
-                      title: "7 hari terakhir",
-                      amount: "44",
-                    ),
-                  ],
+                  children: [TodayCountInfo(), LastWeekCountInfo()],
                 ),
                 SizedBox(
                   height: 30,
                 ),
                 Row(
-                  children: [
-                    TicketGangguanInfo(
-                      title: "30 hari terakhir",
-                      amount: "173",
-                    ),
-                    TicketGangguanInfo(
-                      title: "1 tahun terakhir",
-                      amount: "1370",
-                    ),
-                  ],
+                  children: [LastMonthCountInfo(), LastYearCountInfo()],
                 ),
               ],
             ),

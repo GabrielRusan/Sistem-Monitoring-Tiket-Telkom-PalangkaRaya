@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:telkom_ticket_manager/data/models/pelanggan_model.dart';
+import 'package:telkom_ticket_manager/domain/entities/tiket.dart';
 
 List<TiketModel> tiketModelFromJson(String str) =>
     List<TiketModel>.from(json.decode(str).map((x) => TiketModel.fromJson(x)));
@@ -53,6 +54,21 @@ class TiketModel extends Equatable {
         updatedAt: DateTime.parse(json["updatedAt"]),
       );
 
+  factory TiketModel.fromEntity(Tiket tiket) => TiketModel(
+      idTiket: tiket.idTiket,
+      nomorTiket: tiket.nomorTiket,
+      nomorInternet: tiket.nomorInternet,
+      keluhan: tiket.keluhan,
+      type: tiket.type,
+      status: tiket.status,
+      ket: tiket.ket,
+      notePelanggan: tiket.notePelanggan,
+      pelanggan: PelangganModel.fromEntity(tiket.pelanggan),
+      idOdp: tiket.idOdp,
+      namaTeknisi: tiket.namaTeknisi,
+      createdAt: tiket.createdAt,
+      updatedAt: tiket.updatedAt);
+
   @override
   List<Object?> get props => [
         idTiket,
@@ -69,6 +85,21 @@ class TiketModel extends Equatable {
         status,
         type
       ];
+
+  Tiket toEntity() => Tiket(
+      idTiket: idTiket,
+      nomorTiket: nomorTiket,
+      nomorInternet: nomorInternet,
+      keluhan: keluhan,
+      type: type,
+      status: status,
+      ket: ket,
+      notePelanggan: notePelanggan,
+      pelanggan: pelanggan.toEntity(),
+      idOdp: idOdp,
+      namaTeknisi: namaTeknisi,
+      createdAt: createdAt,
+      updatedAt: updatedAt);
 
   // Map<String, dynamic> toJson() => {
   //       "idtiket": idtiket,

@@ -21,7 +21,6 @@ class TeknisiBloc extends Bloc<TeknisiEvent, TeknisiState> {
     final result = await getAllTeknisi.execute();
 
     result.fold((failure) {
-      print(failure.message);
       if (failure is NotFoundFailure) {
         emit(state.copyWith(status: TeknisiStatus.empty));
       } else if (failure is TokenFailure) {

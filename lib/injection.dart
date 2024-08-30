@@ -5,13 +5,18 @@ import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/auth/
 import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/auth/auth_remote_datasource_impl.dart';
 import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/teknisi/teknisi_remote_data_source.dart';
 import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/teknisi/teknisi_remote_data_source_impl.dart';
+import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/tiket/tiket_remote_data_source.dart';
+import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/tiket/tiket_remote_data_source_impl.dart';
 import 'package:telkom_ticket_manager/data/repositories/auth_repository_impl.dart';
 import 'package:telkom_ticket_manager/data/repositories/teknisi_repository_impl.dart';
+import 'package:telkom_ticket_manager/data/repositories/tiket_repository_impl.dart';
 import 'package:telkom_ticket_manager/domain/repositories/auth_repository.dart';
 import 'package:telkom_ticket_manager/domain/repositories/teknisi_repository.dart';
+import 'package:telkom_ticket_manager/domain/repositories/tiket_repository.dart';
 import 'package:telkom_ticket_manager/domain/usecases/auth/login.dart';
 import 'package:telkom_ticket_manager/domain/usecases/auth/logout.dart';
 import 'package:telkom_ticket_manager/domain/usecases/teknisi/get_all_teknisi.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/active_tiket_bloc/active_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/login_bloc/login_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/user_cubit/user_cubit.dart';
@@ -33,12 +38,16 @@ Future<void> init() async {
       () => AuthRemoteDataSourceImpl(sharedPref: locator(), dio: locator()));
   locator.registerLazySingleton<TeknisiRemoteDataSource>(
       () => TeknisiRemoteDataSourceImpl(locator(), locator()));
+  locator.registerLazySingleton<TiketRemoteDataSource>(
+      () => TiketRemoteDataSourceImpl(locator(), locator()));
 
   //repositories
   locator.registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(authRemoteDataSource: locator()));
   locator.registerLazySingleton<TeknisiRepository>(
       () => TeknisiRepositoryImpl(remoteDataSource: locator()));
+  locator.registerLazySingleton<TiketRepository>(
+      () => TiketRepositoryImpl(remoteSource: locator()));
 
   //usecases
   locator.registerLazySingleton(() => Login(repository: locator()));
@@ -49,4 +58,5 @@ Future<void> init() async {
   locator.registerFactory(() => LoginBloc(locator()));
   locator.registerFactory(() => UserCubit(locator(), locator()));
   locator.registerFactory(() => TeknisiBloc(locator()));
+  locator.registerFactory(() => ActiveTiketBloc(locator()));
 }

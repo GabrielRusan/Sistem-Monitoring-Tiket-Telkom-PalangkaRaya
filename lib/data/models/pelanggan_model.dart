@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:telkom_ticket_manager/domain/entities/pelanggan.dart';
 
 class PelangganModel extends Equatable {
   final String idpelanggan;
@@ -20,6 +21,13 @@ class PelangganModel extends Equatable {
         alamat: json["alamat"],
       );
 
+  factory PelangganModel.fromEntity(Pelanggan pelanggan) => PelangganModel(
+        idpelanggan: pelanggan.idpelanggan,
+        nama: pelanggan.nama,
+        nohp: pelanggan.nohp,
+        alamat: pelanggan.alamat,
+      );
+
   factory PelangganModel.fromTiketJson(String json) {
     final List<String> data = json.split(' | ');
     return PelangganModel(
@@ -31,6 +39,13 @@ class PelangganModel extends Equatable {
         "nohp": nohp,
         "alamat": alamat,
       };
+
+  Pelanggan toEntity() => Pelanggan(
+        idpelanggan: idpelanggan,
+        nama: nama,
+        nohp: nohp,
+        alamat: alamat,
+      );
 
   @override
   List<Object?> get props => [idpelanggan, nama, nohp, alamat];

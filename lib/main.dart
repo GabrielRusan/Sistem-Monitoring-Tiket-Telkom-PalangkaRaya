@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart' as getx;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:telkom_ticket_manager/injection.dart' as di;
+import 'package:telkom_ticket_manager/presentations/blocs/active_tiket_bloc/active_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/login_bloc/login_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/user_cubit/user_cubit.dart';
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<TeknisiBloc>(
           create: (_) => di.locator<TeknisiBloc>(),
+        ),
+        BlocProvider<ActiveTiketBloc>(
+          create: (_) => di.locator<ActiveTiketBloc>(),
         ),
       ],
       child: getx.GetMaterialApp(

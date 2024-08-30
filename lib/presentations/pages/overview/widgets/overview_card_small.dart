@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/belum_diperbaiki_card.dart';
 import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/info_card_small.dart';
+import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/sedang_diperbaiki_card.dart';
 
 class OverviewCardSmallScreen extends StatelessWidget {
   const OverviewCardSmallScreen({super.key});
@@ -10,11 +12,14 @@ class OverviewCardSmallScreen extends StatelessWidget {
     return SizedBox(
       height: 400,
       child: Column(children: [
-        InfoCardSmall(
-          title: "Sedang diperbaiki",
-          value: "5",
-          isActive: true,
-          onTap: () {},
+        const SedangDiperbaikiCard(
+          isSmall: true,
+        ),
+        SizedBox(
+          height: width / 64,
+        ),
+        const BelumDiperbaikiCard(
+          isSmall: true,
         ),
         SizedBox(
           height: width / 64,
@@ -22,14 +27,6 @@ class OverviewCardSmallScreen extends StatelessWidget {
         InfoCardSmall(
           title: "Selesai diperbaiki",
           value: "10",
-          onTap: () {},
-        ),
-        SizedBox(
-          height: width / 64,
-        ),
-        InfoCardSmall(
-          title: "Belum diperbaiki",
-          value: "7",
           onTap: () {},
         ),
         SizedBox(

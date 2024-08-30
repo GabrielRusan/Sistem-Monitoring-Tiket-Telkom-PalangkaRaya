@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/belum_diperbaiki_card.dart';
 import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/info_card.dart';
+import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/sedang_diperbaiki_card.dart';
 
 class OverviewCardLargeScreen extends StatelessWidget {
   const OverviewCardLargeScreen({super.key});
@@ -10,12 +12,11 @@ class OverviewCardLargeScreen extends StatelessWidget {
 
     return Row(
       children: [
-        InfoCard(
-          title: "Sedang diperbaiki",
-          value: "5",
-          onTap: () {},
-          topColor: Colors.orange,
+        const SedangDiperbaikiCard(),
+        SizedBox(
+          width: width / 64,
         ),
+        const BelumDiperbaikiCard(),
         SizedBox(
           width: width / 64,
         ),
@@ -24,15 +25,6 @@ class OverviewCardLargeScreen extends StatelessWidget {
           value: "10",
           onTap: () {},
           topColor: Colors.lightGreen,
-        ),
-        SizedBox(
-          width: width / 64,
-        ),
-        InfoCard(
-          title: "Belum diperbaiki",
-          value: "7",
-          onTap: () {},
-          topColor: Colors.redAccent,
         ),
       ],
     );
