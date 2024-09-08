@@ -2,14 +2,14 @@ import 'package:equatable/equatable.dart';
 import 'package:telkom_ticket_manager/data/models/tiket_model.dart';
 
 class TiketResponseModel extends Equatable {
-  final List<TiketModel> teknisiList;
+  final List<TiketModel> tiketList;
 
-  const TiketResponseModel({required this.teknisiList});
+  const TiketResponseModel({required this.tiketList});
 
   factory TiketResponseModel.fromJson(List<dynamic> json) => TiketResponseModel(
-      teknisiList:
+      tiketList:
           List<TiketModel>.from(json.map((x) => TiketModel.fromJson(x))));
 
   @override
-  List<Object?> get props => [teknisiList];
+  List<Object?> get props => [tiketList];
 }

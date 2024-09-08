@@ -18,3 +18,12 @@ class SortTeknisiEvent extends TeknisiEvent {
 }
 
 class FetchAllTeknisi extends TeknisiEvent {}
+
+class SearchTeknisi extends TeknisiEvent {
+  final String query;
+
+  const SearchTeknisi({required this.query});
+
+  @override
+  List<Object> get props => [query];
+}

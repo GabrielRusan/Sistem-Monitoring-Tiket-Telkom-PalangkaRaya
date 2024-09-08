@@ -9,6 +9,15 @@ sealed class ActiveTiketEvent extends Equatable {
 
 final class FetchActiveTiket extends ActiveTiketEvent {}
 
+final class SearchActiveTiket extends ActiveTiketEvent {
+  final String query;
+
+  const SearchActiveTiket({required this.query});
+
+  @override
+  List<Object> get props => [query];
+}
+
 final class SortActiveTiket extends ActiveTiketEvent {
   final int columnIndex;
   final bool ascending;

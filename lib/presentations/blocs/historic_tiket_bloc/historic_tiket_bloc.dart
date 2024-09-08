@@ -5,19 +5,20 @@ import 'package:telkom_ticket_manager/domain/entities/tiket.dart';
 import 'package:telkom_ticket_manager/domain/repositories/tiket_repository.dart';
 import 'package:telkom_ticket_manager/utils/failure.dart';
 
-part 'active_tiket_event.dart';
-part 'active_tiket_state.dart';
+part 'historic_tiket_event.dart';
+part 'historic_tiket_state.dart';
 
-class ActiveTiketBloc extends Bloc<ActiveTiketEvent, ActiveTiketState> {
+class HistoricTiketBloc extends Bloc<HistoricTiketEvent, HistoricTiketState> {
   final TiketRepository _tiketRepository;
 
-  ActiveTiketBloc(this._tiketRepository) : super(const ActiveTiketState()) {
-    on<FetchActiveTiket>(_onFetchActiveTiket);
-    on<SortActiveTiket>(_onSortTiket);
-    on<SearchActiveTiket>(_onSearchTiket);
+  HistoricTiketBloc(this._tiketRepository) : super(const HistoricTiketState()) {
+    on<FetchHistoricTiket>(_onFetchHistoricTiket);
+    on<SortHistoricTiket>(_onSortTiket);
+    on<SearchHistoricTiket>(_onSearchTiket);
   }
 
-  void _onSearchTiket(SearchActiveTiket event, Emitter<ActiveTiketState> emit) {
+  void _onSearchTiket(
+      SearchHistoricTiket event, Emitter<HistoricTiketState> emit) {
     if (event.query.isEmpty) {
       emit(state.copyWith(isFiltered: false, filteredResult: []));
       return;
@@ -55,17 +56,17 @@ class ActiveTiketBloc extends Bloc<ActiveTiketEvent, ActiveTiketState> {
       emit(state.copyWith(
           isFiltered: false,
           filteredResult: [],
-          status: ActiveTiketStatus.empty));
+          status: HistoricTiketStatus.empty));
       return;
     }
 
     emit(state.copyWith(
         isFiltered: true,
         filteredResult: filteredResult,
-        status: ActiveTiketStatus.loaded));
+        status: HistoricTiketStatus.loaded));
   }
 
-  void _onSortTiket(SortActiveTiket event, Emitter<ActiveTiketState> emit) {
+  void _onSortTiket(SortHistoricTiket event, Emitter<HistoricTiketState> emit) {
     final Map<int, Function(Tiket, Tiket)> sortFunctions = {
       0: (a, b) => a.nomorTiket.compareTo(b.nomorTiket),
       1: (a, b) => a.pelanggan.nama.compareTo(b.pelanggan.nama),
@@ -92,7 +93,7 @@ class ActiveTiketBloc extends Bloc<ActiveTiketEvent, ActiveTiketState> {
           filteredResult: sortedResult,
           sortColumnIndex: event.columnIndex,
           sortAscending: event.ascending,
-          status: ActiveTiketStatus.loaded));
+          status: HistoricTiketStatus.loaded));
       return;
     }
 
@@ -109,39 +110,32 @@ class ActiveTiketBloc extends Bloc<ActiveTiketEvent, ActiveTiketState> {
         result: sortedResult,
         sortColumnIndex: event.columnIndex,
         sortAscending: event.ascending,
-        status: ActiveTiketStatus.loaded));
+        status: HistoricTiketStatus.loaded));
   }
 
-  Future<void> _onFetchActiveTiket(
-      FetchActiveTiket event, Emitter<ActiveTiketState> emit) async {
-    emit(state.copyWith(status: ActiveTiketStatus.loading));
-    final result = await _tiketRepository.getAllActiveTiket();
+  Future<void> _onFetchHistoricTiket(
+      FetchHistoricTiket event, Emitter<HistoricTiketState> emit) async {
+    emit(state.copyWith(status: HistoricTiketStatus.loading));
+    final result = await _tiketRepository.getAllHistoricTiket();
 
     result.fold((failure) {
       if (failure is NotFoundFailure) {
-        emit(state.copyWith(status: ActiveTiketStatus.empty));
+        emit(state.copyWith(status: HistoricTiketStatus.empty));
       } else {
         emit(state.copyWith(
-            status: ActiveTiketStatus.error, errorMessage: failure.message));
+            status: HistoricTiketStatus.error, errorMessage: failure.message));
       }
     }, (data) {
-      int inProgressCount = 0;
-      int ditugaskanCount = 0;
-
-      for (Tiket tiket in data) {
-        if (tiket.status == "In Progress") {
-          inProgressCount += 1;
-        } else if (tiket.status == "Ditugaskan") {
-          ditugaskanCount += 1;
-        }
+      print('halo');
+      if (data.isEmpty) {
+        emit(state.copyWith(status: HistoricTiketStatus.empty));
+        return;
       }
 
       emit(state.copyWith(
-        status: ActiveTiketStatus.loaded,
-        result: data,
-        inProgressCount: inProgressCount,
-        ditugaskanCount: ditugaskanCount,
-      ));
+          status: HistoricTiketStatus.loaded,
+          result: data,
+          selesaiCount: data.length));
     });
   }
 }

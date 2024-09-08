@@ -12,22 +12,6 @@ class BelumDiperbaikiCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ActiveTiketBloc, ActiveTiketState>(
       builder: (context, state) {
-        if (state.status == ActiveTiketStatus.loaded) {
-          return isSmall
-              ? InfoCardSmall(
-                  title: 'Belum diperbaiki',
-                  value: state.ditugaskanCount == null
-                      ? '--'
-                      : state.ditugaskanCount.toString(),
-                  onTap: () {})
-              : InfoCard(
-                  title: 'Belum diperbaiki',
-                  value: state.ditugaskanCount == null
-                      ? '--'
-                      : state.ditugaskanCount.toString(),
-                  topColor: Colors.redAccent,
-                  onTap: () {});
-        }
         return isSmall
             ? InfoCardSmall(
                 title: 'Belum diperbaiki',
@@ -37,10 +21,11 @@ class BelumDiperbaikiCard extends StatelessWidget {
                 onTap: () {})
             : InfoCard(
                 title: 'Belum diperbaiki',
-                value: '--',
-                onTap: () {},
+                value: state.ditugaskanCount == null
+                    ? '--'
+                    : state.ditugaskanCount.toString(),
                 topColor: Colors.redAccent,
-              );
+                onTap: () {});
       },
     );
   }

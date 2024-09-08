@@ -1,42 +1,46 @@
-part of 'active_tiket_bloc.dart';
+part of 'historic_tiket_bloc.dart';
 
-enum ActiveTiketStatus { loading, loaded, error, empty, initial, tokenInvalid }
+enum HistoricTiketStatus {
+  loading,
+  loaded,
+  error,
+  empty,
+  initial,
+  tokenInvalid
+}
 
-class ActiveTiketState extends Equatable {
+class HistoricTiketState extends Equatable {
   final List<Tiket> result;
   final List<Tiket> filteredResult;
   final int? sortColumnIndex;
   final bool sortAscending;
   final bool isFiltered;
-  final ActiveTiketStatus status;
+  final HistoricTiketStatus status;
   final String? errorMessage;
-  final int? inProgressCount;
-  final int? ditugaskanCount;
+  final int? selesaiCount;
 
-  const ActiveTiketState({
+  const HistoricTiketState({
     this.result = const [],
     this.filteredResult = const [],
     this.sortColumnIndex,
     this.sortAscending = true,
     this.isFiltered = false,
-    this.status = ActiveTiketStatus.initial,
+    this.status = HistoricTiketStatus.initial,
     this.errorMessage,
-    this.inProgressCount,
-    this.ditugaskanCount,
+    this.selesaiCount,
   });
 
-  ActiveTiketState copyWith({
+  HistoricTiketState copyWith({
     List<Tiket>? result,
     List<Tiket>? filteredResult,
     int? sortColumnIndex,
     bool? sortAscending,
     bool? isFiltered,
-    ActiveTiketStatus? status,
+    HistoricTiketStatus? status,
     String? errorMessage,
-    int? inProgressCount,
-    int? ditugaskanCount,
+    int? selesaiCount,
   }) {
-    return ActiveTiketState(
+    return HistoricTiketState(
       result: result ?? this.result,
       filteredResult: filteredResult ?? this.filteredResult,
       sortColumnIndex: sortColumnIndex ?? this.sortColumnIndex,
@@ -44,8 +48,7 @@ class ActiveTiketState extends Equatable {
       isFiltered: isFiltered ?? this.isFiltered,
       status: status ?? this.status,
       errorMessage: errorMessage,
-      inProgressCount: inProgressCount ?? this.inProgressCount,
-      ditugaskanCount: ditugaskanCount ?? this.ditugaskanCount,
+      selesaiCount: selesaiCount ?? this.selesaiCount,
     );
   }
 
@@ -57,8 +60,7 @@ class ActiveTiketState extends Equatable {
         sortAscending,
         status,
         errorMessage,
-        inProgressCount,
-        ditugaskanCount,
+        selesaiCount,
         isFiltered,
       ];
 }

@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:telkom_ticket_manager/date_converter.dart';
 import 'package:telkom_ticket_manager/domain/entities/teknisi.dart';
 import 'package:telkom_ticket_manager/domain/usecases/teknisi/get_all_teknisi.dart';
 import 'package:telkom_ticket_manager/utils/failure.dart';
@@ -12,6 +13,50 @@ class TeknisiBloc extends Bloc<TeknisiEvent, TeknisiState> {
   TeknisiBloc(this.getAllTeknisi) : super(const TeknisiState()) {
     on<SortTeknisiEvent>(_onSortTeknisi);
     on<FetchAllTeknisi>(_onFetchAllTeknisi);
+    on<SearchTeknisi>(_onSearchTiket);
+  }
+
+  void _onSearchTiket(SearchTeknisi event, Emitter<TeknisiState> emit) {
+    if (event.query.isEmpty) {
+      emit(state.copyWith(isFiltered: false, filteredResult: []));
+      return;
+    }
+
+    List<Teknisi> filteredResult = [];
+    final String query = event.query.toLowerCase();
+
+    for (Teknisi teknisi in state.result) {
+      final String idTeknisi = teknisi.idteknisi.toString().toLowerCase();
+      final String usename = teknisi.username.toLowerCase();
+      final String password = teknisi.pass.toLowerCase();
+      final String nama = teknisi.nama.toLowerCase();
+      final String sektor = teknisi.sektor.toLowerCase();
+      final String ket = teknisi.ket.toLowerCase();
+
+      final String createdAt =
+          dateToStringLengkap(teknisi.createdAt).toLowerCase();
+
+      if (idTeknisi.contains(query) ||
+          usename.contains(query) ||
+          password.contains(query) ||
+          nama.contains(query) ||
+          sektor.contains(query) ||
+          createdAt.contains(query) ||
+          ket.contains(query)) {
+        filteredResult.add(teknisi);
+      }
+    }
+
+    if (filteredResult.isEmpty) {
+      emit(state.copyWith(
+          isFiltered: false, filteredResult: [], status: TeknisiStatus.empty));
+      return;
+    }
+
+    emit(state.copyWith(
+        isFiltered: true,
+        filteredResult: filteredResult,
+        status: TeknisiStatus.loaded));
   }
 
   Future<void> _onFetchAllTeknisi(
@@ -41,10 +86,11 @@ class TeknisiBloc extends Bloc<TeknisiEvent, TeknisiState> {
     final Map<int, Function(Teknisi, Teknisi)> sortFunctions = {
       0: (a, b) => a.idteknisi.compareTo(b.idteknisi),
       1: (a, b) => a.username.compareTo(b.username),
-      2: (a, b) => a.nama.compareTo(b.nama),
-      3: (a, b) => a.sektor.compareTo(b.sektor),
-      4: (a, b) => a.ket.compareTo(b.ket),
-      5: (a, b) => a.createdAt.compareTo(b.createdAt),
+      2: (a, b) => a.pass.compareTo(b.pass),
+      3: (a, b) => a.nama.compareTo(b.nama),
+      4: (a, b) => a.sektor.compareTo(b.sektor),
+      5: (a, b) => a.ket.compareTo(b.ket),
+      6: (a, b) => a.createdAt.compareTo(b.createdAt),
     };
 
     final sortFunction = sortFunctions[event.columnIndex];

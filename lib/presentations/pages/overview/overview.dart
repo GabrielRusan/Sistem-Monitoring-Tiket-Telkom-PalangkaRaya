@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:telkom_ticket_manager/presentations/widgets/historic_ticket_table.dart';
 import 'package:telkom_ticket_manager/utils/controllers.dart';
 import 'package:telkom_ticket_manager/utils/responsivennes.dart';
-import 'package:telkom_ticket_manager/presentations/widgets/ticket_table.dart';
+import 'package:telkom_ticket_manager/presentations/widgets/active_ticket_table.dart';
 import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/overview_card_large.dart';
 import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/overview_card_medium.dart';
 import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/overview_card_small.dart';
@@ -51,7 +52,8 @@ class OverViewPage extends StatelessWidget {
             else
               const TicketGangguanSectionSmall(),
 
-            const TicketTable()
+            const ActiveTicketTable(),
+            const HistoricTicketTable(),
           ],
         ))
       ],

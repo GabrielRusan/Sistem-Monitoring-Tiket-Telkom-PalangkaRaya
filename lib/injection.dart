@@ -17,6 +17,8 @@ import 'package:telkom_ticket_manager/domain/usecases/auth/login.dart';
 import 'package:telkom_ticket_manager/domain/usecases/auth/logout.dart';
 import 'package:telkom_ticket_manager/domain/usecases/teknisi/get_all_teknisi.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/active_tiket_bloc/active_tiket_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/all_tiket_bloc/all_tiket_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/historic_tiket_bloc/historic_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/login_bloc/login_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/user_cubit/user_cubit.dart';
@@ -59,4 +61,6 @@ Future<void> init() async {
   locator.registerFactory(() => UserCubit(locator(), locator()));
   locator.registerFactory(() => TeknisiBloc(locator()));
   locator.registerFactory(() => ActiveTiketBloc(locator()));
+  locator.registerFactory(() => AllTiketBloc(locator()));
+  locator.registerFactory(() => HistoricTiketBloc(locator()));
 }

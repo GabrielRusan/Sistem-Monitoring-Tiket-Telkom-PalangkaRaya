@@ -12,33 +12,19 @@ class SedangDiperbaikiCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ActiveTiketBloc, ActiveTiketState>(
       builder: (context, state) {
-        if (state.status == ActiveTiketStatus.loaded) {
-          return isSmall
-              ? InfoCardSmall(
-                  title: 'Sedang diperbaiki',
-                  value: state.inProgressCount == null
-                      ? '--'
-                      : state.inProgressCount.toString(),
-                  isActive: true,
-                  onTap: () {})
-              : InfoCard(
-                  title: 'Sedang diperbaiki',
-                  value: state.inProgressCount == null
-                      ? '--'
-                      : state.inProgressCount.toString(),
-                  topColor: Colors.orange,
-                  onTap: () {});
-        }
         return isSmall
             ? InfoCardSmall(
                 title: 'Sedang diperbaiki',
                 value: state.inProgressCount == null
                     ? '--'
                     : state.inProgressCount.toString(),
+                isActive: true,
                 onTap: () {})
             : InfoCard(
                 title: 'Sedang diperbaiki',
-                value: '--',
+                value: state.inProgressCount == null
+                    ? '--'
+                    : state.inProgressCount.toString(),
                 topColor: Colors.orange,
                 onTap: () {});
       },

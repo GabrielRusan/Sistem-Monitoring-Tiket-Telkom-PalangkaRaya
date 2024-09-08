@@ -2,6 +2,8 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/active_tiket_bloc/active_tiket_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/all_tiket_bloc/all_tiket_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/historic_tiket_bloc/historic_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/login_bloc/login_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/user_cubit/user_cubit.dart';
@@ -30,6 +32,8 @@ class _SiteLayoutState extends State<SiteLayout> {
     context.read<TeknisiBloc>().add(FetchAllTeknisi());
     context.read<TeknisiBloc>().add(FetchAllTeknisi());
     context.read<ActiveTiketBloc>().add(FetchActiveTiket());
+    context.read<AllTiketBloc>().add(FetchAllTiket());
+    context.read<HistoricTiketBloc>().add(FetchHistoricTiket());
     super.initState();
   }
 

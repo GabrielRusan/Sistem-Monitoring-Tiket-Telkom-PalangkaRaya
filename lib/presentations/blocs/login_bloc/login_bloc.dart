@@ -32,6 +32,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Future<void> _onSignIn(SignIn event, Emitter<LoginState> emit) async {
     emit(state.copyWith(loginStatus: LoginStatus.inProggres));
+    if (state.username.isEmpty || state.password.isEmpty) {
+      emit(state.copyWith(
+          loginStatus: LoginStatus.failed,
+          errorMessage: 'Field tidak boleh kosong!'));
+      return;
+    }
 
     final result = await usecase.execute(
       username: state.username,
