@@ -81,17 +81,35 @@ class TeknisiBloc extends Bloc<TeknisiEvent, TeknisiState> {
   }
 
   void _onSortTeknisi(SortTeknisiEvent event, Emitter<TeknisiState> emit) {
-    List<Teknisi> sortedResult = List.from(state.result);
-
     final Map<int, Function(Teknisi, Teknisi)> sortFunctions = {
       0: (a, b) => a.idteknisi.compareTo(b.idteknisi),
-      1: (a, b) => a.username.compareTo(b.username),
+      1: (a, b) => a.username.toLowerCase().compareTo(b.username.toLowerCase()),
       2: (a, b) => a.pass.compareTo(b.pass),
       3: (a, b) => a.nama.compareTo(b.nama),
       4: (a, b) => a.sektor.compareTo(b.sektor),
       5: (a, b) => a.ket.compareTo(b.ket),
       6: (a, b) => a.createdAt.compareTo(b.createdAt),
     };
+
+    if (state.isFiltered) {
+      List<Teknisi> sortedResult = List.from(state.filteredResult);
+
+      final sortFunction = sortFunctions[event.columnIndex];
+
+      if (sortFunction != null) {
+        sortedResult.sort((a, b) =>
+            event.ascending ? sortFunction(a, b) : sortFunction(b, a));
+      }
+
+      emit(state.copyWith(
+          filteredResult: sortedResult,
+          sortColumnIndex: event.columnIndex,
+          sortAscending: event.ascending,
+          status: TeknisiStatus.loaded));
+      return;
+    }
+
+    List<Teknisi> sortedResult = List.from(state.result);
 
     final sortFunction = sortFunctions[event.columnIndex];
 

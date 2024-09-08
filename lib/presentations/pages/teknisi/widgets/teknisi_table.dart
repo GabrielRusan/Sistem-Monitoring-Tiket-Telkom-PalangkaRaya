@@ -176,8 +176,9 @@ class TeknisiTable extends StatelessWidget {
                         ),
                       ],
                       source: state.isFiltered
-                          ? DataTableSourceTeknisi(state.filteredResult)
-                          : DataTableSourceTeknisi(state.result),
+                          ? DataTableSourceTeknisi(
+                              context, state.filteredResult)
+                          : DataTableSourceTeknisi(context, state.result),
                     ),
                   );
                 } else if (state.status == TeknisiStatus.empty) {

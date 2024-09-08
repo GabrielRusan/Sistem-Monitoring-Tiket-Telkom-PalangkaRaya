@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telkom_ticket_manager/date_converter.dart';
 import 'package:telkom_ticket_manager/domain/entities/teknisi.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/delete_teknisi_bloc/delete_teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
 
 class DataTableSourceTeknisi extends DataTableSource {
+  final BuildContext context;
   final List<Teknisi> teknisiList;
 
-  DataTableSourceTeknisi(this.teknisiList);
+  DataTableSourceTeknisi(this.context, this.teknisiList);
 
   @override
   DataRow? getRow(int index) {
@@ -34,7 +37,10 @@ class DataTableSourceTeknisi extends DataTableSource {
             width: 8,
           ),
           InkWell(
-              onTap: () {},
+              onTap: () {
+                context.read<DeleteTeknisiBloc>().add(WarningDeleteTeknisiEvent(
+                    idTeknisi: data.idteknisi, namaTeknisi: data.nama));
+              },
               child: const Icon(Icons.delete_outline, color: Colors.redAccent)),
         ],
       )),
