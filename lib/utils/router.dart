@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:telkom_ticket_manager/presentations/pages/admin/admin_page.dart';
 import 'package:telkom_ticket_manager/presentations/pages/authentication/authentication_page.dart';
 import 'package:telkom_ticket_manager/presentations/pages/clients/clients.dart';
 import 'package:telkom_ticket_manager/presentations/pages/overview/overview.dart';
@@ -9,6 +10,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case overviewPageRoute:
       return getPageRoute(const OverViewPage());
+    case adminPageRoute:
+      return getPageRoute(const AdminPage());
     case teknisiPageRoute:
       return getPageRoute(const TeknisiPage());
     case clientPageRoute:

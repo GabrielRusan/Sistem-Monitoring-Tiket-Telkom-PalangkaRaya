@@ -11,10 +11,11 @@ class UserCubit extends Cubit<UserState> {
   UserCubit(this._sharedPreferences, this._logout) : super(UserInitial());
   void getUserData() {
     final String? nama = _sharedPreferences.getString('nama');
-
     if (nama == null) {
       emit(UserError());
     } else {
+      print(nama);
+      print('kuda cuki');
       emit(UserLoaded(nama: nama));
     }
   }

@@ -1,12 +1,17 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:formz/formz.dart';
 import 'package:get/get.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/active_tiket_bloc/active_tiket_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/add_teknisi_bloc/add_teknisi_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/admin_bloc/admin_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/all_tiket_bloc/all_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/delete_teknisi_bloc/delete_teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/historic_tiket_bloc/historic_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/login_bloc/login_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/update_admin_bloc/update_admin_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/update_teknisi_bloc/update_teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/user_cubit/user_cubit.dart';
 import 'package:telkom_ticket_manager/utils/controllers.dart';
 import 'package:telkom_ticket_manager/utils/responsivennes.dart';
@@ -35,6 +40,7 @@ class _SiteLayoutState extends State<SiteLayout> {
     context.read<ActiveTiketBloc>().add(FetchActiveTiket());
     context.read<AllTiketBloc>().add(FetchAllTiket());
     context.read<HistoricTiketBloc>().add(FetchHistoricTiket());
+    context.read<AdminBloc>().add(FetchAllAdmin());
     super.initState();
   }
 
@@ -136,7 +142,164 @@ class _SiteLayoutState extends State<SiteLayout> {
               btnCancelOnPress: () {},
             ).show();
           }
-        })
+        }),
+        BlocListener<AddTeknisiBloc, AddTeknisiState>(
+          listener: (context, state) {
+            if (state.status == FormzSubmissionStatus.inProgress) {
+              AwesomeDialog(
+                  context: context,
+                  width: 400,
+                  dialogType: DialogType.noHeader,
+                  dismissOnTouchOutside: false,
+                  animType: AnimType.scale,
+                  body: const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )).show();
+            } else if (state.status == FormzSubmissionStatus.failure) {
+              Navigator.pop(context);
+              AwesomeDialog(
+                context: context,
+                width: 400,
+                headerAnimationLoop: false,
+                dialogType: DialogType.error,
+                animType: AnimType.scale,
+                title: 'Failed!',
+                desc: state.errorMessage,
+                onDismissCallback: (type) {
+                  Navigator.pop(context);
+                  context.read<TeknisiBloc>().add(FetchAllTeknisi());
+                },
+                btnOkOnPress: () {},
+                btnCancelOnPress: () {},
+              ).show();
+            } else if (state.status == FormzSubmissionStatus.success) {
+              Navigator.pop(context);
+              AwesomeDialog(
+                context: context,
+                width: 400,
+                headerAnimationLoop: false,
+                dialogType: DialogType.success,
+                animType: AnimType.scale,
+                title: 'Success!',
+                desc: 'Berhasil menambah teknisi!',
+                onDismissCallback: (type) {
+                  Navigator.pop(context);
+                  context.read<TeknisiBloc>().add(FetchAllTeknisi());
+                },
+                btnOkOnPress: () {},
+                btnCancelOnPress: () {},
+              ).show();
+            }
+          },
+        ),
+        BlocListener<UpdateTeknisiBloc, UpdateTeknisiState>(
+          listener: (context, state) {
+            if (state.status == FormzSubmissionStatus.inProgress) {
+              AwesomeDialog(
+                  context: context,
+                  width: 400,
+                  dialogType: DialogType.noHeader,
+                  dismissOnTouchOutside: false,
+                  animType: AnimType.scale,
+                  body: const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )).show();
+            } else if (state.status == FormzSubmissionStatus.failure) {
+              Navigator.pop(context);
+              AwesomeDialog(
+                context: context,
+                width: 400,
+                headerAnimationLoop: false,
+                dialogType: DialogType.error,
+                animType: AnimType.scale,
+                title: 'Failed!',
+                desc: state.errorMessage,
+                onDismissCallback: (type) {
+                  Navigator.pop(context);
+                  context.read<TeknisiBloc>().add(FetchAllTeknisi());
+                },
+                btnOkOnPress: () {},
+                btnCancelOnPress: () {},
+              ).show();
+            } else if (state.status == FormzSubmissionStatus.success) {
+              Navigator.pop(context);
+              AwesomeDialog(
+                context: context,
+                width: 400,
+                headerAnimationLoop: false,
+                dialogType: DialogType.success,
+                animType: AnimType.scale,
+                title: 'Success!',
+                desc: 'Berhasil update teknisi!',
+                onDismissCallback: (type) {
+                  Navigator.pop(context);
+                  context.read<TeknisiBloc>().add(FetchAllTeknisi());
+                },
+                btnOkOnPress: () {},
+                btnCancelOnPress: () {},
+              ).show();
+            }
+          },
+        ),
+        BlocListener<UpdateAdminBloc, UpdateAdminState>(
+          listener: (context, state) {
+            if (state.status == FormzSubmissionStatus.inProgress) {
+              AwesomeDialog(
+                  context: context,
+                  width: 400,
+                  dialogType: DialogType.noHeader,
+                  dismissOnTouchOutside: false,
+                  animType: AnimType.scale,
+                  body: const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )).show();
+            } else if (state.status == FormzSubmissionStatus.failure) {
+              Navigator.pop(context);
+              AwesomeDialog(
+                context: context,
+                width: 400,
+                headerAnimationLoop: false,
+                dialogType: DialogType.error,
+                animType: AnimType.scale,
+                title: 'Failed!',
+                desc: state.errorMessage,
+                onDismissCallback: (type) {
+                  Navigator.pop(context);
+                  context.read<AdminBloc>().add(FetchAllAdmin());
+                },
+                btnOkOnPress: () {},
+                btnCancelOnPress: () {},
+              ).show();
+            } else if (state.status == FormzSubmissionStatus.success) {
+              Navigator.pop(context);
+              AwesomeDialog(
+                context: context,
+                width: 400,
+                headerAnimationLoop: false,
+                dialogType: DialogType.success,
+                animType: AnimType.scale,
+                title: 'Success!',
+                desc: 'Berhasil update data diri!',
+                onDismissCallback: (type) {
+                  Navigator.pop(context);
+                  context.read<AdminBloc>().add(FetchAllAdmin());
+                  context.read<UserCubit>().getUserData();
+                },
+                btnOkOnPress: () {},
+                btnCancelOnPress: () {},
+              ).show();
+            }
+          },
+        ),
       ],
       child: Scaffold(
         key: scaffoldKey, // biar tau drawer scaffold mana yang dibuka

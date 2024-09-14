@@ -5,11 +5,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:telkom_ticket_manager/injection.dart' as di;
 import 'package:telkom_ticket_manager/presentations/blocs/active_tiket_bloc/active_tiket_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/add_teknisi_bloc/add_teknisi_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/admin_bloc/admin_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/all_tiket_bloc/all_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/delete_teknisi_bloc/delete_teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/historic_tiket_bloc/historic_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/login_bloc/login_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/update_admin_bloc/update_admin_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/update_teknisi_bloc/update_teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/user_cubit/user_cubit.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 import 'package:telkom_ticket_manager/presentations/controllers/menu_controller.dart';
@@ -54,6 +58,18 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<DeleteTeknisiBloc>(
           create: (_) => di.locator<DeleteTeknisiBloc>(),
+        ),
+        BlocProvider<AddTeknisiBloc>(
+          create: (_) => di.locator<AddTeknisiBloc>(),
+        ),
+        BlocProvider<UpdateTeknisiBloc>(
+          create: (_) => di.locator<UpdateTeknisiBloc>(),
+        ),
+        BlocProvider<AdminBloc>(
+          create: (_) => di.locator<AdminBloc>(),
+        ),
+        BlocProvider<UpdateAdminBloc>(
+          create: (_) => di.locator<UpdateAdminBloc>(),
         ),
       ],
       child: getx.GetMaterialApp(

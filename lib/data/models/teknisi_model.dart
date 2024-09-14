@@ -45,9 +45,8 @@ class TeknisiModel extends Equatable {
       );
 
   Map<String, dynamic> toJson() => {
-        "idteknisi": idteknisi,
         "nama": nama,
-        "wilayahSektor": sektor,
+        "sektor": sektor,
         "username": username,
         "pass": pass,
         "ket": ket,

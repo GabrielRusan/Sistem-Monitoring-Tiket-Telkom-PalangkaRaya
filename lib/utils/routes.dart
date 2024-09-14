@@ -3,6 +3,9 @@ const rootRoute = "/dashboard";
 const overviewPageDisplayName = "Overview";
 const overviewPageRoute = "/overview";
 
+const adminPageDisplayName = "Admin";
+const adminPageRoute = "/admin";
+
 const teknisiPageDisplayName = "Teknisi";
 const teknisiPageRoute = "/teknisi";
 
@@ -23,6 +26,10 @@ List<MenuItem> sideMenuItems = [
   MenuItem(
     name: overviewPageDisplayName,
     route: overviewPageRoute,
+  ),
+  MenuItem(
+    name: adminPageDisplayName,
+    route: adminPageRoute,
   ),
   MenuItem(
     name: teknisiPageDisplayName,

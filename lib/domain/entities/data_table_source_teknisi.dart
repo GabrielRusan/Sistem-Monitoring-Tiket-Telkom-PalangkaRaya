@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telkom_ticket_manager/date_converter.dart';
 import 'package:telkom_ticket_manager/domain/entities/teknisi.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/delete_teknisi_bloc/delete_teknisi_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/update_teknisi_bloc/update_teknisi_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/pages/teknisi/widgets/edit_teknisi_form.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
 
 class DataTableSourceTeknisi extends DataTableSource {
@@ -20,14 +22,29 @@ class DataTableSourceTeknisi extends DataTableSource {
       DataCell(CustomText(text: data.username)),
       DataCell(CustomText(text: data.pass)),
       DataCell(CustomText(text: data.nama)),
-      DataCell(CustomText(text: data.sektor)),
+      DataCell(Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CustomText(text: data.sektor),
+          const SizedBox(width: 24),
+        ],
+      )),
       DataCell(CustomText(text: data.ket)),
       DataCell(CustomText(text: dateToStringLengkap(data.createdAt))),
       DataCell(Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           InkWell(
-            onTap: () {},
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    context
+                        .read<UpdateTeknisiBloc>()
+                        .add(InitialEventTeknisi(teknisi: data));
+                    return EditTeknisiForm(teknisi: data);
+                  });
+            },
             child: const Icon(
               Icons.edit_outlined,
               color: Colors.orangeAccent,

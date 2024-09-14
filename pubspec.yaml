@@ -48,6 +48,8 @@ dependencies:
   rxdart: ^0.28.0
   get_it: ^7.7.0
   awesome_dialog: ^3.2.1
+  formz: ^0.7.0
+  fl_chart: ^0.69.0
 
 dev_dependencies:
   flutter_test:

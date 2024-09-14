@@ -1,17 +1,16 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:telkom_ticket_manager/domain/entities/data_table_source_teknisi.dart';
-import 'package:telkom_ticket_manager/presentations/blocs/add_teknisi_bloc/add_teknisi_bloc.dart';
-import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
-import 'package:telkom_ticket_manager/presentations/pages/teknisi/widgets/add_teknisi_form.dart';
-import 'package:telkom_ticket_manager/presentations/widgets/add_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:telkom_ticket_manager/domain/entities/data_table_source_admin.dart';
+import 'package:telkom_ticket_manager/injection.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/admin_bloc/admin_bloc.dart';
 import 'package:telkom_ticket_manager/utils/responsivennes.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
 
-class TeknisiTable extends StatelessWidget {
-  const TeknisiTable({super.key});
+class AdminTable extends StatelessWidget {
+  const AdminTable({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,25 +35,10 @@ class TeknisiTable extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  CustomText(
-                      text: "Teknisi Table",
-                      color: lightGrey,
-                      weight: FontWeight.bold),
-                  const SizedBox(
-                    width: 16,
-                  ),
-                  AddButton(onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          context.read<AddTeknisiBloc>().add(ClearAddTeknisi());
-                          return const AddTeknisiForm();
-                        });
-                  }),
-                ],
-              ),
+              CustomText(
+                  text: "Admin Table",
+                  color: lightGrey,
+                  weight: FontWeight.bold),
               SizedBox(
                 width: ResponsiveWidget.isSmallScreen(context) ? 200 : 300,
                 child: TextField(
@@ -70,9 +54,8 @@ class TeknisiTable extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20)),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(0))),
-                  onChanged: (value) => context
-                      .read<TeknisiBloc>()
-                      .add(SearchTeknisi(query: value)),
+                  onChanged: (value) =>
+                      context.read<AdminBloc>().add(SearchAdmin(query: value)),
                 ),
               ),
             ],
@@ -81,13 +64,13 @@ class TeknisiTable extends StatelessWidget {
             height: 16,
           ),
           Expanded(
-            child: BlocBuilder<TeknisiBloc, TeknisiState>(
+            child: BlocBuilder<AdminBloc, AdminState>(
               builder: (context, state) {
-                if (state.status == TeknisiStatus.empty) {
+                if (state.status == AdminStatus.empty) {
                   return const Center(
                     child: CustomText(text: 'Data Kosong!'),
                   );
-                } else if (state.status == TeknisiStatus.loaded) {
+                } else if (state.status == AdminStatus.loaded) {
                   return Theme(
                     data: Theme.of(context).copyWith(
                       dataTableTheme: DataTableThemeData(
@@ -103,7 +86,7 @@ class TeknisiTable extends StatelessWidget {
                       renderEmptyRowsInTheEnd: false,
                       columnSpacing: 12,
                       horizontalMargin: 12,
-                      minWidth: 1500,
+                      // minWidth: 1500,
                       showCheckboxColumn: false,
                       sortColumnIndex: state.sortColumnIndex,
                       sortAscending: state.sortAscending,
@@ -115,8 +98,8 @@ class TeknisiTable extends StatelessWidget {
                               textAlign: TextAlign.center,
                               weight: FontWeight.bold),
                           onSort: (columnIndex, ascending) => context
-                              .read<TeknisiBloc>()
-                              .add(SortTeknisiEvent(columnIndex, ascending)),
+                              .read<AdminBloc>()
+                              .add(SortAdminEvent(columnIndex, ascending)),
                         ),
                         DataColumn2(
                           label: const CustomText(
@@ -124,51 +107,17 @@ class TeknisiTable extends StatelessWidget {
                               textAlign: TextAlign.center,
                               weight: FontWeight.bold),
                           onSort: (columnIndex, ascending) => context
-                              .read<TeknisiBloc>()
-                              .add(SortTeknisiEvent(columnIndex, ascending)),
+                              .read<AdminBloc>()
+                              .add(SortAdminEvent(columnIndex, ascending)),
                         ),
                         DataColumn2(
-                          label: const CustomText(
-                              text: 'Password',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
-                          onSort: (columnIndex, ascending) => context
-                              .read<TeknisiBloc>()
-                              .add(SortTeknisiEvent(columnIndex, ascending)),
-                        ),
-                        DataColumn2(
-                          fixedWidth: 100,
                           label: const CustomText(
                               text: 'Nama',
                               textAlign: TextAlign.center,
                               weight: FontWeight.bold),
                           onSort: (columnIndex, ascending) => context
-                              .read<TeknisiBloc>()
-                              .add(SortTeknisiEvent(columnIndex, ascending)),
-                        ),
-                        DataColumn2(
-                          // fixedWidth: 120,
-                          label: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomText(
-                                  text: 'Sektor',
-                                  textAlign: TextAlign.center,
-                                  weight: FontWeight.bold),
-                            ],
-                          ),
-                          onSort: (columnIndex, ascending) => context
-                              .read<TeknisiBloc>()
-                              .add(SortTeknisiEvent(columnIndex, ascending)),
-                        ),
-                        DataColumn2(
-                          label: const CustomText(
-                              text: 'Keterangan',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
-                          onSort: (columnIndex, ascending) => context
-                              .read<TeknisiBloc>()
-                              .add(SortTeknisiEvent(columnIndex, ascending)),
+                              .read<AdminBloc>()
+                              .add(SortAdminEvent(columnIndex, ascending)),
                         ),
                         DataColumn2(
                           label: const CustomText(
@@ -176,8 +125,8 @@ class TeknisiTable extends StatelessWidget {
                               textAlign: TextAlign.center,
                               weight: FontWeight.bold),
                           onSort: (columnIndex, ascending) => context
-                              .read<TeknisiBloc>()
-                              .add(SortTeknisiEvent(columnIndex, ascending)),
+                              .read<AdminBloc>()
+                              .add(SortAdminEvent(columnIndex, ascending)),
                         ),
                         const DataColumn2(
                           label: Row(
@@ -190,16 +139,17 @@ class TeknisiTable extends StatelessWidget {
                         ),
                       ],
                       source: state.isFiltered
-                          ? DataTableSourceTeknisi(
-                              context, state.filteredResult)
-                          : DataTableSourceTeknisi(context, state.result),
+                          ? DataTableSourceAdmin(context, state.filteredResult,
+                              locator.get<SharedPreferences>())
+                          : DataTableSourceAdmin(context, state.result,
+                              locator.get<SharedPreferences>()),
                     ),
                   );
-                } else if (state.status == TeknisiStatus.empty) {
+                } else if (state.status == AdminStatus.empty) {
                   return const Center(
                     child: CustomText(text: 'Data Kosong'),
                   );
-                } else if (state.status == TeknisiStatus.error) {
+                } else if (state.status == AdminStatus.error) {
                   return Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -211,9 +161,7 @@ class TeknisiTable extends StatelessWidget {
                         ),
                         ElevatedButton(
                             onPressed: () {
-                              context
-                                  .read<TeknisiBloc>()
-                                  .add(FetchAllTeknisi());
+                              context.read<AdminBloc>().add(FetchAllAdmin());
                             },
                             child: const CustomText(text: 'Coba Lagi'))
                       ],

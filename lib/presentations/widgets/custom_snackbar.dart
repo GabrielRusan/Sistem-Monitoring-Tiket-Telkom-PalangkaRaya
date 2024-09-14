@@ -10,10 +10,12 @@ errorSnackbar(BuildContext context, String title, String message) {
       margin: EdgeInsets.only(
         bottom: MediaQuery.of(context).size.height - 100,
         left: ResponsiveWidget.isLargeScreen(context)
-            ? 1000
-            : ResponsiveWidget.isMediumScreen(context)
-                ? 500
-                : 200,
+            ? 1200
+            : ResponsiveWidget.isCustomScreen(context)
+                ? 1000
+                : ResponsiveWidget.isMediumScreen(context)
+                    ? 800
+                    : 200,
         right: 16,
       ),
       duration: const Duration(seconds: 1, milliseconds: 500),
