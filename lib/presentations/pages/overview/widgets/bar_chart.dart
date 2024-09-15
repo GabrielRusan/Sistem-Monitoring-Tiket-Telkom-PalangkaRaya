@@ -1,12 +1,18 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:telkom_ticket_manager/domain/entities/tiket.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/all_tiket_bloc/all_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/utils/style.dart'; // Ganti dengan style Anda
 
 class _BarChart extends StatelessWidget {
-  const _BarChart();
+  final List<Tiket> tickets;
+  const _BarChart(this.tickets);
 
   @override
   Widget build(BuildContext context) {
+    final ticketCountMap = getTicketsCountPerDay(tickets);
+    final barGroups = generateBarGroups(ticketCountMap);
     return BarChart(
       BarChartData(
         barTouchData: barTouchData,
@@ -231,6 +237,50 @@ class _BarChart extends StatelessWidget {
           showingTooltipIndicators: [0],
         ),
       ];
+
+  Map<String, int> getTicketsCountPerDay(List<Tiket> tickets) {
+    final now = DateTime.now();
+    final Map<String, int> ticketCountMap = {};
+
+    for (int i = 0; i < 7; i++) {
+      final day = now.subtract(Duration(days: i));
+      final dayString = "${day.year}-${day.month}-${day.day}";
+
+      ticketCountMap[dayString] = tickets.where((ticket) {
+        final createdAt = ticket.createdAt;
+        return createdAt.year == day.year &&
+            createdAt.month == day.month &&
+            createdAt.day == day.day;
+      }).length;
+    }
+
+    return ticketCountMap;
+  }
+
+  List<BarChartGroupData> generateBarGroups(Map<String, int> ticketCountMap) {
+    final List<BarChartGroupData> groups = [];
+    int index = 0;
+
+    ticketCountMap.forEach((day, count) {
+      groups.add(
+        BarChartGroupData(
+          x: index,
+          barRods: [
+            BarChartRodData(
+              toY: count.toDouble(),
+              gradient: _barsGradient,
+              width: 28,
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ],
+          showingTooltipIndicators: [0],
+        ),
+      );
+      index++;
+    });
+
+    return groups;
+  }
 }
 
 class BarChartSample3 extends StatefulWidget {
@@ -243,9 +293,13 @@ class BarChartSample3 extends StatefulWidget {
 class BarChartSample3State extends State<BarChartSample3> {
   @override
   Widget build(BuildContext context) {
-    return const AspectRatio(
+    return AspectRatio(
       aspectRatio: 1.6,
-      child: _BarChart(),
+      child: BlocBuilder<AllTiketBloc, AllTiketState>(
+        builder: (context, state) {
+          return _BarChart(state.result);
+        },
+      ),
     );
   }
 }

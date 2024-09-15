@@ -141,7 +141,7 @@ class EditAdminForm extends StatelessWidget {
                   },
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 30,
                 ),
                 BlocBuilder<UpdateAdminBloc, UpdateAdminState>(
                   builder: (context, state) {

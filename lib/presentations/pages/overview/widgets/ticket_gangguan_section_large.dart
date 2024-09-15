@@ -26,26 +26,31 @@ class TicketGangguanSectionLarge extends StatelessWidget {
           ],
           border: Border.all(color: lightGrey, width: .5)),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomText(
-                  text: "Ticket Gangguan Chart",
-                  size: 20,
-                  weight: FontWeight.bold,
-                  color: lightGrey,
-                ),
-                const SizedBox(
-                  width: 600,
-                  height: 200,
-                  child: BarChartSample3(),
-                ),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 24.0, right: 48),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CustomText(
+                    text: "Ticket Gangguan Chart",
+                    size: 20,
+                    weight: FontWeight.bold,
+                    color: lightGrey,
+                  ),
+                  const SizedBox(
+                    width: 500,
+                    height: 200,
+                    child: BarChartSample3(),
+                  ),
+                ],
+              ),
             ),
           ),
           Container(
+            // margin: EdgeInsets.only(left: 30),
             height: 120,
             width: 1,
             color: lightGrey,
