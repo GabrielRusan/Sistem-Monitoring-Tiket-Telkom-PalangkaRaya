@@ -1,0 +1,10 @@
+{
+    "idteknisi": 1,
+    "nama": "nama",
+    "sektor": "sektor",
+    "username": "username",
+    "pass": "pass",
+    "ket" : "ket",
+    "createdAt": "2024-01-01 00:00:00",
+    "updatedAt": "2024-01-01 00:00:00"
+}

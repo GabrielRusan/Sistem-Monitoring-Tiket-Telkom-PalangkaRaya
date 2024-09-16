@@ -1,0 +1,16 @@
+
+    {
+        "idtiket": 1,
+        "nomortiket": "nomorTiket",
+        "nomorinternet": "nomorInternet",
+        "keluhan": "keluhan",
+        "notepelanggan": "notePelanggan",
+        "idpelanggan": "idpelanggan | nama | alamat | nohp",
+        "idodp": "2 | ODP-PLK-FAE/175 FAE/D09/175.01",
+        "idteknisi": "2 | Loudri",
+        "createdAt": "2024-01-01 00:00:00",
+        "updatedAt": "2024-01-01 00:00:00",
+        "tipetiket": "type",
+        "status": "status",
+        "ket": "ket"
+    }
