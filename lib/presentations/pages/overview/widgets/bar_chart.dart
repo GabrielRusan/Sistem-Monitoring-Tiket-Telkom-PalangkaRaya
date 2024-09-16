@@ -241,10 +241,8 @@ class _BarChart extends StatelessWidget {
     final Map<String, int> ticketCountMap = {};
 
     for (int i = 0; i < 7; i++) {
-      print('iteration ${i + 1}');
       final day = now.subtract(Duration(days: i));
       final dayString = "${day.year}-${day.month}-${day.day}";
-      print('day : $dayString');
 
       if (ticketCountMap[dayString] == null) {
         ticketCountMap[dayString] = 0;
@@ -256,10 +254,7 @@ class _BarChart extends StatelessWidget {
             createdAt.month == day.month &&
             createdAt.day == day.day;
       }).length;
-
-      print('count : ${ticketCountMap[dayString]}');
     }
-    // print(ticketCountMap);
     return ticketCountMap;
   }
 

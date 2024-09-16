@@ -14,8 +14,6 @@ class UserCubit extends Cubit<UserState> {
     if (nama == null) {
       emit(UserError());
     } else {
-      print(nama);
-      print('kuda cuki');
       emit(UserLoaded(nama: nama));
     }
   }
