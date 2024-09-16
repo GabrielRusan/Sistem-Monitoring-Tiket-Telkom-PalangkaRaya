@@ -32,6 +32,8 @@ class AdminRemoteDataSourceImpl extends AdminRemoteDataSource {
           switch (e.response?.statusCode) {
             case 401:
               throw InvalidTokenException();
+            case 403:
+              throw InvalidTokenException();
             case 404:
               throw NotFoundException();
           }

@@ -15,7 +15,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case teknisiPageRoute:
       return getPageRoute(const TeknisiPage());
     case clientPageRoute:
-      return getPageRoute(const ClientsPage());
+      return getPageRoute(const ClientPage());
     case authenticationPageRoute:
       return getPageRoute(const AuthenticationPage());
     default:

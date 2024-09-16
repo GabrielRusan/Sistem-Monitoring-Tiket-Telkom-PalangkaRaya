@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
+import 'package:telkom_ticket_manager/presentations/pages/clients/widgets/pelanggan_table.dart';
 import 'package:telkom_ticket_manager/utils/controllers.dart';
 import 'package:telkom_ticket_manager/utils/responsivennes.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
 
-class ClientsPage extends StatelessWidget {
-  const ClientsPage({super.key});
+class ClientPage extends StatelessWidget {
+  const ClientPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +15,9 @@ class ClientsPage extends StatelessWidget {
         Obx(() => Row(
               children: [
                 Container(
+                  padding: const EdgeInsets.only(bottom: 8),
                   margin: EdgeInsets.only(
-                      top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
+                      top: ResponsiveWidget.isSmallScreen(context) ? 56 : 16),
                   child: CustomText(
                     text: menuController.activeItem.value,
                     size: 24,
@@ -23,7 +25,11 @@ class ClientsPage extends StatelessWidget {
                   ),
                 )
               ],
-            ))
+            )),
+        Expanded(
+            child: ListView(
+          children: const [PelangganTable()],
+        ))
       ],
     );
   }

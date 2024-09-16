@@ -58,7 +58,7 @@ class EditAdminForm extends StatelessWidget {
                   buildWhen: (previous, current) =>
                       previous.name != current.name,
                   builder: (context, state) {
-                    bool isError = state.password.displayError != null;
+                    bool isError = state.name.displayError != null;
                     return TextFormField(
                       initialValue: admin.nama,
                       style: const TextStyle(fontSize: 12),
@@ -69,6 +69,8 @@ class EditAdminForm extends StatelessWidget {
                             Icons.person_outline,
                             color: isError ? Colors.red : null,
                           ),
+                          errorText:
+                              isError ? 'Nama tidak boleh kosong!' : null,
                           labelText: "Nama",
                           contentPadding: const EdgeInsets.all(12),
                           border: const OutlineInputBorder()),

@@ -126,7 +126,6 @@ class HistoricTiketBloc extends Bloc<HistoricTiketEvent, HistoricTiketState> {
             status: HistoricTiketStatus.error, errorMessage: failure.message));
       }
     }, (data) {
-      print('halo');
       if (data.isEmpty) {
         emit(state.copyWith(status: HistoricTiketStatus.empty));
         return;

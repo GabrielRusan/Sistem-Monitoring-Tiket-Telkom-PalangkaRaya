@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart' as getx;
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:telkom_ticket_manager/injection.dart' as di;
@@ -9,12 +10,18 @@ import 'package:telkom_ticket_manager/presentations/blocs/add_teknisi_bloc/add_t
 import 'package:telkom_ticket_manager/presentations/blocs/admin_bloc/admin_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/all_tiket_bloc/all_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/delete_teknisi_bloc/delete_teknisi_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/detail_active_tiket_bloc/detail_active_tiket_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/detail_all_tiket_bloc/detail_all_tiket_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/detail_historic_tiket_bloc/detail_historic_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/historic_tiket_bloc/historic_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/login_bloc/login_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/pelanggan_bloc/pelanggan_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/update_admin_bloc/update_admin_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/update_pelanggan_bloc/update_pelanggan_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/update_teknisi_bloc/update_teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/user_cubit/user_cubit.dart';
+import 'package:telkom_ticket_manager/presentations/pages/detail/detail_page.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 import 'package:telkom_ticket_manager/presentations/controllers/menu_controller.dart';
 import 'package:telkom_ticket_manager/presentations/controllers/navigation_controller.dart';
@@ -71,6 +78,21 @@ class MyApp extends StatelessWidget {
         BlocProvider<UpdateAdminBloc>(
           create: (_) => di.locator<UpdateAdminBloc>(),
         ),
+        BlocProvider<PelangganBloc>(
+          create: (_) => di.locator<PelangganBloc>(),
+        ),
+        BlocProvider<UpdatePelangganBloc>(
+          create: (_) => di.locator<UpdatePelangganBloc>(),
+        ),
+        BlocProvider<DetailActiveTiketBloc>(
+          create: (_) => di.locator<DetailActiveTiketBloc>(),
+        ),
+        BlocProvider<DetailHistoricTiketBloc>(
+          create: (_) => di.locator<DetailHistoricTiketBloc>(),
+        ),
+        BlocProvider<DetailAllTiketBloc>(
+          create: (_) => di.locator<DetailAllTiketBloc>(),
+        ),
       ],
       child: getx.GetMaterialApp(
         debugShowCheckedModeBanner: false,
@@ -85,12 +107,28 @@ class MyApp extends StatelessWidget {
           getx.GetPage(
               name: authenticationPageRoute,
               page: () => const AuthenticationPage()),
+          getx.GetPage(
+              name: detailRoute,
+              page: () {
+                final user = getx.Get.arguments;
+                return DetailPage(
+                  user: user,
+                );
+              }),
         ],
         theme: ThemeData(
           scaffoldBackgroundColor: light,
           textTheme:
               GoogleFonts.mulishTextTheme(Theme.of(context).textTheme).apply(
             bodyColor: Colors.black,
+          ),
+          inputDecorationTheme: const InputDecorationTheme(
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.red, // Color for focused error border
+                width: 2.0, // You can adjust the thickness here if needed
+              ),
+            ),
           ),
           pageTransitionsTheme: const PageTransitionsTheme(
             builders: {

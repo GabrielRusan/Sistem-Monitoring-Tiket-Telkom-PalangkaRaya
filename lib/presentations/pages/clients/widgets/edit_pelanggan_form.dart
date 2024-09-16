@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:telkom_ticket_manager/domain/entities/teknisi.dart';
-import 'package:telkom_ticket_manager/presentations/blocs/update_teknisi_bloc/update_teknisi_bloc.dart';
+import 'package:telkom_ticket_manager/domain/entities/pelanggan.dart';
+import 'package:telkom_ticket_manager/domain/entities/phone_number.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/update_pelanggan_bloc/update_pelanggan_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 
-class EditTeknisiForm extends StatelessWidget {
-  final Teknisi teknisi;
-  const EditTeknisiForm({super.key, required this.teknisi});
+class EditPelangganForm extends StatelessWidget {
+  final Pelanggan pelanggan;
+  const EditPelangganForm({super.key, required this.pelanggan});
 
   @override
   Widget build(BuildContext context) {
@@ -47,20 +48,20 @@ class EditTeknisiForm extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  "Edit Teknisi",
+                  "Edit Pelanggan",
                   style: GoogleFonts.roboto(
                       fontSize: 28, fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(
                   height: 48,
                 ),
-                BlocBuilder<UpdateTeknisiBloc, UpdateTeknisiState>(
+                BlocBuilder<UpdatePelangganBloc, UpdatePelangganState>(
                   buildWhen: (previous, current) =>
                       previous.name != current.name,
                   builder: (context, state) {
                     bool isError = state.name.displayError != null;
                     return TextFormField(
-                      initialValue: teknisi.nama,
+                      initialValue: pelanggan.nama,
                       style: const TextStyle(fontSize: 12),
                       decoration: InputDecoration(
                           isDense: true,
@@ -69,13 +70,13 @@ class EditTeknisiForm extends StatelessWidget {
                             Icons.person_outline,
                             color: isError ? Colors.red : null,
                           ),
+                          labelText: "Nama",
                           errorText:
                               isError ? 'Nama tidak boleh kosong!' : null,
-                          labelText: "Nama",
                           contentPadding: const EdgeInsets.all(12),
                           border: const OutlineInputBorder()),
                       onChanged: (value) => context
-                          .read<UpdateTeknisiBloc>()
+                          .read<UpdatePelangganBloc>()
                           .add(OnChangedName(value: value)),
                     );
                   },
@@ -83,13 +84,13 @@ class EditTeknisiForm extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                BlocBuilder<UpdateTeknisiBloc, UpdateTeknisiState>(
+                BlocBuilder<UpdatePelangganBloc, UpdatePelangganState>(
                   buildWhen: (previous, current) =>
-                      previous.username != current.username,
+                      previous.alamat != current.alamat,
                   builder: (context, state) {
-                    bool isError = state.username.displayError != null;
+                    bool isError = state.alamat.displayError != null;
                     return TextFormField(
-                      initialValue: teknisi.username,
+                      initialValue: pelanggan.alamat,
                       style: const TextStyle(fontSize: 12),
                       decoration: InputDecoration(
                           isDense: true,
@@ -98,15 +99,15 @@ class EditTeknisiForm extends StatelessWidget {
                             Icons.person_outline,
                             color: isError ? Colors.red : null,
                           ),
-                          labelText: "Username",
+                          labelText: "Alamat",
                           errorText:
-                              isError ? 'Username tidak boleh kosong!' : null,
+                              isError ? 'Alamat tidak boleh kosong!' : null,
                           contentPadding: const EdgeInsets.all(12),
                           border: const OutlineInputBorder()),
                       onChanged: (value) {
                         context
-                            .read<UpdateTeknisiBloc>()
-                            .add(OnChangedUsername(value: value));
+                            .read<UpdatePelangganBloc>()
+                            .add(OnChangedAlamat(value: value));
                       },
                     );
                   },
@@ -114,13 +115,35 @@ class EditTeknisiForm extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                BlocBuilder<UpdateTeknisiBloc, UpdateTeknisiState>(
+                BlocBuilder<UpdatePelangganBloc, UpdatePelangganState>(
                   buildWhen: (previous, current) =>
-                      previous.password != current.password,
+                      previous.noHp != current.noHp,
                   builder: (context, state) {
-                    bool isError = state.password.displayError != null;
+                    bool isError = state.noHp.displayError != null;
+                    String errorMessage = '';
+                    if (isError) {
+                      switch (state.noHp.error) {
+                        case PhoneNumberValidationError.empty:
+                          errorMessage = 'Phone number cannot be empty';
+                          break;
+                        case PhoneNumberValidationError.notStartingWithZero:
+                          errorMessage = 'Phone number must start with 0';
+                          break;
+                        case PhoneNumberValidationError.containsNonNumeric:
+                          errorMessage =
+                              'Phone number must contain only numbers';
+                          break;
+                        case PhoneNumberValidationError.invalidLength:
+                          errorMessage =
+                              'Phone number must be between 10 and 16 digits';
+                          break;
+                        default:
+                          errorMessage = 'Invalid phone number';
+                          break;
+                      }
+                    }
                     return TextFormField(
-                      initialValue: teknisi.pass,
+                      initialValue: pelanggan.nohp,
                       style: const TextStyle(fontSize: 12),
                       decoration: InputDecoration(
                           isDense: true,
@@ -129,59 +152,32 @@ class EditTeknisiForm extends StatelessWidget {
                             Icons.lock_outline,
                             color: isError ? Colors.red : null,
                           ),
-                          labelText: "Password",
-                          errorText:
-                              isError ? 'Password tidak boleh kosong!' : null,
+                          labelText: "No HP",
+                          errorText: isError ? errorMessage : null,
                           contentPadding: const EdgeInsets.all(12),
                           border: const OutlineInputBorder()),
                       onChanged: (value) {
                         context
-                            .read<UpdateTeknisiBloc>()
-                            .add(OnChangedPassword(value: value));
+                            .read<UpdatePelangganBloc>()
+                            .add(OnChangedPhoneNumber(value: value));
                       },
                     );
                   },
                 ),
                 const SizedBox(
-                  height: 15,
-                ),
-                BlocBuilder<UpdateTeknisiBloc, UpdateTeknisiState>(
-                  builder: (context, state) {
-                    return DropdownButtonFormField(
-                        value: teknisi.sektor,
-                        items: const [
-                          DropdownMenuItem(
-                            value: 'plk1',
-                            child: Text('PLK1'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'plk2',
-                            child: Text('PLK2'),
-                          ),
-                        ],
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(), labelText: 'Sektor'),
-                        onChanged: (value) {
-                          context
-                              .read<UpdateTeknisiBloc>()
-                              .add(OnChangedSektor(value: value ?? 'plk1'));
-                        });
-                  },
-                ),
-                const SizedBox(
                   height: 30,
                 ),
-                BlocBuilder<UpdateTeknisiBloc, UpdateTeknisiState>(
+                BlocBuilder<UpdatePelangganBloc, UpdatePelangganState>(
                   builder: (context, state) {
                     return InkWell(
                       onTap: state.isValid
                           ? () {
                               context
-                                  .read<UpdateTeknisiBloc>()
-                                  .add(SubmitUpdateTeknisi());
+                                  .read<UpdatePelangganBloc>()
+                                  .add(SubmitUpdatePelanggan());
                               context
-                                  .read<UpdateTeknisiBloc>()
-                                  .add(ClearUpdateTeknisi());
+                                  .read<UpdatePelangganBloc>()
+                                  .add(ClearUpdatePelanggan());
                             }
                           : null,
                       child: Container(

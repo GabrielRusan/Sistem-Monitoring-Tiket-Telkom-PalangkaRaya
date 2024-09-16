@@ -9,8 +9,10 @@ import 'package:telkom_ticket_manager/presentations/blocs/all_tiket_bloc/all_tik
 import 'package:telkom_ticket_manager/presentations/blocs/delete_teknisi_bloc/delete_teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/historic_tiket_bloc/historic_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/login_bloc/login_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/pelanggan_bloc/pelanggan_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/update_admin_bloc/update_admin_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/update_pelanggan_bloc/update_pelanggan_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/update_teknisi_bloc/update_teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/user_cubit/user_cubit.dart';
 import 'package:telkom_ticket_manager/utils/controllers.dart';
@@ -41,6 +43,7 @@ class _SiteLayoutState extends State<SiteLayout> {
     context.read<AllTiketBloc>().add(FetchAllTiket());
     context.read<HistoricTiketBloc>().add(FetchHistoricTiket());
     context.read<AdminBloc>().add(FetchAllAdmin());
+    context.read<PelangganBloc>().add(FetchAllPelanggan());
     super.initState();
   }
 
@@ -48,9 +51,9 @@ class _SiteLayoutState extends State<SiteLayout> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        BlocListener<TeknisiBloc, TeknisiState>(
+        BlocListener<AdminBloc, AdminState>(
           listener: (context, state) {
-            if (state.status == TeknisiStatus.tokenInvalid) {
+            if (state.status == AdminStatus.tokenInvalid) {
               AwesomeDialog(
                 context: context,
                 width: 400,
@@ -60,18 +63,14 @@ class _SiteLayoutState extends State<SiteLayout> {
                 animType: AnimType.scale,
                 title: 'Warning!',
                 desc: 'Sesi anda telah berakhir!',
-                btnOkOnPress: () {
+                onDismissCallback: (type) {
                   context.read<UserCubit>().signOut();
                   context.read<LoginBloc>().add(ClearLoginField());
                   Get.offAllNamed(authenticationPageRoute);
                   menuController.changeActiveItemTo(overviewPageDisplayName);
                 },
-                btnCancelOnPress: () {
-                  context.read<UserCubit>().signOut();
-                  context.read<LoginBloc>().add(ClearLoginField());
-                  Get.offAllNamed(authenticationPageRoute);
-                  menuController.changeActiveItemTo(overviewPageDisplayName);
-                },
+                btnOkOnPress: () {},
+                btnCancelOnPress: () {},
               ).show();
             }
           },
@@ -292,6 +291,59 @@ class _SiteLayoutState extends State<SiteLayout> {
                 onDismissCallback: (type) {
                   Navigator.pop(context);
                   context.read<AdminBloc>().add(FetchAllAdmin());
+                  context.read<UserCubit>().getUserData();
+                },
+                btnOkOnPress: () {},
+                btnCancelOnPress: () {},
+              ).show();
+            }
+          },
+        ),
+        BlocListener<UpdatePelangganBloc, UpdatePelangganState>(
+          listener: (context, state) {
+            if (state.status == FormzSubmissionStatus.inProgress) {
+              AwesomeDialog(
+                  context: context,
+                  width: 400,
+                  dialogType: DialogType.noHeader,
+                  dismissOnTouchOutside: false,
+                  animType: AnimType.scale,
+                  body: const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )).show();
+            } else if (state.status == FormzSubmissionStatus.failure) {
+              Navigator.pop(context);
+              AwesomeDialog(
+                context: context,
+                width: 400,
+                headerAnimationLoop: false,
+                dialogType: DialogType.error,
+                animType: AnimType.scale,
+                title: 'Failed!',
+                desc: state.errorMessage,
+                onDismissCallback: (type) {
+                  Navigator.pop(context);
+                  context.read<PelangganBloc>().add(FetchAllPelanggan());
+                },
+                btnOkOnPress: () {},
+                btnCancelOnPress: () {},
+              ).show();
+            } else if (state.status == FormzSubmissionStatus.success) {
+              Navigator.pop(context);
+              AwesomeDialog(
+                context: context,
+                width: 400,
+                headerAnimationLoop: false,
+                dialogType: DialogType.success,
+                animType: AnimType.scale,
+                title: 'Success!',
+                desc: 'Berhasil update data pelanggan!',
+                onDismissCallback: (type) {
+                  Navigator.pop(context);
+                  context.read<PelangganBloc>().add(FetchAllPelanggan());
                   context.read<UserCubit>().getUserData();
                 },
                 btnOkOnPress: () {},

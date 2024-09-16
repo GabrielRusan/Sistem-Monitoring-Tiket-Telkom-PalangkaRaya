@@ -76,7 +76,7 @@ class AuthenticationPage extends StatelessWidget {
                 ),
                 const LoginPasswordField(),
                 const SizedBox(
-                  height: 15,
+                  height: 30,
                 ),
                 const LoginButton(),
                 const SizedBox(

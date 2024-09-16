@@ -1,4 +1,5 @@
 const rootRoute = "/dashboard";
+const detailRoute = "/detail";
 
 const overviewPageDisplayName = "Overview";
 const overviewPageRoute = "/overview";

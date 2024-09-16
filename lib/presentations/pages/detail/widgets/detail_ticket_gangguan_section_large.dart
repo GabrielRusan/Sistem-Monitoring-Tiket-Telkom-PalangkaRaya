@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:telkom_ticket_manager/presentations/blocs/all_tiket_bloc/all_tiket_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/detail_all_tiket_bloc/detail_all_tiket_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/pages/detail/widgets/detail_last_month_count_info.dart';
+import 'package:telkom_ticket_manager/presentations/pages/detail/widgets/detail_last_week_count_info.dart';
+import 'package:telkom_ticket_manager/presentations/pages/detail/widgets/detail_last_year_count_info.dart';
+import 'package:telkom_ticket_manager/presentations/pages/detail/widgets/detail_today_count_info.dart';
 import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/bar_chart.dart';
-import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/last_month_count_info.dart';
-import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/last_week_count_info.dart';
-import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/last_year_count_info.dart';
-import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/today_count_info.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
 
-class TicketGangguanSectionLarge extends StatelessWidget {
-  const TicketGangguanSectionLarge({super.key});
+class DetailTicketGangguanSectionLarge extends StatelessWidget {
+  const DetailTicketGangguanSectionLarge({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class TicketGangguanSectionLarge extends StatelessWidget {
                   SizedBox(
                     width: 500,
                     height: 200,
-                    child: BlocBuilder<AllTiketBloc, AllTiketState>(
+                    child: BlocBuilder<DetailAllTiketBloc, DetailAllTiketState>(
                       builder: (context, state) {
                         return BarChartSample3(
                           tickets: state.result,
@@ -68,13 +68,16 @@ class TicketGangguanSectionLarge extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Row(
-                  children: [TodayCountInfo(), LastWeekCountInfo()],
+                  children: [DetailTodayCountInfo(), DetailLastWeekCountInfo()],
                 ),
                 SizedBox(
                   height: 30,
                 ),
                 Row(
-                  children: [LastMonthCountInfo(), LastYearCountInfo()],
+                  children: [
+                    DetailLastMonthCountInfo(),
+                    DetailLastYearCountInfo()
+                  ],
                 ),
               ],
             ),

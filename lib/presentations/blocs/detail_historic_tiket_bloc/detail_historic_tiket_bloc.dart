@@ -5,19 +5,25 @@ import 'package:telkom_ticket_manager/domain/entities/tiket.dart';
 import 'package:telkom_ticket_manager/domain/repositories/tiket_repository.dart';
 import 'package:telkom_ticket_manager/utils/failure.dart';
 
-part 'active_tiket_event.dart';
-part 'active_tiket_state.dart';
+part 'detail_historic_tiket_event.dart';
+part 'detail_history_tiket_state.dart';
 
-class ActiveTiketBloc extends Bloc<ActiveTiketEvent, ActiveTiketState> {
+class DetailHistoricTiketBloc
+    extends Bloc<DetailHistoricTiketEvent, DetailHistoricTiketState> {
   final TiketRepository _tiketRepository;
 
-  ActiveTiketBloc(this._tiketRepository) : super(const ActiveTiketState()) {
-    on<FetchActiveTiket>(_onFetchActiveTiket);
-    on<SortActiveTiket>(_onSortTiket);
-    on<SearchActiveTiket>(_onSearchTiket);
+  DetailHistoricTiketBloc(this._tiketRepository)
+      : super(const DetailHistoricTiketState()) {
+    on<FetchDetailHistoricTiketByIdPelanggan>(
+        _onFetchDetailHistoricTiketByIdPelanggan);
+    on<FetchDetailHistoricTiketByIdTeknisi>(
+        _onFetchDetailHistoricTiketByIdTeknisi);
+    on<SortDetailHistoricTiket>(_onSortTiket);
+    on<SearchDetailHistoricTiket>(_onSearchTiket);
   }
 
-  void _onSearchTiket(SearchActiveTiket event, Emitter<ActiveTiketState> emit) {
+  void _onSearchTiket(
+      SearchDetailHistoricTiket event, Emitter<DetailHistoricTiketState> emit) {
     if (event.query.isEmpty) {
       emit(state.copyWith(isFiltered: false, filteredResult: []));
       return;
@@ -55,17 +61,18 @@ class ActiveTiketBloc extends Bloc<ActiveTiketEvent, ActiveTiketState> {
       emit(state.copyWith(
           isFiltered: false,
           filteredResult: [],
-          status: ActiveTiketStatus.empty));
+          status: DetailHistoricTiketStatus.empty));
       return;
     }
 
     emit(state.copyWith(
         isFiltered: true,
         filteredResult: filteredResult,
-        status: ActiveTiketStatus.loaded));
+        status: DetailHistoricTiketStatus.loaded));
   }
 
-  void _onSortTiket(SortActiveTiket event, Emitter<ActiveTiketState> emit) {
+  void _onSortTiket(
+      SortDetailHistoricTiket event, Emitter<DetailHistoricTiketState> emit) {
     final Map<int, Function(Tiket, Tiket)> sortFunctions = {
       0: (a, b) => a.nomorTiket.compareTo(b.nomorTiket),
       1: (a, b) => a.pelanggan.nama.compareTo(b.pelanggan.nama),
@@ -92,7 +99,7 @@ class ActiveTiketBloc extends Bloc<ActiveTiketEvent, ActiveTiketState> {
           filteredResult: sortedResult,
           sortColumnIndex: event.columnIndex,
           sortAscending: event.ascending,
-          status: ActiveTiketStatus.loaded));
+          status: DetailHistoricTiketStatus.loaded));
       return;
     }
 
@@ -109,43 +116,68 @@ class ActiveTiketBloc extends Bloc<ActiveTiketEvent, ActiveTiketState> {
         result: sortedResult,
         sortColumnIndex: event.columnIndex,
         sortAscending: event.ascending,
-        status: ActiveTiketStatus.loaded));
+        status: DetailHistoricTiketStatus.loaded));
   }
 
-  Future<void> _onFetchActiveTiket(
-      FetchActiveTiket event, Emitter<ActiveTiketState> emit) async {
-    emit(state.copyWith(status: ActiveTiketStatus.loading));
-    final result = await _tiketRepository.getAllActiveTiket();
+  Future<void> _onFetchDetailHistoricTiketByIdPelanggan(
+      FetchDetailHistoricTiketByIdPelanggan event,
+      Emitter<DetailHistoricTiketState> emit) async {
+    emit(state.copyWith(status: DetailHistoricTiketStatus.loading));
+    final result = await _tiketRepository
+        .getAllHistoricTiketByIdPelanggan(event.idPelanggan);
 
     result.fold((failure) {
       if (failure is NotFoundFailure) {
-        emit(state.copyWith(status: ActiveTiketStatus.empty));
+        emit(state.copyWith(status: DetailHistoricTiketStatus.empty));
       } else {
         emit(state.copyWith(
-            status: ActiveTiketStatus.error, errorMessage: failure.message));
+            status: DetailHistoricTiketStatus.error,
+            errorMessage: failure.message));
       }
     }, (data) {
       if (data.isEmpty) {
-        emit(state.copyWith(status: ActiveTiketStatus.empty));
+        emit(state.copyWith(
+            status: DetailHistoricTiketStatus.empty,
+            selesaiCount: 0,
+            result: []));
         return;
-      }
-      int inProgressCount = 0;
-      int ditugaskanCount = 0;
-
-      for (Tiket tiket in data) {
-        if (tiket.status == "In Progress") {
-          inProgressCount += 1;
-        } else if (tiket.status == "Ditugaskan") {
-          ditugaskanCount += 1;
-        }
       }
 
       emit(state.copyWith(
-        status: ActiveTiketStatus.loaded,
-        result: data,
-        inProgressCount: inProgressCount,
-        ditugaskanCount: ditugaskanCount,
-      ));
+          status: DetailHistoricTiketStatus.loaded,
+          result: data,
+          selesaiCount: data.length));
+    });
+  }
+
+  Future<void> _onFetchDetailHistoricTiketByIdTeknisi(
+      FetchDetailHistoricTiketByIdTeknisi event,
+      Emitter<DetailHistoricTiketState> emit) async {
+    emit(state.copyWith(status: DetailHistoricTiketStatus.loading));
+    final result =
+        await _tiketRepository.getAllHistoricTiketByIdTeknisi(event.idTeknisi);
+
+    result.fold((failure) {
+      if (failure is NotFoundFailure) {
+        emit(state.copyWith(status: DetailHistoricTiketStatus.empty));
+      } else {
+        emit(state.copyWith(
+            status: DetailHistoricTiketStatus.error,
+            errorMessage: failure.message));
+      }
+    }, (data) {
+      if (data.isEmpty) {
+        emit(state.copyWith(
+            status: DetailHistoricTiketStatus.empty,
+            selesaiCount: 0,
+            result: []));
+        return;
+      }
+
+      emit(state.copyWith(
+          status: DetailHistoricTiketStatus.loaded,
+          result: data,
+          selesaiCount: data.length));
     });
   }
 }

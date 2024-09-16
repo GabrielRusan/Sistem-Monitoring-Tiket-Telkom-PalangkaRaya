@@ -1,8 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telkom_ticket_manager/domain/entities/tiket.dart';
-import 'package:telkom_ticket_manager/presentations/blocs/all_tiket_bloc/all_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/utils/style.dart'; // Ganti dengan style Anda
 
 class _BarChart extends StatelessWidget {
@@ -21,7 +19,7 @@ class _BarChart extends StatelessWidget {
         barGroups: barGroups,
         gridData: const FlGridData(show: false),
         alignment: BarChartAlignment.spaceAround,
-        maxY: getMaxY(), // Mengatur maxY berdasarkan data
+        maxY: getMaxY(barGroups), // Mengatur maxY berdasarkan data
       ),
     );
   }
@@ -36,7 +34,7 @@ class _BarChart extends StatelessWidget {
       days.add(getShortDayName(day.weekday)); // Mendapatkan singkatan nama hari
     }
 
-    return days.reversed.toList(); // Reverse agar hari ini paling kanan
+    return days; // Reverse agar hari ini paling kanan
   }
 
   // Fungsi untuk mendapatkan singkatan nama hari
@@ -103,7 +101,7 @@ class _BarChart extends StatelessWidget {
       );
 
   // Fungsi untuk mendapatkan nilai maxY berdasarkan data terbesar
-  double getMaxY() {
+  double getMaxY(List<BarChartGroupData> barGroups) {
     double maxY = 0;
     for (final group in barGroups) {
       for (final rod in group.barRods) {
@@ -112,7 +110,7 @@ class _BarChart extends StatelessWidget {
         }
       }
     }
-    return maxY + 28; // Menambahkan sedikit margin di atas bar terbesar
+    return maxY + 30; // Menambahkan sedikit margin di atas bar terbesar
   }
 
   FlBorderData get borderData => FlBorderData(
@@ -151,12 +149,12 @@ class _BarChart extends StatelessWidget {
         end: Alignment.topCenter,
       );
 
-  List<BarChartGroupData> get barGroups => [
+  List<BarChartGroupData> get myBarGroups => [
         BarChartGroupData(
           x: 0,
           barRods: [
             BarChartRodData(
-              toY: 8,
+              toY: 0,
               gradient: _barsGradient,
               width: 28,
               borderRadius: BorderRadius.circular(2), // Mengatur radius bar
@@ -168,7 +166,7 @@ class _BarChart extends StatelessWidget {
           x: 1,
           barRods: [
             BarChartRodData(
-              toY: 10,
+              toY: 0,
               gradient: _barsGradient,
               width: 28,
               borderRadius: BorderRadius.circular(2),
@@ -180,7 +178,7 @@ class _BarChart extends StatelessWidget {
           x: 2,
           barRods: [
             BarChartRodData(
-              toY: 14,
+              toY: 0,
               gradient: _barsGradient,
               width: 28,
               borderRadius: BorderRadius.circular(2),
@@ -192,7 +190,7 @@ class _BarChart extends StatelessWidget {
           x: 3,
           barRods: [
             BarChartRodData(
-              toY: 40,
+              toY: 0,
               gradient: _barsGradient,
               width: 28,
               borderRadius: BorderRadius.circular(2),
@@ -204,7 +202,7 @@ class _BarChart extends StatelessWidget {
           x: 4,
           barRods: [
             BarChartRodData(
-              toY: 13,
+              toY: 0,
               gradient: _barsGradient,
               width: 28,
               borderRadius: BorderRadius.circular(2),
@@ -216,7 +214,7 @@ class _BarChart extends StatelessWidget {
           x: 5,
           barRods: [
             BarChartRodData(
-              toY: 10,
+              toY: 0,
               gradient: _barsGradient,
               width: 28,
               borderRadius: BorderRadius.circular(2),
@@ -228,7 +226,7 @@ class _BarChart extends StatelessWidget {
           x: 6,
           barRods: [
             BarChartRodData(
-              toY: 16,
+              toY: 0,
               gradient: _barsGradient,
               width: 28,
               borderRadius: BorderRadius.circular(2),
@@ -243,8 +241,14 @@ class _BarChart extends StatelessWidget {
     final Map<String, int> ticketCountMap = {};
 
     for (int i = 0; i < 7; i++) {
+      print('iteration ${i + 1}');
       final day = now.subtract(Duration(days: i));
       final dayString = "${day.year}-${day.month}-${day.day}";
+      print('day : $dayString');
+
+      if (ticketCountMap[dayString] == null) {
+        ticketCountMap[dayString] = 0;
+      }
 
       ticketCountMap[dayString] = tickets.where((ticket) {
         final createdAt = ticket.createdAt;
@@ -252,8 +256,10 @@ class _BarChart extends StatelessWidget {
             createdAt.month == day.month &&
             createdAt.day == day.day;
       }).length;
-    }
 
+      print('count : ${ticketCountMap[dayString]}');
+    }
+    // print(ticketCountMap);
     return ticketCountMap;
   }
 
@@ -261,15 +267,15 @@ class _BarChart extends StatelessWidget {
     final List<BarChartGroupData> groups = [];
     int index = 0;
 
-    ticketCountMap.forEach((day, count) {
+    ticketCountMap.forEach((day, jumlah) {
       groups.add(
         BarChartGroupData(
           x: index,
           barRods: [
             BarChartRodData(
-              toY: count.toDouble(),
+              toY: jumlah.toDouble(),
               gradient: _barsGradient,
-              width: 28,
+              width: 30,
               borderRadius: BorderRadius.circular(2),
             ),
           ],
@@ -279,12 +285,13 @@ class _BarChart extends StatelessWidget {
       index++;
     });
 
-    return groups;
+    return groups.reversed.toList();
   }
 }
 
 class BarChartSample3 extends StatefulWidget {
-  const BarChartSample3({super.key});
+  final List<Tiket> tickets;
+  const BarChartSample3({super.key, required this.tickets});
 
   @override
   State<StatefulWidget> createState() => BarChartSample3State();
@@ -295,11 +302,7 @@ class BarChartSample3State extends State<BarChartSample3> {
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1.6,
-      child: BlocBuilder<AllTiketBloc, AllTiketState>(
-        builder: (context, state) {
-          return _BarChart(state.result);
-        },
-      ),
+      child: _BarChart(widget.tickets),
     );
   }
 }
