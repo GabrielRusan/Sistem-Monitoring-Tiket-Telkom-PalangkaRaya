@@ -2,31 +2,31 @@ part of 'update_teknisi_bloc.dart';
 
 final class UpdateTeknisiState extends Equatable {
   const UpdateTeknisiState({
-    this.idTeknisi = -999,
+    this.idTeknisi = '',
     this.name = const Name.pure(),
     this.username = const Username.pure(),
     this.password = const Password.pure(),
-    this.sektor = 'plk1',
+    this.kehadiran = 'hadir',
     this.isValid = false,
     this.status = FormzSubmissionStatus.initial,
     this.errorMessage,
   });
 
-  final int idTeknisi;
+  final String idTeknisi;
   final Name name;
   final Username username;
   final Password password;
-  final String sektor;
+  final String kehadiran;
   final bool isValid;
   final FormzSubmissionStatus status;
   final String? errorMessage;
 
   UpdateTeknisiState copyWith({
-    int? idTeknisi,
+    String? idTeknisi,
     Name? name,
     Username? username,
     Password? password,
-    String? sektor,
+    String? kehadiran,
     bool? isValid,
     FormzSubmissionStatus? status,
     String? errorMessage,
@@ -36,7 +36,7 @@ final class UpdateTeknisiState extends Equatable {
       name: name ?? this.name,
       username: username ?? this.username,
       password: password ?? this.password,
-      sektor: sektor ?? this.sektor,
+      kehadiran: kehadiran ?? this.kehadiran,
       isValid: isValid ?? this.isValid,
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
@@ -49,7 +49,7 @@ final class UpdateTeknisiState extends Equatable {
         name,
         username,
         password,
-        sektor,
+        kehadiran,
         isValid,
         status,
         errorMessage

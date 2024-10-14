@@ -16,7 +16,6 @@ class AddTeknisiBloc extends Bloc<AddTeknisiEvent, AddTeknisiState> {
     on<OnChangedName>(_onNameChanged);
     on<OnChangedUsername>(_onUsernameChanged);
     on<OnChangedPassword>(_onPasswordChanged);
-    on<OnChangedSektor>(_onSektorChanged);
     on<SubmitAddTeknisi>(_onSubmitAddTeknisi);
     on<ClearAddTeknisi>((event, emit) => emit(const AddTeknisiState()));
   }
@@ -44,10 +43,6 @@ class AddTeknisiBloc extends Bloc<AddTeknisiEvent, AddTeknisiState> {
         isValid: Formz.validate([password, state.name, state.username])));
   }
 
-  void _onSektorChanged(OnChangedSektor event, Emitter<AddTeknisiState> emit) {
-    emit(state.copyWith(sektor: event.value));
-  }
-
   Future<void> _onSubmitAddTeknisi(
       SubmitAddTeknisi event, Emitter<AddTeknisiState> emit) async {
     if (!state.isValid) return;
@@ -55,12 +50,12 @@ class AddTeknisiBloc extends Bloc<AddTeknisiEvent, AddTeknisiState> {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
 
     final Teknisi teknisi = Teknisi(
-        idteknisi: -999,
+        idteknisi: "-999",
         nama: state.name.value,
-        sektor: state.sektor,
+        kehadiran: state.kehadiran,
         username: state.username.value,
         pass: state.password.value,
-        ket: 'available',
+        ket: 'Available',
         createdAt: DateTime.now(),
         updatedAt: DateTime.now());
 

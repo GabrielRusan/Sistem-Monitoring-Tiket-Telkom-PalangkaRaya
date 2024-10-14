@@ -5,7 +5,6 @@ import 'package:telkom_ticket_manager/utils/controllers.dart';
 import 'package:telkom_ticket_manager/utils/responsivennes.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/active_ticket_table.dart';
 import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/overview_card_large.dart';
-import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/overview_card_medium.dart';
 import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/overview_card_small.dart';
 import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/ticket_gangguan_section_large.dart';
 import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/ticket_gangguan_section_small.dart';
@@ -39,11 +38,7 @@ class OverViewPage extends StatelessWidget {
           children: [
             if (ResponsiveWidget.isLargeScreen(context) ||
                 ResponsiveWidget.isMediumScreen(context))
-              if (ResponsiveWidget.isCustomScreen(
-                  context)) // custom screen size start dari medium screen size
-                const OverviewCardMediumScreen()
-              else
-                const OverviewCardLargeScreen()
+              const OverviewCardLargeScreen()
             else
               const OverviewCardSmallScreen(),
             //

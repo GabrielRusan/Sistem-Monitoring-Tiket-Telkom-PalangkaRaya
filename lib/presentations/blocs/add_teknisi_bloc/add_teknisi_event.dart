@@ -34,15 +34,6 @@ final class OnChangedPassword extends AddTeknisiEvent {
   List<Object> get props => [value];
 }
 
-final class OnChangedSektor extends AddTeknisiEvent {
-  final String value;
-
-  const OnChangedSektor({required this.value});
-
-  @override
-  List<Object> get props => [value];
-}
-
 final class SubmitAddTeknisi extends AddTeknisiEvent {}
 
 final class ClearAddTeknisi extends AddTeknisiEvent {}

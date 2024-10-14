@@ -109,9 +109,9 @@ class TeknisiTable extends StatelessWidget {
                       sortAscending: state.sortAscending,
                       columns: [
                         DataColumn2(
-                          fixedWidth: 100,
+                          fixedWidth: 250,
                           label: const CustomText(
-                              text: 'Id',
+                              text: 'Id Teknisi',
                               textAlign: TextAlign.center,
                               weight: FontWeight.bold),
                           onSort: (columnIndex, ascending) => context
@@ -152,7 +152,7 @@ class TeknisiTable extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CustomText(
-                                  text: 'Sektor',
+                                  text: 'Kehadiran',
                                   textAlign: TextAlign.center,
                                   weight: FontWeight.bold),
                             ],

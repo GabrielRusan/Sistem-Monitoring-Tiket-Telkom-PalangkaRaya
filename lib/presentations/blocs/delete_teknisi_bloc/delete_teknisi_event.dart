@@ -6,7 +6,7 @@ sealed class DeleteTeknisiEvent extends Equatable {
 }
 
 final class DeleteTeknisi extends DeleteTeknisiEvent {
-  final int idTeknisi;
+  final String idTeknisi;
   DeleteTeknisi({required this.idTeknisi});
 
   @override
@@ -14,7 +14,7 @@ final class DeleteTeknisi extends DeleteTeknisiEvent {
 }
 
 final class WarningDeleteTeknisiEvent extends DeleteTeknisiEvent {
-  final int idTeknisi;
+  final String idTeknisi;
   final String namaTeknisi;
   WarningDeleteTeknisiEvent(
       {required this.idTeknisi, required this.namaTeknisi});

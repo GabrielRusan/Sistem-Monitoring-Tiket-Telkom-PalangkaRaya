@@ -5,6 +5,7 @@ import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/admin
 import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/admin/admin_remote_data_source_impl.dart';
 import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/auth/auth_remote_datasource.dart';
 import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/auth/auth_remote_datasource_impl.dart';
+import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/odp/odp_remote_data_source.dart';
 import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/pelanggan/pelanggan_remote_data_source.dart';
 import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/pelanggan/pelanggan_remote_data_source_impl.dart';
 import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/teknisi/teknisi_remote_data_source.dart';
@@ -34,6 +35,7 @@ import 'package:telkom_ticket_manager/presentations/blocs/detail_all_tiket_bloc/
 import 'package:telkom_ticket_manager/presentations/blocs/detail_historic_tiket_bloc/detail_historic_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/historic_tiket_bloc/historic_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/login_bloc/login_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/odp_bloc/odp_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/pelanggan_bloc/pelanggan_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/update_admin_bloc/update_admin_bloc.dart';
@@ -64,6 +66,8 @@ Future<void> init() async {
       () => AdminRemoteDataSourceImpl(locator(), locator()));
   locator.registerLazySingleton<PelangganRemoteDataSource>(
       () => PelangganRemoteDataSourceImpl(locator(), locator()));
+  locator.registerLazySingleton<OdpRemoteDataSource>(
+      () => OdpRemoteDataSource(locator(), locator()));
 
   //repositories
   locator.registerLazySingleton<AuthRepository>(
@@ -99,4 +103,5 @@ Future<void> init() async {
   locator.registerFactory(() => DetailActiveTiketBloc(locator()));
   locator.registerFactory(() => DetailHistoricTiketBloc(locator()));
   locator.registerFactory(() => DetailAllTiketBloc(locator()));
+  locator.registerFactory(() => OdpBloc(locator()));
 }

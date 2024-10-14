@@ -9,6 +9,7 @@ import 'package:telkom_ticket_manager/presentations/blocs/all_tiket_bloc/all_tik
 import 'package:telkom_ticket_manager/presentations/blocs/delete_teknisi_bloc/delete_teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/historic_tiket_bloc/historic_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/login_bloc/login_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/odp_bloc/odp_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/pelanggan_bloc/pelanggan_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/update_admin_bloc/update_admin_bloc.dart';
@@ -44,6 +45,7 @@ class _SiteLayoutState extends State<SiteLayout> {
     context.read<HistoricTiketBloc>().add(FetchHistoricTiket());
     context.read<AdminBloc>().add(FetchAllAdmin());
     context.read<PelangganBloc>().add(FetchAllPelanggan());
+    context.read<OdpBloc>().add(FetchOdp());
     super.initState();
   }
 
@@ -132,7 +134,8 @@ class _SiteLayoutState extends State<SiteLayout> {
               dialogType: DialogType.warning,
               animType: AnimType.scale,
               title: 'Warning!',
-              desc: 'Apakah anda yakin ingin menghapus ${state.namaTeknisi}?',
+              desc:
+                  'Apakah anda yakin ingin menghapus ${state.namaTeknisi}?\nSemua data yang berhubungan akan ikut terhapus!',
               btnOkOnPress: () {
                 context
                     .read<DeleteTeknisiBloc>()

@@ -28,7 +28,7 @@ class DataTableSourceTeknisi extends DataTableSource {
           DataCell(Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomText(text: data.sektor),
+              CustomText(text: data.kehadiran),
               const SizedBox(width: 24),
             ],
           )),

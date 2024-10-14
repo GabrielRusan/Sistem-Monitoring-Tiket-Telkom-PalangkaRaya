@@ -154,7 +154,18 @@ class _DetailHistoricTicketTableState extends State<DetailHistoricTicketTable> {
                       DataColumn2(
                         size: ColumnSize.L,
                         label: const CustomText(
-                            text: 'Start Time',
+                            text: 'Waktu Mulai',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.bold),
+                        onSort: (columnIndex, ascending) => context
+                            .read<DetailHistoricTiketBloc>()
+                            .add(SortDetailHistoricTiket(
+                                columnIndex, ascending)),
+                      ),
+                      DataColumn2(
+                        size: ColumnSize.L,
+                        label: const CustomText(
+                            text: 'Waktu Selesai',
                             textAlign: TextAlign.center,
                             weight: FontWeight.bold),
                         onSort: (columnIndex, ascending) => context
@@ -194,8 +205,9 @@ class _DetailHistoricTicketTableState extends State<DetailHistoricTicketTable> {
                       ),
                     ],
                     source: state.isFiltered
-                        ? DataTableSourceTiket(state.filteredResult)
-                        : DataTableSourceTiket(state.result),
+                        ? DataTableSourceTiket(state.filteredResult,
+                            isHistory: true)
+                        : DataTableSourceTiket(state.result, isHistory: true),
                   ),
                 );
               },

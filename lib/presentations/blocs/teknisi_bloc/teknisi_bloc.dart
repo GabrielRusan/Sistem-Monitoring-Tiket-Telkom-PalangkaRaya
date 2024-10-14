@@ -30,7 +30,7 @@ class TeknisiBloc extends Bloc<TeknisiEvent, TeknisiState> {
       final String usename = teknisi.username.toLowerCase();
       final String password = teknisi.pass.toLowerCase();
       final String nama = teknisi.nama.toLowerCase();
-      final String sektor = teknisi.sektor.toLowerCase();
+      final String kehadiran = teknisi.kehadiran.toLowerCase();
       final String ket = teknisi.ket.toLowerCase();
 
       final String createdAt =
@@ -40,7 +40,7 @@ class TeknisiBloc extends Bloc<TeknisiEvent, TeknisiState> {
           usename.contains(query) ||
           password.contains(query) ||
           nama.contains(query) ||
-          sektor.contains(query) ||
+          kehadiran.contains(query) ||
           createdAt.contains(query) ||
           ket.contains(query)) {
         filteredResult.add(teknisi);
@@ -86,7 +86,7 @@ class TeknisiBloc extends Bloc<TeknisiEvent, TeknisiState> {
       1: (a, b) => a.username.toLowerCase().compareTo(b.username.toLowerCase()),
       2: (a, b) => a.pass.compareTo(b.pass),
       3: (a, b) => a.nama.compareTo(b.nama),
-      4: (a, b) => a.sektor.compareTo(b.sektor),
+      4: (a, b) => a.kehadiran.compareTo(b.kehadiran),
       5: (a, b) => a.ket.compareTo(b.ket),
       6: (a, b) => a.createdAt.compareTo(b.createdAt),
     };

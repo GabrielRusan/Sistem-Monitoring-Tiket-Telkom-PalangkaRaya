@@ -2,9 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:telkom_ticket_manager/domain/entities/teknisi.dart';
 
 class TeknisiModel extends Equatable {
-  final int idteknisi;
+  final String idteknisi;
   final String nama;
-  final String sektor;
+  final String kehadiran;
   final String username;
   final String pass;
   final String ket;
@@ -14,7 +14,7 @@ class TeknisiModel extends Equatable {
   const TeknisiModel({
     required this.idteknisi,
     required this.nama,
-    required this.sektor,
+    required this.kehadiran,
     required this.username,
     required this.pass,
     required this.ket,
@@ -25,7 +25,7 @@ class TeknisiModel extends Equatable {
   factory TeknisiModel.fromJson(Map<String, dynamic> json) => TeknisiModel(
         idteknisi: json["idteknisi"],
         nama: json["nama"],
-        sektor: json["sektor"],
+        kehadiran: json["kehadiran"],
         username: json["username"],
         pass: json["pass"],
         ket: json["ket"],
@@ -36,7 +36,7 @@ class TeknisiModel extends Equatable {
   factory TeknisiModel.fromEntity(Teknisi entity) => TeknisiModel(
         idteknisi: entity.idteknisi,
         nama: entity.nama,
-        sektor: entity.sektor,
+        kehadiran: entity.kehadiran,
         username: entity.username,
         pass: entity.pass,
         ket: entity.ket,
@@ -46,7 +46,7 @@ class TeknisiModel extends Equatable {
 
   Map<String, dynamic> toJson() => {
         "nama": nama,
-        "sektor": sektor,
+        "kehadiran": kehadiran,
         "username": username,
         "pass": pass,
         "ket": ket,
@@ -57,7 +57,7 @@ class TeknisiModel extends Equatable {
   Teknisi toEntity() => Teknisi(
       idteknisi: idteknisi,
       nama: nama,
-      sektor: sektor,
+      kehadiran: kehadiran,
       username: username,
       pass: pass,
       ket: ket,
@@ -66,5 +66,5 @@ class TeknisiModel extends Equatable {
 
   @override
   List<Object?> get props =>
-      [idteknisi, nama, sektor, username, pass, ket, createdAt, updatedAt];
+      [idteknisi, nama, kehadiran, username, pass, ket, createdAt, updatedAt];
 }

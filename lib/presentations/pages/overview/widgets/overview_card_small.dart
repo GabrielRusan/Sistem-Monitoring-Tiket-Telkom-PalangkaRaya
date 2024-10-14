@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/belum_diperbaiki_card.dart';
 import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/sedang_diperbaiki_card.dart';
 import 'package:telkom_ticket_manager/presentations/pages/overview/widgets/selesai_diperbaiki_card.dart';
 
@@ -13,12 +12,6 @@ class OverviewCardSmallScreen extends StatelessWidget {
       height: 400,
       child: Column(children: [
         const SedangDiperbaikiCard(
-          isSmall: true,
-        ),
-        SizedBox(
-          height: width / 64,
-        ),
-        const BelumDiperbaikiCard(
           isSmall: true,
         ),
         SizedBox(

@@ -35,7 +35,7 @@ class TeknisiRepositoryImpl implements TeknisiRepository {
   }
 
   @override
-  Future<Either<Failure, String>> deleteTeknisi(int id) async {
+  Future<Either<Failure, String>> deleteTeknisi(String id) async {
     try {
       final result = await remoteDataSource.deleteTeknisi(id);
       return Right(result);

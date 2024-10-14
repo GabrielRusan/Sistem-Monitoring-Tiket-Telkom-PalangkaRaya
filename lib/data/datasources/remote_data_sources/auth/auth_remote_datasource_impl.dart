@@ -23,6 +23,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       await sharedPref.setString("token", data["token"]);
       await sharedPref.setString("nama", data["nama"]);
+      print(data['idadmin']);
       await sharedPref.setString("id", data["idadmin"].toString());
       return true;
     } on DioException catch (e) {

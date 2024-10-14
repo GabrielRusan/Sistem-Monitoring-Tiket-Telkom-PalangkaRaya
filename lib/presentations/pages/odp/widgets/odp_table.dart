@@ -1,14 +1,14 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:telkom_ticket_manager/domain/entities/data_table_source_pelanggan.dart';
-import 'package:telkom_ticket_manager/presentations/blocs/pelanggan_bloc/pelanggan_bloc.dart';
+import 'package:telkom_ticket_manager/domain/entities/data_table_source_odp.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/odp_bloc/odp_bloc.dart';
 import 'package:telkom_ticket_manager/utils/responsivennes.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
 
-class PelangganTable extends StatelessWidget {
-  const PelangganTable({super.key});
+class OdpTable extends StatelessWidget {
+  const OdpTable({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +34,7 @@ class PelangganTable extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomText(
-                  text: "Pelanggan Table",
-                  color: lightGrey,
-                  weight: FontWeight.bold),
+                  text: "ODP Table", color: lightGrey, weight: FontWeight.bold),
               SizedBox(
                 width: ResponsiveWidget.isSmallScreen(context) ? 200 : 300,
                 child: TextField(
@@ -52,9 +50,8 @@ class PelangganTable extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20)),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(0))),
-                  onChanged: (value) => context
-                      .read<PelangganBloc>()
-                      .add(SearchPelanggan(query: value)),
+                  onChanged: (value) =>
+                      context.read<OdpBloc>().add(SearchOdp(query: value)),
                 ),
               ),
             ],
@@ -63,13 +60,13 @@ class PelangganTable extends StatelessWidget {
             height: 16,
           ),
           Expanded(
-            child: BlocBuilder<PelangganBloc, PelangganState>(
+            child: BlocBuilder<OdpBloc, OdpState>(
               builder: (context, state) {
-                if (state.status == PelangganStatus.empty) {
+                if (state.status == OdpStatus.empty) {
                   return const Center(
                     child: CustomText(text: 'Data Kosong!'),
                   );
-                } else if (state.status == PelangganStatus.loaded) {
+                } else if (state.status == OdpStatus.loaded) {
                   return Theme(
                     data: Theme.of(context).copyWith(
                       dataTableTheme: DataTableThemeData(
@@ -91,59 +88,49 @@ class PelangganTable extends StatelessWidget {
                       sortAscending: state.sortAscending,
                       columns: [
                         DataColumn2(
-                          fixedWidth: 200,
                           label: const CustomText(
-                              text: 'Id',
+                              text: 'ID ODP',
                               textAlign: TextAlign.center,
                               weight: FontWeight.bold),
                           onSort: (columnIndex, ascending) => context
-                              .read<PelangganBloc>()
-                              .add(SortPelangganEvent(columnIndex, ascending)),
+                              .read<OdpBloc>()
+                              .add(SortOdp(columnIndex, ascending)),
                         ),
                         DataColumn2(
                           label: const CustomText(
-                              text: 'Nama',
+                              text: 'CreatedAt',
                               textAlign: TextAlign.center,
                               weight: FontWeight.bold),
                           onSort: (columnIndex, ascending) => context
-                              .read<PelangganBloc>()
-                              .add(SortPelangganEvent(columnIndex, ascending)),
+                              .read<OdpBloc>()
+                              .add(SortOdp(columnIndex, ascending)),
                         ),
                         DataColumn2(
                           label: const CustomText(
-                              text: 'Alamat',
+                              text: 'UpdatedAt',
                               textAlign: TextAlign.center,
                               weight: FontWeight.bold),
                           onSort: (columnIndex, ascending) => context
-                              .read<PelangganBloc>()
-                              .add(SortPelangganEvent(columnIndex, ascending)),
-                        ),
-                        DataColumn2(
-                          label: const CustomText(
-                              text: 'No HP',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
-                          onSort: (columnIndex, ascending) => context
-                              .read<PelangganBloc>()
-                              .add(SortPelangganEvent(columnIndex, ascending)),
+                              .read<OdpBloc>()
+                              .add(SortOdp(columnIndex, ascending)),
                         ),
                       ],
                       source: state.isFiltered
-                          ? DataTableSourcePelanggan(
+                          ? DataTableSourceOdp(
                               context,
                               state.filteredResult,
                             )
-                          : DataTableSourcePelanggan(
+                          : DataTableSourceOdp(
                               context,
                               state.result,
                             ),
                     ),
                   );
-                } else if (state.status == PelangganStatus.empty) {
+                } else if (state.status == OdpStatus.empty) {
                   return const Center(
                     child: CustomText(text: 'Data Kosong'),
                   );
-                } else if (state.status == PelangganStatus.error) {
+                } else if (state.status == OdpStatus.error) {
                   return Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -155,9 +142,7 @@ class PelangganTable extends StatelessWidget {
                         ),
                         ElevatedButton(
                             onPressed: () {
-                              context
-                                  .read<PelangganBloc>()
-                                  .add(FetchAllPelanggan());
+                              context.read<OdpBloc>().add(FetchOdp());
                             },
                             child: const CustomText(text: 'Coba Lagi'))
                       ],

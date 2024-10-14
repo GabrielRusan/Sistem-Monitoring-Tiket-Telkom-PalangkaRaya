@@ -85,7 +85,7 @@ class TeknisiRemoteDataSourceImpl extends TeknisiRemoteDataSource {
   }
 
   @override
-  Future<String> deleteTeknisi(int id) async {
+  Future<String> deleteTeknisi(String id) async {
     final String? token = _sharedPref.getString('token');
 
     if (token == null) throw NoCredentialException();
@@ -134,12 +134,7 @@ class TeknisiRemoteDataSourceImpl extends TeknisiRemoteDataSource {
     try {
       await _dio.put('$baseUrl/teknisi/${teknisi.idteknisi}',
           options: Options(headers: {'Authorization': 'Bearer $token'}),
-          data: {
-            "nama": teknisi.nama,
-            "sektor": teknisi.sektor,
-            "username": teknisi.username,
-            "pass": teknisi.pass
-          });
+          data: teknisi.toJson());
 
       return "Berhasil update teknisi!";
     } on DioException catch (e) {

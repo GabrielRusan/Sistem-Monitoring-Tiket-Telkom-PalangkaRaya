@@ -10,6 +10,9 @@ const adminPageRoute = "/admin";
 const teknisiPageDisplayName = "Teknisi";
 const teknisiPageRoute = "/teknisi";
 
+const odpPageDisplayName = "ODP";
+const odpPageRoute = "/odp";
+
 const clientPageDisplayName = "Client";
 const clientPageRoute = "/client";
 
@@ -35,6 +38,10 @@ List<MenuItem> sideMenuItems = [
   MenuItem(
     name: teknisiPageDisplayName,
     route: teknisiPageRoute,
+  ),
+  MenuItem(
+    name: odpPageDisplayName,
+    route: odpPageRoute,
   ),
   MenuItem(
     name: clientPageDisplayName,

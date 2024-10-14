@@ -26,7 +26,7 @@ class UpdateTeknisiBloc extends Bloc<UpdateTeknisiEvent, UpdateTeknisiState> {
           username: Username.dirty(event.teknisi.username),
           name: Name.dirty(event.teknisi.nama),
           password: Password.dirty(event.teknisi.pass),
-          sektor: event.teknisi.sektor)),
+          kehadiran: event.teknisi.kehadiran)),
     );
   }
 
@@ -56,7 +56,7 @@ class UpdateTeknisiBloc extends Bloc<UpdateTeknisiEvent, UpdateTeknisiState> {
   void _onSektorChanged(
       OnChangedSektor event, Emitter<UpdateTeknisiState> emit) {
     emit(state.copyWith(
-        sektor: event.value,
+        kehadiran: event.value,
         isValid: Formz.validate([state.password, state.name, state.username])));
   }
 
@@ -69,7 +69,7 @@ class UpdateTeknisiBloc extends Bloc<UpdateTeknisiEvent, UpdateTeknisiState> {
     final Teknisi teknisi = Teknisi(
         idteknisi: state.idTeknisi,
         nama: state.name.value,
-        sektor: state.sektor,
+        kehadiran: state.kehadiran,
         username: state.username.value,
         pass: state.password.value,
         ket: 'available',

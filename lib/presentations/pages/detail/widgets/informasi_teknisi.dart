@@ -42,10 +42,10 @@ class InformasiTeknisi extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: 24),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              'https://plus.unsplash.com/premium_photo-1661657662067-3a9db81248d4?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')),
+                      // image: DecorationImage(
+                      //     fit: BoxFit.cover,
+                      //     image: NetworkImage(
+                      //         'https://plus.unsplash.com/premium_photo-1661657662067-3a9db81248d4?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')),
                     ),
                     // child: ,
                   )
@@ -116,7 +116,7 @@ class InformasiTeknisi extends StatelessWidget {
                       const SizedBox(
                         height: 8,
                       ),
-                      CustomText(text: ':  ${teknisi.sektor.toUpperCase()}'),
+                      CustomText(text: ':  ${teknisi.kehadiran}'),
                       const SizedBox(
                         height: 8,
                       ),

@@ -145,29 +145,6 @@ class EditTeknisiForm extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                BlocBuilder<UpdateTeknisiBloc, UpdateTeknisiState>(
-                  builder: (context, state) {
-                    return DropdownButtonFormField(
-                        value: teknisi.sektor,
-                        items: const [
-                          DropdownMenuItem(
-                            value: 'plk1',
-                            child: Text('PLK1'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'plk2',
-                            child: Text('PLK2'),
-                          ),
-                        ],
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(), labelText: 'Sektor'),
-                        onChanged: (value) {
-                          context
-                              .read<UpdateTeknisiBloc>()
-                              .add(OnChangedSektor(value: value ?? 'plk1'));
-                        });
-                  },
-                ),
                 const SizedBox(
                   height: 30,
                 ),

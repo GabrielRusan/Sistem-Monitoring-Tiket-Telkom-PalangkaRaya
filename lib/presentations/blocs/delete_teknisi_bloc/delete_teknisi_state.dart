@@ -21,7 +21,7 @@ final class SuccessDeleteTeknisi extends DeleteTeknisiState {
 final class LoadingDeleteTeknisi extends DeleteTeknisiState {}
 
 final class WarningDeleteTeknisi extends DeleteTeknisiState {
-  final int idTeknisi;
+  final String idTeknisi;
   final String namaTeknisi;
   const WarningDeleteTeknisi(
       {required this.idTeknisi, required this.namaTeknisi});

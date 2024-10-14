@@ -142,29 +142,6 @@ class AddTeknisiForm extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                BlocBuilder<AddTeknisiBloc, AddTeknisiState>(
-                  builder: (context, state) {
-                    return DropdownButtonFormField(
-                        value: state.sektor,
-                        items: const [
-                          DropdownMenuItem(
-                            value: 'plk1',
-                            child: Text('PLK1'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'plk2',
-                            child: Text('PLK2'),
-                          ),
-                        ],
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(), labelText: 'Sektor'),
-                        onChanged: (value) {
-                          context
-                              .read<AddTeknisiBloc>()
-                              .add(OnChangedSektor(value: value ?? 'plk1'));
-                        });
-                  },
-                ),
                 const SizedBox(
                   height: 30,
                 ),

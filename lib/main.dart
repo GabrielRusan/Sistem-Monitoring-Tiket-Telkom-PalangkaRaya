@@ -15,6 +15,7 @@ import 'package:telkom_ticket_manager/presentations/blocs/detail_all_tiket_bloc/
 import 'package:telkom_ticket_manager/presentations/blocs/detail_historic_tiket_bloc/detail_historic_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/historic_tiket_bloc/historic_tiket_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/login_bloc/login_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/odp_bloc/odp_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/pelanggan_bloc/pelanggan_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/update_admin_bloc/update_admin_bloc.dart';
@@ -92,6 +93,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<DetailAllTiketBloc>(
           create: (_) => di.locator<DetailAllTiketBloc>(),
+        ),
+        BlocProvider<OdpBloc>(
+          create: (_) => di.locator<OdpBloc>(),
         ),
       ],
       child: getx.GetMaterialApp(

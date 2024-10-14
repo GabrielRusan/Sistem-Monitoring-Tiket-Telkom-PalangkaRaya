@@ -31,6 +31,8 @@ class MyMenuController extends GetxController {
         return customIcon(Icons.admin_panel_settings_outlined, itemName);
       case teknisiPageDisplayName:
         return customIcon(Icons.person_2_outlined, itemName);
+      case odpPageDisplayName:
+        return customIcon(Icons.electric_meter_outlined, itemName);
       case clientPageDisplayName:
         return customIcon(Icons.people_alt_outlined, itemName);
       case authenticationPageDisplayName:
