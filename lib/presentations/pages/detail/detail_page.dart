@@ -9,7 +9,6 @@ import 'package:telkom_ticket_manager/presentations/blocs/detail_historic_tiket_
 import 'package:telkom_ticket_manager/presentations/pages/detail/widgets/detail_active_ticket_table.dart';
 import 'package:telkom_ticket_manager/presentations/pages/detail/widgets/detail_historic_ticket_table.dart';
 import 'package:telkom_ticket_manager/presentations/pages/detail/widgets/detail_overview_card_large.dart';
-import 'package:telkom_ticket_manager/presentations/pages/detail/widgets/detail_overview_card_medium.dart';
 import 'package:telkom_ticket_manager/presentations/pages/detail/widgets/detail_overview_card_small.dart';
 import 'package:telkom_ticket_manager/presentations/pages/detail/widgets/detail_ticket_gangguan_section_large.dart';
 import 'package:telkom_ticket_manager/presentations/pages/detail/widgets/detail_ticket_gangguan_section_small.dart';
@@ -73,11 +72,7 @@ class _DetailPageState extends State<DetailPage> {
             children: [
               if (ResponsiveWidget.isLargeScreen(context) ||
                   ResponsiveWidget.isMediumScreen(context))
-                if (ResponsiveWidget.isCustomScreen(
-                    context)) // custom screen size start dari medium screen size
-                  const DetailOverviewCardMediumScreen()
-                else
-                  const DetailOverviewCardLargeScreen()
+                const DetailOverviewCardLargeScreen()
               else
                 const DetailOverviewCardSmallScreen(),
               //
