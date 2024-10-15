@@ -65,7 +65,6 @@ class _DetailPageState extends State<DetailPage> {
       appBar: AppBar(
         surfaceTintColor: Colors.white,
         backgroundColor: light,
-        leading: const SizedBox(),
       ),
       body: ResponsiveWidget(
         largeScreen: Padding(

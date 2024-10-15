@@ -39,14 +39,21 @@ class InformasiPelanggan extends StatelessWidget {
                     height: 220,
                     width: 220,
                     margin: const EdgeInsets.only(bottom: 24),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              'https://images.unsplash.com/photo-1521566652839-697aa473761a?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')),
+                      color: Colors.grey.shade500,
+                      // image: DecorationImage(
+                      //     fit: BoxFit.cover,
+                      //     image: NetworkImage(
+                      //         'https://images.unsplash.com/photo-1521566652839-697aa473761a?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')),
                     ),
-                    // child: ,
+                    child: Center(
+                      child: Icon(
+                        Icons.person_outline,
+                        size: 50,
+                        color: Colors.grey.shade200,
+                      ),
+                    ),
                   )
                 : const SizedBox(),
             Row(
