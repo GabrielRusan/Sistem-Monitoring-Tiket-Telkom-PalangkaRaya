@@ -145,6 +145,34 @@ class EditTeknisiForm extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
+                BlocBuilder<UpdateTeknisiBloc, UpdateTeknisiState>(
+                  builder: (context, state) {
+                    return DropdownButtonFormField(
+                        value: teknisi.kehadiran,
+                        items: const [
+                          DropdownMenuItem(
+                            value: 'Hadir',
+                            child: Text('Hadir'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Izin',
+                            child: Text('Izin'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Sakit',
+                            child: Text('Sakit'),
+                          ),
+                        ],
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Kehadiran'),
+                        onChanged: (value) {
+                          context
+                              .read<UpdateTeknisiBloc>()
+                              .add(OnChangedKehadiran(value: value ?? 'Hadir'));
+                        });
+                  },
+                ),
                 const SizedBox(
                   height: 30,
                 ),

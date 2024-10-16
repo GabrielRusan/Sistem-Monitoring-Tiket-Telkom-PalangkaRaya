@@ -17,7 +17,7 @@ class UpdateTeknisiBloc extends Bloc<UpdateTeknisiEvent, UpdateTeknisiState> {
     on<OnChangedName>(_onNameChanged);
     on<OnChangedUsername>(_onUsernameChanged);
     on<OnChangedPassword>(_onPasswordChanged);
-    on<OnChangedSektor>(_onSektorChanged);
+    on<OnChangedKehadiran>(_onKehadiranChanged);
     on<SubmitUpdateTeknisi>(_onSubmitUpdateTeknisi);
     on<ClearUpdateTeknisi>((event, emit) => emit(const UpdateTeknisiState()));
     on<InitialEventTeknisi>(
@@ -53,8 +53,8 @@ class UpdateTeknisiBloc extends Bloc<UpdateTeknisiEvent, UpdateTeknisiState> {
         isValid: Formz.validate([password, state.name, state.username])));
   }
 
-  void _onSektorChanged(
-      OnChangedSektor event, Emitter<UpdateTeknisiState> emit) {
+  void _onKehadiranChanged(
+      OnChangedKehadiran event, Emitter<UpdateTeknisiState> emit) {
     emit(state.copyWith(
         kehadiran: event.value,
         isValid: Formz.validate([state.password, state.name, state.username])));

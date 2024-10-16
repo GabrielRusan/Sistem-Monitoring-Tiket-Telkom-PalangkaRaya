@@ -34,10 +34,10 @@ final class OnChangedPassword extends UpdateTeknisiEvent {
   List<Object> get props => [value];
 }
 
-final class OnChangedSektor extends UpdateTeknisiEvent {
+final class OnChangedKehadiran extends UpdateTeknisiEvent {
   final String value;
 
-  const OnChangedSektor({required this.value});
+  const OnChangedKehadiran({required this.value});
 
   @override
   List<Object> get props => [value];
