@@ -94,7 +94,6 @@ class OdpBloc extends Bloc<OdpEvent, OdpState> {
     emit(state.copyWith(status: OdpStatus.loading));
     try {
       final result = await _odpDatSource.getOdp();
-      print(result);
       if (result.isEmpty) {
         emit(state.copyWith(status: OdpStatus.empty));
         return;
@@ -104,7 +103,6 @@ class OdpBloc extends Bloc<OdpEvent, OdpState> {
         result: result,
       ));
     } catch (e) {
-      print(e);
       emit(state.copyWith(
           status: OdpStatus.error, errorMessage: 'Something Wrong Occured'));
     }
