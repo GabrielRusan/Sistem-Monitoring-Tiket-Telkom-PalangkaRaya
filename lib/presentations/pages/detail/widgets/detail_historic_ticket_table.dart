@@ -91,7 +91,7 @@ class _DetailHistoricTicketTableState extends State<DetailHistoricTicketTable> {
                     wrapInCard: false,
                     columnSpacing: 12,
                     horizontalMargin: 12,
-                    minWidth: 1500,
+                    minWidth: 2000,
                     renderEmptyRowsInTheEnd: false,
                     sortAscending: state.sortAscending,
                     sortColumnIndex: state.sortColumnIndex,
@@ -108,7 +108,7 @@ class _DetailHistoricTicketTableState extends State<DetailHistoricTicketTable> {
                                 columnIndex, ascending)),
                       ),
                       DataColumn2(
-                        size: ColumnSize.L,
+                        fixedWidth: 200,
                         label: const CustomText(
                             text: 'Nama Pelanggan',
                             textAlign: TextAlign.center,
@@ -119,7 +119,7 @@ class _DetailHistoricTicketTableState extends State<DetailHistoricTicketTable> {
                                 columnIndex, ascending)),
                       ),
                       DataColumn2(
-                        size: ColumnSize.L,
+                        fixedWidth: 200,
                         label: const CustomText(
                             text: 'Alamat',
                             textAlign: TextAlign.center,
@@ -130,7 +130,7 @@ class _DetailHistoricTicketTableState extends State<DetailHistoricTicketTable> {
                                 columnIndex, ascending)),
                       ),
                       DataColumn2(
-                        size: ColumnSize.L,
+                        fixedWidth: 200,
                         label: const CustomText(
                             text: 'Keluhan',
                             textAlign: TextAlign.center,
@@ -141,7 +141,7 @@ class _DetailHistoricTicketTableState extends State<DetailHistoricTicketTable> {
                                 columnIndex, ascending)),
                       ),
                       DataColumn2(
-                        size: ColumnSize.L,
+                        fixedWidth: 200,
                         label: const CustomText(
                             text: 'ODP',
                             textAlign: TextAlign.center,
@@ -152,7 +152,7 @@ class _DetailHistoricTicketTableState extends State<DetailHistoricTicketTable> {
                                 columnIndex, ascending)),
                       ),
                       DataColumn2(
-                        size: ColumnSize.L,
+                        fixedWidth: 220,
                         label: const CustomText(
                             text: 'Waktu Mulai',
                             textAlign: TextAlign.center,
@@ -163,9 +163,20 @@ class _DetailHistoricTicketTableState extends State<DetailHistoricTicketTable> {
                                 columnIndex, ascending)),
                       ),
                       DataColumn2(
-                        size: ColumnSize.L,
+                        fixedWidth: 220,
                         label: const CustomText(
                             text: 'Waktu Selesai',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.bold),
+                        onSort: (columnIndex, ascending) => context
+                            .read<DetailHistoricTiketBloc>()
+                            .add(SortDetailHistoricTiket(
+                                columnIndex, ascending)),
+                      ),
+                      DataColumn2(
+                        fixedWidth: 200,
+                        label: const CustomText(
+                            text: 'Durasi Pengerjaan',
                             textAlign: TextAlign.center,
                             weight: FontWeight.bold),
                         onSort: (columnIndex, ascending) => context

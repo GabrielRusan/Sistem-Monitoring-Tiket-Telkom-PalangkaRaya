@@ -24,3 +24,25 @@ String remainingTime(DateTime date, {int tenggatInHour = 3}) {
 
   return remainingTime;
 }
+
+String calculateDurasi(DateTime startDate, DateTime endDate) {
+  Duration diff = endDate.difference(startDate);
+
+  int days = diff.inDays;
+  int hours = diff.inHours.remainder(24);
+  int minutes = diff.inMinutes.remainder(60);
+
+  List<String> parts = [];
+
+  if (days > 0) {
+    parts.add('$days hari');
+  }
+  if (hours > 0) {
+    parts.add('$hours jam');
+  }
+  if (minutes > 0) {
+    parts.add('$minutes menit');
+  }
+
+  return parts.isNotEmpty ? parts.join(' ') : '0 menit';
+}

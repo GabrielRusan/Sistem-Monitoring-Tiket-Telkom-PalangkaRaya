@@ -22,6 +22,8 @@ class DataTableSourceTiket extends DataTableSource {
             DataCell(CustomText(text: data.idOdp)),
             DataCell(CustomText(text: dateToStringLengkap(data.createdAt))),
             DataCell(CustomText(text: dateToStringLengkap(data.updatedAt))),
+            DataCell(CustomText(
+                text: calculateDurasi(data.createdAt, data.updatedAt))),
             DataCell(CustomText(text: data.namaTeknisi)),
             DataCell(CustomText(text: data.type)),
             DataCell(CustomText(text: data.status)),
