@@ -34,16 +34,14 @@ class EditTeknisiForm extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: Text(
-                        "X",
-                        style: GoogleFonts.roboto(
-                            color: lightGrey,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
+                    IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.cancel_outlined,
+                          color: lightGrey,
+                        ))
                   ],
                 ),
                 Text(
@@ -162,6 +160,10 @@ class EditTeknisiForm extends StatelessWidget {
                             value: 'Sakit',
                             child: Text('Sakit'),
                           ),
+                          DropdownMenuItem(
+                            value: 'Tidak Hadir',
+                            child: Text('Tidak Hadir'),
+                          ),
                         ],
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
@@ -170,6 +172,32 @@ class EditTeknisiForm extends StatelessWidget {
                           context
                               .read<UpdateTeknisiBloc>()
                               .add(OnChangedKehadiran(value: value ?? 'Hadir'));
+                        });
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                BlocBuilder<UpdateTeknisiBloc, UpdateTeknisiState>(
+                  builder: (context, state) {
+                    return DropdownButtonFormField(
+                        value: teknisi.ket,
+                        items: const [
+                          DropdownMenuItem(
+                            value: 'Available',
+                            child: Text('Available'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Not Available',
+                            child: Text('Not Available'),
+                          ),
+                        ],
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Keterangan'),
+                        onChanged: (value) {
+                          context.read<UpdateTeknisiBloc>().add(
+                              OnChangedKeterangan(value: value ?? 'Available'));
                         });
                   },
                 ),
