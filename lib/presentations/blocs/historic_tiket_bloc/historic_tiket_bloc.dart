@@ -131,6 +131,8 @@ class HistoricTiketBloc extends Bloc<HistoricTiketEvent, HistoricTiketState> {
         return;
       }
 
+      data.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+
       emit(state.copyWith(
           status: HistoricTiketStatus.loaded,
           result: data,

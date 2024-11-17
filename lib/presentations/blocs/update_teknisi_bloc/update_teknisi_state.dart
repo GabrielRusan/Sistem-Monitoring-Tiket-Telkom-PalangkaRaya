@@ -10,6 +10,7 @@ final class UpdateTeknisiState extends Equatable {
     this.keterangan = 'Available',
     this.isValid = false,
     this.status = FormzSubmissionStatus.initial,
+    this.statusTeknisi = 'Aktif',
     this.errorMessage,
   });
 
@@ -20,6 +21,7 @@ final class UpdateTeknisiState extends Equatable {
   final String kehadiran;
   final String keterangan;
   final bool isValid;
+  final String statusTeknisi;
   final FormzSubmissionStatus status;
   final String? errorMessage;
 
@@ -31,6 +33,7 @@ final class UpdateTeknisiState extends Equatable {
     String? kehadiran,
     String? keterangan,
     bool? isValid,
+    String? statusTeknisi,
     FormzSubmissionStatus? status,
     String? errorMessage,
   }) {
@@ -41,6 +44,7 @@ final class UpdateTeknisiState extends Equatable {
       password: password ?? this.password,
       kehadiran: kehadiran ?? this.kehadiran,
       keterangan: keterangan ?? this.keterangan,
+      statusTeknisi: statusTeknisi ?? this.statusTeknisi,
       isValid: isValid ?? this.isValid,
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
@@ -56,6 +60,7 @@ final class UpdateTeknisiState extends Equatable {
         kehadiran,
         isValid,
         status,
+        statusTeknisi,
         errorMessage
       ];
 }

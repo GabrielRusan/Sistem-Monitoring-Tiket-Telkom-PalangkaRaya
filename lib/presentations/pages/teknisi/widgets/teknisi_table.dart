@@ -172,6 +172,15 @@ class TeknisiTable extends StatelessWidget {
                         ),
                         DataColumn2(
                           label: const CustomText(
+                              text: 'Status',
+                              textAlign: TextAlign.center,
+                              weight: FontWeight.bold),
+                          onSort: (columnIndex, ascending) => context
+                              .read<TeknisiBloc>()
+                              .add(SortTeknisiEvent(columnIndex, ascending)),
+                        ),
+                        DataColumn2(
+                          label: const CustomText(
                               text: 'CreatedAt',
                               textAlign: TextAlign.center,
                               weight: FontWeight.bold),

@@ -34,6 +34,33 @@ final class OnChangedPassword extends AddTeknisiEvent {
   List<Object> get props => [value];
 }
 
+final class OnChangedKehadiran extends AddTeknisiEvent {
+  final String value;
+
+  const OnChangedKehadiran({required this.value});
+
+  @override
+  List<Object> get props => [value];
+}
+
+final class OnChangedKeterangan extends AddTeknisiEvent {
+  final String value;
+
+  const OnChangedKeterangan({required this.value});
+
+  @override
+  List<Object> get props => [value];
+}
+
+final class OnChangedStatus extends AddTeknisiEvent {
+  final String value;
+
+  const OnChangedStatus({required this.value});
+
+  @override
+  List<Object> get props => [value];
+}
+
 final class SubmitAddTeknisi extends AddTeknisiEvent {}
 
 final class ClearAddTeknisi extends AddTeknisiEvent {}

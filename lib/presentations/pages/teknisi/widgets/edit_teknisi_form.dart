@@ -50,7 +50,7 @@ class EditTeknisiForm extends StatelessWidget {
                       fontSize: 28, fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(
-                  height: 48,
+                  height: 30,
                 ),
                 BlocBuilder<UpdateTeknisiBloc, UpdateTeknisiState>(
                   buildWhen: (previous, current) =>
@@ -193,11 +193,36 @@ class EditTeknisiForm extends StatelessWidget {
                           ),
                         ],
                         decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Keterangan'),
+                            border: OutlineInputBorder(), labelText: 'Status'),
                         onChanged: (value) {
                           context.read<UpdateTeknisiBloc>().add(
                               OnChangedKeterangan(value: value ?? 'Available'));
+                        });
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                BlocBuilder<UpdateTeknisiBloc, UpdateTeknisiState>(
+                  builder: (context, state) {
+                    return DropdownButtonFormField(
+                        value: teknisi.status,
+                        items: const [
+                          DropdownMenuItem(
+                            value: 'Aktif',
+                            child: Text('Aktif'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Non Aktif',
+                            child: Text('Non Aktif'),
+                          ),
+                        ],
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(), labelText: 'Status'),
+                        onChanged: (value) {
+                          context
+                              .read<UpdateTeknisiBloc>()
+                              .add(OnChangedStatus(value: value ?? 'Aktif'));
                         });
                   },
                 ),

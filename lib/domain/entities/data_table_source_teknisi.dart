@@ -33,6 +33,7 @@ class DataTableSourceTeknisi extends DataTableSource {
             ],
           )),
           DataCell(CustomText(text: data.ket)),
+          DataCell(CustomText(text: data.status)),
           DataCell(CustomText(text: dateToStringLengkap(data.createdAt))),
           DataCell(Row(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -8,6 +8,7 @@ class TeknisiModel extends Equatable {
   final String username;
   final String pass;
   final String ket;
+  final String status;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -18,6 +19,7 @@ class TeknisiModel extends Equatable {
     required this.username,
     required this.pass,
     required this.ket,
+    required this.status,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -29,6 +31,7 @@ class TeknisiModel extends Equatable {
         username: json["username"],
         pass: json["pass"],
         ket: json["ket"],
+        status: json["stateknisi"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
       );
@@ -40,6 +43,7 @@ class TeknisiModel extends Equatable {
         username: entity.username,
         pass: entity.pass,
         ket: entity.ket,
+        status: entity.status,
         createdAt: entity.createdAt,
         updatedAt: entity.updatedAt,
       );
@@ -50,6 +54,7 @@ class TeknisiModel extends Equatable {
         "username": username,
         "pass": pass,
         "ket": ket,
+        "stateknisi": status,
         // "createdAt": DateFormat('yyyy-MM-dd HH:mm:ss').format(createdAt),
         // "updatedAt": DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
       };
@@ -61,10 +66,20 @@ class TeknisiModel extends Equatable {
       username: username,
       pass: pass,
       ket: ket,
+      status: status,
       createdAt: createdAt,
       updatedAt: updatedAt);
 
   @override
-  List<Object?> get props =>
-      [idteknisi, nama, kehadiran, username, pass, ket, createdAt, updatedAt];
+  List<Object?> get props => [
+        idteknisi,
+        nama,
+        kehadiran,
+        username,
+        pass,
+        ket,
+        createdAt,
+        status,
+        updatedAt
+      ];
 }

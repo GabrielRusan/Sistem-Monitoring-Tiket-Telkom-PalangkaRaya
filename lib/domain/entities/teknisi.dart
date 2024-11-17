@@ -7,6 +7,7 @@ class Teknisi extends Equatable {
   final String username;
   final String pass;
   final String ket;
+  final String status;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -17,11 +18,21 @@ class Teknisi extends Equatable {
     required this.username,
     required this.pass,
     required this.ket,
+    required this.status,
     required this.createdAt,
     required this.updatedAt,
   });
 
   @override
-  List<Object?> get props =>
-      [idteknisi, nama, kehadiran, username, pass, ket, createdAt, updatedAt];
+  List<Object?> get props => [
+        idteknisi,
+        nama,
+        kehadiran,
+        username,
+        pass,
+        ket,
+        status,
+        createdAt,
+        updatedAt
+      ];
 }

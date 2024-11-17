@@ -52,6 +52,15 @@ final class OnChangedKeterangan extends UpdateTeknisiEvent {
   List<Object> get props => [value];
 }
 
+final class OnChangedStatus extends UpdateTeknisiEvent {
+  final String value;
+
+  const OnChangedStatus({required this.value});
+
+  @override
+  List<Object> get props => [value];
+}
+
 final class SubmitUpdateTeknisi extends UpdateTeknisiEvent {}
 
 final class ClearUpdateTeknisi extends UpdateTeknisiEvent {}

@@ -16,6 +16,9 @@ class AddTeknisiBloc extends Bloc<AddTeknisiEvent, AddTeknisiState> {
     on<OnChangedName>(_onNameChanged);
     on<OnChangedUsername>(_onUsernameChanged);
     on<OnChangedPassword>(_onPasswordChanged);
+    on<OnChangedKehadiran>(_onKehadiranChanged);
+    on<OnChangedKeterangan>(_onKeteranganChanged);
+    on<OnChangedStatus>(_onStatusChanged);
     on<SubmitAddTeknisi>(_onSubmitAddTeknisi);
     on<ClearAddTeknisi>((event, emit) => emit(const AddTeknisiState()));
   }
@@ -43,6 +46,26 @@ class AddTeknisiBloc extends Bloc<AddTeknisiEvent, AddTeknisiState> {
         isValid: Formz.validate([password, state.name, state.username])));
   }
 
+  void _onKehadiranChanged(
+      OnChangedKehadiran event, Emitter<AddTeknisiState> emit) {
+    emit(state.copyWith(
+        kehadiran: event.value,
+        isValid: Formz.validate([state.password, state.name, state.username])));
+  }
+
+  void _onKeteranganChanged(
+      OnChangedKeterangan event, Emitter<AddTeknisiState> emit) {
+    emit(state.copyWith(
+        keterangan: event.value,
+        isValid: Formz.validate([state.password, state.name, state.username])));
+  }
+
+  void _onStatusChanged(OnChangedStatus event, Emitter<AddTeknisiState> emit) {
+    emit(state.copyWith(
+        statusTeknisi: event.value,
+        isValid: Formz.validate([state.password, state.name, state.username])));
+  }
+
   Future<void> _onSubmitAddTeknisi(
       SubmitAddTeknisi event, Emitter<AddTeknisiState> emit) async {
     if (!state.isValid) return;
@@ -55,7 +78,8 @@ class AddTeknisiBloc extends Bloc<AddTeknisiEvent, AddTeknisiState> {
         kehadiran: state.kehadiran,
         username: state.username.value,
         pass: state.password.value,
-        ket: 'Available',
+        ket: state.keterangan,
+        status: state.statusTeknisi,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now());
 

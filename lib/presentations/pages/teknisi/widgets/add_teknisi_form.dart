@@ -142,6 +142,89 @@ class AddTeknisiForm extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
+                BlocBuilder<AddTeknisiBloc, AddTeknisiState>(
+                  builder: (context, state) {
+                    return DropdownButtonFormField(
+                        value: 'Hadir',
+                        items: const [
+                          DropdownMenuItem(
+                            value: 'Hadir',
+                            child: Text('Hadir'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Izin',
+                            child: Text('Izin'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Sakit',
+                            child: Text('Sakit'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Tidak Hadir',
+                            child: Text('Tidak Hadir'),
+                          ),
+                        ],
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Kehadiran'),
+                        onChanged: (value) {
+                          context
+                              .read<AddTeknisiBloc>()
+                              .add(OnChangedKehadiran(value: value ?? 'Hadir'));
+                        });
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                BlocBuilder<AddTeknisiBloc, AddTeknisiState>(
+                  builder: (context, state) {
+                    return DropdownButtonFormField(
+                        value: 'Available',
+                        items: const [
+                          DropdownMenuItem(
+                            value: 'Available',
+                            child: Text('Available'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Not Available',
+                            child: Text('Not Available'),
+                          ),
+                        ],
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(), labelText: 'Status'),
+                        onChanged: (value) {
+                          context.read<AddTeknisiBloc>().add(
+                              OnChangedKeterangan(value: value ?? 'Available'));
+                        });
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                BlocBuilder<AddTeknisiBloc, AddTeknisiState>(
+                  builder: (context, state) {
+                    return DropdownButtonFormField(
+                        value: 'Aktif',
+                        items: const [
+                          DropdownMenuItem(
+                            value: 'Aktif',
+                            child: Text('Aktif'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Non Aktif',
+                            child: Text('Non Aktif'),
+                          ),
+                        ],
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(), labelText: 'Status'),
+                        onChanged: (value) {
+                          context
+                              .read<AddTeknisiBloc>()
+                              .add(OnChangedStatus(value: value ?? 'Aktif'));
+                        });
+                  },
+                ),
                 const SizedBox(
                   height: 30,
                 ),

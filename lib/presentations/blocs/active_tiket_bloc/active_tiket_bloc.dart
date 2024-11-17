@@ -140,6 +140,8 @@ class ActiveTiketBloc extends Bloc<ActiveTiketEvent, ActiveTiketState> {
         }
       }
 
+      data.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+
       emit(state.copyWith(
         status: ActiveTiketStatus.loaded,
         result: data,

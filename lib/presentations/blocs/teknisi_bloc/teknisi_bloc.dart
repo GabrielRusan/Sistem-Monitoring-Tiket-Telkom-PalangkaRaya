@@ -75,6 +75,7 @@ class TeknisiBloc extends Bloc<TeknisiEvent, TeknisiState> {
             status: TeknisiStatus.error, errorMessage: failure.message));
       }
     }, (data) {
+      data.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
       emit(state.copyWith(
           result: data, status: TeknisiStatus.loaded, errorMessage: null));
     });
@@ -88,7 +89,8 @@ class TeknisiBloc extends Bloc<TeknisiEvent, TeknisiState> {
       3: (a, b) => a.nama.compareTo(b.nama),
       4: (a, b) => a.kehadiran.compareTo(b.kehadiran),
       5: (a, b) => a.ket.compareTo(b.ket),
-      6: (a, b) => a.createdAt.compareTo(b.createdAt),
+      6: (a, b) => a.status.compareTo(b.status),
+      7: (a, b) => a.createdAt.compareTo(b.createdAt),
     };
 
     if (state.isFiltered) {
