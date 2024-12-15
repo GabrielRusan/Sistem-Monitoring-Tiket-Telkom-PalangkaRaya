@@ -19,7 +19,6 @@ class DataTableSourceAdmin extends DataTableSource {
     if (index >= adminList.length) return null;
     final data = adminList[index];
     final thisAdminId = sharedPreferences.getString('id');
-    print(thisAdminId);
     return DataRow(cells: [
       DataCell(CustomText(text: data.idadmin.toString())),
       DataCell(CustomText(text: data.username)),

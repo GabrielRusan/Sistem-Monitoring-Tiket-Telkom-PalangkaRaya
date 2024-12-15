@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:telkom_ticket_manager/data/models/detail_tiket_model.dart';
 import 'package:telkom_ticket_manager/data/models/pelanggan_model.dart';
 import 'package:telkom_ticket_manager/domain/entities/tiket.dart';
 
@@ -16,6 +17,8 @@ class TiketModel extends Equatable {
   final PelangganModel pelanggan;
   final String idOdp;
   final String namaTeknisi;
+  final String idTeknisi;
+  final List<DetailTiketModel> detailTiket;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -28,6 +31,8 @@ class TiketModel extends Equatable {
     required this.pelanggan,
     required this.idOdp,
     required this.namaTeknisi,
+    required this.idTeknisi,
+    required this.detailTiket,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -40,7 +45,12 @@ class TiketModel extends Equatable {
         status: json["status"],
         pelanggan: PelangganModel.fromTiketJson(json["idpelanggan"]),
         idOdp: json["idodp"],
+        detailTiket: json['detail_tiket']
+            .map<DetailTiketModel>(
+                (detailTiket) => DetailTiketModel.fromJson(detailTiket))
+            .toList(),
         namaTeknisi: json["idteknisi"].split(' | ')[1],
+        idTeknisi: json["idteknisi"].split(' | ')[0],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
       );
@@ -54,6 +64,9 @@ class TiketModel extends Equatable {
       pelanggan: PelangganModel.fromEntity(tiket.pelanggan),
       idOdp: tiket.idOdp,
       namaTeknisi: tiket.namaTeknisi,
+      idTeknisi: tiket.idTeknisi,
+      detailTiket:
+          tiket.detailTiket.map((e) => DetailTiketModel.fromEntity(e)).toList(),
       createdAt: tiket.createdAt,
       updatedAt: tiket.updatedAt);
 
@@ -68,7 +81,8 @@ class TiketModel extends Equatable {
         createdAt,
         updatedAt,
         status,
-        type
+        type,
+        detailTiket,
       ];
 
   Tiket toEntity() => Tiket(
@@ -80,6 +94,8 @@ class TiketModel extends Equatable {
       pelanggan: pelanggan.toEntity(),
       idOdp: idOdp,
       namaTeknisi: namaTeknisi,
+      idTeknisi: idTeknisi,
+      detailTiket: detailTiket.map((e) => e.toEntity()).toList(),
       createdAt: createdAt,
       updatedAt: updatedAt);
 

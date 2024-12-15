@@ -1,6 +1,8 @@
 const rootRoute = "/dashboard";
 const detailRoute = "/detail";
 
+const detailTiketRoute = "/detail-tiket";
+
 const overviewPageDisplayName = "Overview";
 const overviewPageRoute = "/overview";
 

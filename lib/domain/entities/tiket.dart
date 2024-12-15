@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:telkom_ticket_manager/domain/entities/detail_tiket.dart';
 import 'package:telkom_ticket_manager/domain/entities/pelanggan.dart';
 
 class Tiket extends Equatable {
@@ -7,9 +8,11 @@ class Tiket extends Equatable {
   final String keluhan;
   final String type;
   final String status;
+  final List<DetailTiket> detailTiket;
   final Pelanggan pelanggan;
   final String idOdp;
   final String namaTeknisi;
+  final String idTeknisi;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -20,8 +23,10 @@ class Tiket extends Equatable {
     required this.type,
     required this.status,
     required this.pelanggan,
+    required this.detailTiket,
     required this.idOdp,
     required this.namaTeknisi,
+    required this.idTeknisi,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -36,6 +41,7 @@ class Tiket extends Equatable {
         createdAt,
         updatedAt,
         status,
-        type
+        type,
+        detailTiket,
       ];
 }

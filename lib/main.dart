@@ -23,6 +23,7 @@ import 'package:telkom_ticket_manager/presentations/blocs/update_pelanggan_bloc/
 import 'package:telkom_ticket_manager/presentations/blocs/update_teknisi_bloc/update_teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/user_cubit/user_cubit.dart';
 import 'package:telkom_ticket_manager/presentations/pages/detail/detail_page.dart';
+import 'package:telkom_ticket_manager/presentations/pages/detail/detail_tiket_page.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 import 'package:telkom_ticket_manager/presentations/controllers/menu_controller.dart';
 import 'package:telkom_ticket_manager/presentations/controllers/navigation_controller.dart';
@@ -117,6 +118,15 @@ class MyApp extends StatelessWidget {
                 final user = getx.Get.arguments;
                 return DetailPage(
                   user: user,
+                );
+              }),
+          getx.GetPage(
+              name: detailTiketRoute,
+              page: () {
+                final data = getx.Get.arguments;
+                return DetailTiketPage(
+                  detailTiket: data['detail_tiket'],
+                  choosenIdTeknisi: data['choosen_id_teknisi'],
                 );
               }),
         ],
