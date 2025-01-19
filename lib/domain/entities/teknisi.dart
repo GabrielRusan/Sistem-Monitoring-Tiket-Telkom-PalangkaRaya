@@ -8,6 +8,7 @@ class Teknisi extends Equatable {
   final String pass;
   final String ket;
   final String status;
+  final String imageUrl;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -19,6 +20,7 @@ class Teknisi extends Equatable {
     required this.pass,
     required this.ket,
     required this.status,
+    required this.imageUrl,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -33,6 +35,7 @@ class Teknisi extends Equatable {
         ket,
         status,
         createdAt,
-        updatedAt
+        updatedAt,
+        imageUrl
       ];
 }

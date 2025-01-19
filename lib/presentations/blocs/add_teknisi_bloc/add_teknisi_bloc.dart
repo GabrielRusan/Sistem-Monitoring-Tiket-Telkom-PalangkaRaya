@@ -81,7 +81,8 @@ class AddTeknisiBloc extends Bloc<AddTeknisiEvent, AddTeknisiState> {
         ket: state.keterangan,
         status: state.statusTeknisi,
         createdAt: DateTime.now(),
-        updatedAt: DateTime.now());
+        updatedAt: DateTime.now(),
+        imageUrl: '');
 
     final result = await _teknisiRepository.addTeknisi(teknisi);
 

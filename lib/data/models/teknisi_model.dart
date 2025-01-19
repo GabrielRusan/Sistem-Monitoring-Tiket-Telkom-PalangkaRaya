@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:telkom_ticket_manager/domain/entities/teknisi.dart';
+import 'package:telkom_ticket_manager/utils/constants.dart';
 
 class TeknisiModel extends Equatable {
   final String idteknisi;
@@ -9,6 +10,7 @@ class TeknisiModel extends Equatable {
   final String pass;
   final String ket;
   final String status;
+  final String imageUrl;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -19,6 +21,7 @@ class TeknisiModel extends Equatable {
     required this.username,
     required this.pass,
     required this.ket,
+    required this.imageUrl,
     required this.status,
     required this.createdAt,
     required this.updatedAt,
@@ -32,6 +35,7 @@ class TeknisiModel extends Equatable {
         pass: json["pass"],
         ket: json["ket"],
         status: json["stateknisi"],
+        imageUrl: "$baseUrl/uploads/teknisi/${json["foto"]}",
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
       );
@@ -43,6 +47,7 @@ class TeknisiModel extends Equatable {
         username: entity.username,
         pass: entity.pass,
         ket: entity.ket,
+        imageUrl: entity.imageUrl,
         status: entity.status,
         createdAt: entity.createdAt,
         updatedAt: entity.updatedAt,
@@ -67,6 +72,7 @@ class TeknisiModel extends Equatable {
       pass: pass,
       ket: ket,
       status: status,
+      imageUrl: imageUrl,
       createdAt: createdAt,
       updatedAt: updatedAt);
 
@@ -79,6 +85,7 @@ class TeknisiModel extends Equatable {
         pass,
         ket,
         createdAt,
+        imageUrl,
         status,
         updatedAt
       ];

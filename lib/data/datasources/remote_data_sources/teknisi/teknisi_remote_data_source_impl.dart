@@ -51,12 +51,16 @@ class TeknisiRemoteDataSourceImpl extends TeknisiRemoteDataSource {
     try {
       await _dio.post(
         '$baseUrl/teknisi/',
-        data: teknisi.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
+        data: FormData.fromMap({...teknisi.toJson(), 'devtok': ''}),
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'multipart/form-data',
+        }),
       );
 
       return "Berhasil menambah teknisi!";
     } on DioException catch (e) {
+      // print(e.response?.data);
       switch (e.type) {
         case DioExceptionType.connectionError:
           throw ConnectionException('Gagal menghubungkan dengan server!');
@@ -133,8 +137,11 @@ class TeknisiRemoteDataSourceImpl extends TeknisiRemoteDataSource {
 
     try {
       await _dio.put('$baseUrl/teknisi/${teknisi.idteknisi}',
-          options: Options(headers: {'Authorization': 'Bearer $token'}),
-          data: teknisi.toJson());
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'multipart/form-data'
+          }),
+          data: FormData.fromMap({...teknisi.toJson(), 'devtok': ''}));
 
       return "Berhasil update teknisi!";
     } on DioException catch (e) {
