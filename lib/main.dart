@@ -125,8 +125,8 @@ class MyApp extends StatelessWidget {
               page: () {
                 final data = getx.Get.arguments;
                 return DetailTiketPage(
-                  detailTiket: data['detail_tiket'],
-                  choosenIdTeknisi: data['choosen_id_teknisi'],
+                  detailTiket: data?['detail_tiket'],
+                  choosenIdTeknisi: data?['choosen_id_teknisi'],
                 );
               }),
         ],

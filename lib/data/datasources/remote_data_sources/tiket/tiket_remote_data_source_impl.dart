@@ -108,6 +108,7 @@ class TiketRemoteDataSourceImpl implements TiketRemoteDataSource {
         '$baseUrl/tiket/?status=Selesai',
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
+      // print(result.data);
 
       return TiketResponseModel.fromJson(result.data);
     } on DioException catch (e) {

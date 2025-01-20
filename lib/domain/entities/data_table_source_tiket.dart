@@ -33,7 +33,11 @@ class DataTableSourceTiket extends DataTableSource {
               ],
             onSelectChanged: (value) {
               Get.toNamed(detailTiketRoute,
-                  arguments: data.detailTiket, preventDuplicates: true);
+                  arguments: {
+                    'detail_tiket': data.detailTiket,
+                    'choosen_id_teknisi': data.idTeknisi
+                  },
+                  preventDuplicates: true);
             })
         : DataRow(
             cells: [

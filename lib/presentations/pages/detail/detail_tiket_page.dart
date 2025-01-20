@@ -9,7 +9,7 @@ import 'package:telkom_ticket_manager/utils/style.dart';
 
 class DetailTiketPage extends StatelessWidget {
   final List<DetailTiket>? detailTiket;
-  final String choosenIdTeknisi;
+  final String? choosenIdTeknisi;
   const DetailTiketPage(
       {super.key, required this.detailTiket, required this.choosenIdTeknisi});
 
