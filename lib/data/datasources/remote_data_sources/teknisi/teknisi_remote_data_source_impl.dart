@@ -141,7 +141,7 @@ class TeknisiRemoteDataSourceImpl extends TeknisiRemoteDataSource {
             'Authorization': 'Bearer $token',
             'Content-Type': 'multipart/form-data'
           }),
-          data: FormData.fromMap({...teknisi.toJson(), 'devtok': ''}));
+          data: FormData.fromMap({...teknisi.toJson()}));
 
       return "Berhasil update teknisi!";
     } on DioException catch (e) {
