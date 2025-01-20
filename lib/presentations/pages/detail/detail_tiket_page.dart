@@ -121,7 +121,7 @@ class DetailTiketPage extends StatelessWidget {
                   child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  buildInfo('Durasi (Menit)', detail.durasi, 'start'),
+                  buildInfo('Durasi (Menit)', detail.durasi, 'start', true),
                 ],
               )),
               // Expanded(
@@ -148,7 +148,8 @@ class DetailTiketPage extends StatelessWidget {
     );
   }
 
-  Widget buildInfo(String title, String subTitle, String crossAlignment) {
+  Widget buildInfo(String title, String subTitle, String crossAlignment,
+      [bool isNumeric = false]) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -163,7 +164,8 @@ class DetailTiketPage extends StatelessWidget {
           size: 14,
         ),
         CustomText(
-          text: subTitle,
+          text:
+              isNumeric ? double.parse(subTitle).toStringAsFixed(2) : subTitle,
           overflow: TextOverflow.ellipsis,
           size: 13,
         ),
