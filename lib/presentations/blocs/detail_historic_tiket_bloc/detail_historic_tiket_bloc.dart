@@ -122,6 +122,7 @@ class DetailHistoricTiketBloc
   Future<void> _onFetchDetailHistoricTiketByIdPelanggan(
       FetchDetailHistoricTiketByIdPelanggan event,
       Emitter<DetailHistoricTiketState> emit) async {
+    emit(const DetailHistoricTiketState());
     emit(state.copyWith(status: DetailHistoricTiketStatus.loading));
     final result = await _tiketRepository
         .getAllHistoricTiketByIdPelanggan(event.idPelanggan);

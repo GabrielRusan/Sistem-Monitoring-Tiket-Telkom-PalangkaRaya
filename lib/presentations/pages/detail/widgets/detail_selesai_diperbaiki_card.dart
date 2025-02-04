@@ -16,13 +16,13 @@ class DetailSelesaiDiperbaikiCard extends StatelessWidget {
             ? InfoCardSmall(
                 title: 'Selesai diperbaiki',
                 value: state.selesaiCount == null
-                    ? '--'
+                    ? '0'
                     : state.selesaiCount.toString(),
                 onTap: () {})
             : InfoCard(
                 title: 'Selesai diperbaiki',
                 value: state.selesaiCount == null
-                    ? '--'
+                    ? '0'
                     : state.selesaiCount.toString(),
                 topColor: Colors.lightGreen,
                 onTap: () {});

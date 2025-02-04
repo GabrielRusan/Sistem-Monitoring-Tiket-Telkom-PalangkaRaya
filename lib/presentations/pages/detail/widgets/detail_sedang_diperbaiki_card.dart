@@ -16,14 +16,14 @@ class DetailSedangDiperbaikiCard extends StatelessWidget {
             ? InfoCardSmall(
                 title: 'Sedang diperbaiki',
                 value: state.inProgressCount == null
-                    ? '--'
+                    ? '0'
                     : state.inProgressCount.toString(),
                 isActive: true,
                 onTap: () {})
             : InfoCard(
                 title: 'Sedang diperbaiki',
                 value: state.inProgressCount == null
-                    ? '--'
+                    ? '0'
                     : state.inProgressCount.toString(),
                 topColor: Colors.orange,
                 onTap: () {});
