@@ -88,6 +88,7 @@ class _DetailHistoricTicketTableState extends State<DetailHistoricTicketTable> {
                     ),
                   ),
                   child: PaginatedDataTable2(
+                    showCheckboxColumn: false,
                     wrapInCard: false,
                     columnSpacing: 12,
                     horizontalMargin: 12,

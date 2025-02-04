@@ -193,7 +193,8 @@ class EditTeknisiForm extends StatelessWidget {
                           ),
                         ],
                         decoration: const InputDecoration(
-                            border: OutlineInputBorder(), labelText: 'Status'),
+                            border: OutlineInputBorder(),
+                            labelText: 'Keterangan'),
                         onChanged: (value) {
                           context.read<UpdateTeknisiBloc>().add(
                               OnChangedKeterangan(value: value ?? 'Available'));

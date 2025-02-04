@@ -87,6 +87,7 @@ class _DetailActiveTicketTableState extends State<DetailActiveTicketTable> {
                     ),
                   ),
                   child: PaginatedDataTable2(
+                    showCheckboxColumn: false,
                     wrapInCard: false,
                     columnSpacing: 12,
                     horizontalMargin: 12,
