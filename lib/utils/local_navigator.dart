@@ -5,6 +5,6 @@ import 'package:telkom_ticket_manager/utils/routes.dart';
 
 Navigator localNavigator() => Navigator(
       key: navigationController.navigationKey,
-      initialRoute: absencePageRoute,
+      initialRoute: overviewPageRoute,
       onGenerateRoute: generateRoute,
     );
