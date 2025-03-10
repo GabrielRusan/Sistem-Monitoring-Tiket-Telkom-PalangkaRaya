@@ -26,7 +26,7 @@ class RekapAbsenRemoteDataSourceImpl implements RekapAbsenRemoteDataSource {
         final startDate = dateFormatter.format(rangeTanggalCustom!.start);
         final endDate = dateFormatter.format(rangeTanggalCustom.end);
         final result = await _dio.get(
-          '$baseUrl/teknisi/rekap?filter=$filter&startDate=$startDate&endDate=$endDate',
+          '$baseUrl/teknisi/rekap?filter=$filter&start_date=$startDate&end_date=$endDate',
           options: Options(headers: {'Authorization': 'Bearer $token'}),
         );
         return RekapAbsenModel.fromJson(result.data);
