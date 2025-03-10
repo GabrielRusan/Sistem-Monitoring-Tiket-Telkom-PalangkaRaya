@@ -76,8 +76,9 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
       pdf.addPage(
         pw.MultiPage(
           pageFormat: PdfPageFormat.a4,
-          header: (context) {
-            return pw.Column(
+          build: (pw.Context context) {
+            return [
+              pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
                   pw.Row(
@@ -120,13 +121,6 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
                         border: pw.Border(bottom: pw.BorderSide(width: 2)),
                       )),
                   pw.SizedBox(height: 16),
-                ]);
-          },
-          build: (pw.Context context) {
-            return [
-              pw.Column(
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
-                children: [
                   // Judul Laporan
                   pw.Row(
                       mainAxisAlignment: pw.MainAxisAlignment.center,
