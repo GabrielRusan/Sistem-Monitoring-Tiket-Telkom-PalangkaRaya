@@ -8,6 +8,8 @@ import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/auth/
 import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/odp/odp_remote_data_source.dart';
 import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/pelanggan/pelanggan_remote_data_source.dart';
 import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/pelanggan/pelanggan_remote_data_source_impl.dart';
+import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/rekap_absen/rekap_absen_remote_data_source.dart';
+import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/rekap_absen/rekap_absen_remote_data_source_impl.dart';
 import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/teknisi/teknisi_remote_data_source.dart';
 import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/teknisi/teknisi_remote_data_source_impl.dart';
 import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/tiket/tiket_remote_data_source.dart';
@@ -15,11 +17,13 @@ import 'package:telkom_ticket_manager/data/datasources/remote_data_sources/tiket
 import 'package:telkom_ticket_manager/data/repositories/admin_repository_impl.dart';
 import 'package:telkom_ticket_manager/data/repositories/auth_repository_impl.dart';
 import 'package:telkom_ticket_manager/data/repositories/pelanggan_repository_impl.dart';
+import 'package:telkom_ticket_manager/data/repositories/rekap_absen_repository_impl.dart';
 import 'package:telkom_ticket_manager/data/repositories/teknisi_repository_impl.dart';
 import 'package:telkom_ticket_manager/data/repositories/tiket_repository_impl.dart';
 import 'package:telkom_ticket_manager/domain/repositories/admin_repository.dart';
 import 'package:telkom_ticket_manager/domain/repositories/auth_repository.dart';
 import 'package:telkom_ticket_manager/domain/repositories/pelanggan_repository.dart';
+import 'package:telkom_ticket_manager/domain/repositories/rekap_absen_repository.dart';
 import 'package:telkom_ticket_manager/domain/repositories/teknisi_repository.dart';
 import 'package:telkom_ticket_manager/domain/repositories/tiket_repository.dart';
 import 'package:telkom_ticket_manager/domain/usecases/auth/login.dart';
@@ -37,6 +41,7 @@ import 'package:telkom_ticket_manager/presentations/blocs/historic_tiket_bloc/hi
 import 'package:telkom_ticket_manager/presentations/blocs/login_bloc/login_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/odp_bloc/odp_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/pelanggan_bloc/pelanggan_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/rekap_absen_bloc/rekap_absen_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/update_admin_bloc/update_admin_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/update_pelanggan_bloc/update_pelanggan_bloc.dart';
@@ -68,6 +73,8 @@ Future<void> init() async {
       () => PelangganRemoteDataSourceImpl(locator(), locator()));
   locator.registerLazySingleton<OdpRemoteDataSource>(
       () => OdpRemoteDataSource(locator(), locator()));
+  locator.registerLazySingleton<RekapAbsenRemoteDataSource>(
+      () => RekapAbsenRemoteDataSourceImpl(locator(), locator()));
 
   //repositories
   locator.registerLazySingleton<AuthRepository>(
@@ -80,6 +87,8 @@ Future<void> init() async {
       () => AdminRepositoryImpl(remoteDataSource: locator()));
   locator.registerLazySingleton<PelangganRepository>(
       () => PelangganRepositoryImpl(remoteDataSource: locator()));
+  locator.registerLazySingleton<RekapAbsenRepository>(
+      () => RekapAbsenRepositoryImpl(datasource: locator()));
 
   //usecases
   locator.registerLazySingleton(() => Login(repository: locator()));
@@ -104,4 +113,5 @@ Future<void> init() async {
   locator.registerFactory(() => DetailHistoricTiketBloc(locator()));
   locator.registerFactory(() => DetailAllTiketBloc(locator()));
   locator.registerFactory(() => OdpBloc(locator()));
+  locator.registerFactory(() => RekapAbsenBloc(locator()));
 }

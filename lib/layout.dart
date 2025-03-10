@@ -11,6 +11,7 @@ import 'package:telkom_ticket_manager/presentations/blocs/historic_tiket_bloc/hi
 import 'package:telkom_ticket_manager/presentations/blocs/login_bloc/login_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/odp_bloc/odp_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/pelanggan_bloc/pelanggan_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/blocs/rekap_absen_bloc/rekap_absen_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/update_admin_bloc/update_admin_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/update_pelanggan_bloc/update_pelanggan_bloc.dart';
@@ -46,6 +47,9 @@ class _SiteLayoutState extends State<SiteLayout> {
     context.read<AdminBloc>().add(FetchAllAdmin());
     context.read<PelangganBloc>().add(FetchAllPelanggan());
     context.read<OdpBloc>().add(FetchOdp());
+    context.read<RekapAbsenBloc>().add(const FetchRekapAbsen(
+          filter: 'today',
+        ));
     super.initState();
   }
 

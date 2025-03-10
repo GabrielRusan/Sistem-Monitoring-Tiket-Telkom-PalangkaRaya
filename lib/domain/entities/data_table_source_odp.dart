@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:telkom_ticket_manager/data/models/odp_model.dart';
-import 'package:telkom_ticket_manager/date_converter.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
 
 class DataTableSourceOdp extends DataTableSource {
@@ -19,8 +18,6 @@ class DataTableSourceOdp extends DataTableSource {
     return DataRow(
       cells: [
         DataCell(CustomText(text: data.idodp)),
-        DataCell(CustomText(text: dateToStringLengkap(data.createdAt))),
-        DataCell(CustomText(text: dateToStringLengkap(data.updatedAt))),
       ],
     );
   }

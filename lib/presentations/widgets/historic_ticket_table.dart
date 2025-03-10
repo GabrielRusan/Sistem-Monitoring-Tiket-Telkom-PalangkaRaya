@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telkom_ticket_manager/domain/entities/data_table_source_tiket.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/historic_tiket_bloc/historic_tiket_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/widgets/styled_paginataed_table.dart';
 import 'package:telkom_ticket_manager/utils/responsivennes.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
@@ -39,9 +40,11 @@ class _HistoricTicketTableState extends State<HistoricTicketTable> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomText(
-                  text: "History Ticket Table",
-                  color: lightGrey,
-                  weight: FontWeight.bold),
+                text: "History Ticket Table",
+                color: lightGrey,
+                weight: FontWeight.w700,
+                size: 13,
+              ),
               SizedBox(
                 width: ResponsiveWidget.isSmallScreen(context) ? 200 : 300,
                 child: TextField(
@@ -85,119 +88,129 @@ class _HistoricTicketTableState extends State<HistoricTicketTable> {
                       }),
                     ),
                   ),
-                  child: PaginatedDataTable2(
-                    showCheckboxColumn: false,
-                    wrapInCard: false,
-                    columnSpacing: 12,
-                    horizontalMargin: 12,
-                    minWidth: 2000,
-                    renderEmptyRowsInTheEnd: false,
+                  child: StyledPaginataedTable(
+                    minWidth: 3200,
                     sortAscending: state.sortAscending,
                     sortColumnIndex: state.sortColumnIndex,
                     columns: [
                       DataColumn2(
-                        fixedWidth: 100,
+                        fixedWidth: 150,
                         label: const CustomText(
-                            text: 'No. Tiket',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<HistoricTiketBloc>()
-                            .add(SortHistoricTiket(columnIndex, ascending)),
-                      ),
-                      DataColumn2(
-                        fixedWidth: 200,
-                        label: const CustomText(
-                            text: 'Nama Pelanggan',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<HistoricTiketBloc>()
-                            .add(SortHistoricTiket(columnIndex, ascending)),
-                      ),
-                      DataColumn2(
-                        fixedWidth: 200,
-                        label: const CustomText(
-                            text: 'Alamat',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<HistoricTiketBloc>()
-                            .add(SortHistoricTiket(columnIndex, ascending)),
-                      ),
-                      DataColumn2(
-                        fixedWidth: 200,
-                        label: const CustomText(
-                            text: 'Keluhan',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<HistoricTiketBloc>()
-                            .add(SortHistoricTiket(columnIndex, ascending)),
-                      ),
-                      DataColumn2(
-                        fixedWidth: 200,
-                        label: const CustomText(
-                            text: 'ODP',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<HistoricTiketBloc>()
-                            .add(SortHistoricTiket(columnIndex, ascending)),
-                      ),
-                      DataColumn2(
-                        fixedWidth: 220,
-                        label: const CustomText(
-                            text: 'Waktu Mulai',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<HistoricTiketBloc>()
-                            .add(SortHistoricTiket(columnIndex, ascending)),
-                      ),
-                      DataColumn2(
-                        fixedWidth: 220,
-                        label: const CustomText(
-                            text: 'Waktu Selesai',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<HistoricTiketBloc>()
-                            .add(SortHistoricTiket(columnIndex, ascending)),
-                      ),
-                      DataColumn2(
-                        fixedWidth: 200,
-                        label: const CustomText(
-                            text: 'Durasi Pengerjaan',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
+                          text: 'No. Tiket',
+                          textAlign: TextAlign.center,
+                          weight: FontWeight.w700,
+                          size: 13,
+                        ),
                         onSort: (columnIndex, ascending) => context
                             .read<HistoricTiketBloc>()
                             .add(SortHistoricTiket(columnIndex, ascending)),
                       ),
                       DataColumn2(
                         label: const CustomText(
-                            text: 'Teknisi',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
+                          text: 'Nama Pelanggan',
+                          textAlign: TextAlign.center,
+                          weight: FontWeight.w700,
+                          size: 13,
+                        ),
                         onSort: (columnIndex, ascending) => context
                             .read<HistoricTiketBloc>()
                             .add(SortHistoricTiket(columnIndex, ascending)),
                       ),
                       DataColumn2(
                         label: const CustomText(
-                            text: 'Tipe',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
+                          text: 'Alamat',
+                          textAlign: TextAlign.center,
+                          weight: FontWeight.w700,
+                          size: 13,
+                        ),
                         onSort: (columnIndex, ascending) => context
                             .read<HistoricTiketBloc>()
                             .add(SortHistoricTiket(columnIndex, ascending)),
                       ),
                       DataColumn2(
                         label: const CustomText(
-                            text: 'Status',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
+                          text: 'Keluhan',
+                          textAlign: TextAlign.center,
+                          weight: FontWeight.w700,
+                          size: 13,
+                        ),
+                        onSort: (columnIndex, ascending) => context
+                            .read<HistoricTiketBloc>()
+                            .add(SortHistoricTiket(columnIndex, ascending)),
+                      ),
+                      DataColumn2(
+                        label: const CustomText(
+                          text: 'ODP',
+                          textAlign: TextAlign.center,
+                          weight: FontWeight.w700,
+                          size: 13,
+                        ),
+                        onSort: (columnIndex, ascending) => context
+                            .read<HistoricTiketBloc>()
+                            .add(SortHistoricTiket(columnIndex, ascending)),
+                      ),
+                      DataColumn2(
+                        label: const CustomText(
+                          text: 'Waktu Mulai',
+                          textAlign: TextAlign.center,
+                          weight: FontWeight.w700,
+                          size: 13,
+                        ),
+                        onSort: (columnIndex, ascending) => context
+                            .read<HistoricTiketBloc>()
+                            .add(SortHistoricTiket(columnIndex, ascending)),
+                      ),
+                      DataColumn2(
+                        label: const CustomText(
+                          text: 'Waktu Selesai',
+                          textAlign: TextAlign.center,
+                          weight: FontWeight.w700,
+                          size: 13,
+                        ),
+                        onSort: (columnIndex, ascending) => context
+                            .read<HistoricTiketBloc>()
+                            .add(SortHistoricTiket(columnIndex, ascending)),
+                      ),
+                      DataColumn2(
+                        label: const CustomText(
+                          text: 'Durasi Pengerjaan',
+                          textAlign: TextAlign.center,
+                          weight: FontWeight.w700,
+                          size: 13,
+                        ),
+                        onSort: (columnIndex, ascending) => context
+                            .read<HistoricTiketBloc>()
+                            .add(SortHistoricTiket(columnIndex, ascending)),
+                      ),
+                      DataColumn2(
+                        label: const CustomText(
+                          text: 'Teknisi',
+                          textAlign: TextAlign.center,
+                          weight: FontWeight.w700,
+                          size: 13,
+                        ),
+                        onSort: (columnIndex, ascending) => context
+                            .read<HistoricTiketBloc>()
+                            .add(SortHistoricTiket(columnIndex, ascending)),
+                      ),
+                      DataColumn2(
+                        label: const CustomText(
+                          text: 'Tipe',
+                          textAlign: TextAlign.center,
+                          weight: FontWeight.w700,
+                          size: 13,
+                        ),
+                        onSort: (columnIndex, ascending) => context
+                            .read<HistoricTiketBloc>()
+                            .add(SortHistoricTiket(columnIndex, ascending)),
+                      ),
+                      DataColumn2(
+                        label: const CustomText(
+                          text: 'Status',
+                          textAlign: TextAlign.center,
+                          weight: FontWeight.w700,
+                          size: 13,
+                        ),
                         onSort: (columnIndex, ascending) => context
                             .read<HistoricTiketBloc>()
                             .add(SortHistoricTiket(columnIndex, ascending)),

@@ -6,6 +6,7 @@ import 'package:telkom_ticket_manager/presentations/blocs/add_teknisi_bloc/add_t
 import 'package:telkom_ticket_manager/presentations/blocs/teknisi_bloc/teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/pages/teknisi/widgets/add_teknisi_form.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/add_button.dart';
+import 'package:telkom_ticket_manager/presentations/widgets/styled_paginataed_table.dart';
 import 'package:telkom_ticket_manager/utils/responsivennes.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
@@ -39,9 +40,11 @@ class TeknisiTable extends StatelessWidget {
               Row(
                 children: [
                   CustomText(
-                      text: "Teknisi Table",
-                      color: lightGrey,
-                      weight: FontWeight.bold),
+                    text: "Teknisi Table",
+                    color: lightGrey,
+                    weight: FontWeight.bold,
+                    size: 13,
+                  ),
                   const SizedBox(
                     width: 16,
                   ),
@@ -98,50 +101,52 @@ class TeknisiTable extends StatelessWidget {
                         }),
                       ),
                     ),
-                    child: PaginatedDataTable2(
-                      wrapInCard: false,
-                      renderEmptyRowsInTheEnd: false,
-                      columnSpacing: 12,
-                      horizontalMargin: 12,
-                      minWidth: 1500,
-                      showCheckboxColumn: false,
+                    child: StyledPaginataedTable(
+                      minWidth: 2000,
                       sortColumnIndex: state.sortColumnIndex,
                       sortAscending: state.sortAscending,
                       columns: [
                         DataColumn2(
                           fixedWidth: 250,
                           label: const CustomText(
-                              text: 'Id Teknisi',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
+                            text: 'Id Teknisi',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.w700,
+                            size: 13,
+                          ),
                           onSort: (columnIndex, ascending) => context
                               .read<TeknisiBloc>()
                               .add(SortTeknisiEvent(columnIndex, ascending)),
                         ),
                         DataColumn2(
                           label: const CustomText(
-                              text: 'Username',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
+                            text: 'Username',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.w700,
+                            size: 13,
+                          ),
                           onSort: (columnIndex, ascending) => context
                               .read<TeknisiBloc>()
                               .add(SortTeknisiEvent(columnIndex, ascending)),
                         ),
                         DataColumn2(
                           label: const CustomText(
-                              text: 'Password',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
+                            text: 'Password',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.w700,
+                            size: 13,
+                          ),
                           onSort: (columnIndex, ascending) => context
                               .read<TeknisiBloc>()
                               .add(SortTeknisiEvent(columnIndex, ascending)),
                         ),
                         DataColumn2(
-                          fixedWidth: 100,
                           label: const CustomText(
-                              text: 'Nama',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
+                            text: 'Nama',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.w700,
+                            size: 13,
+                          ),
                           onSort: (columnIndex, ascending) => context
                               .read<TeknisiBloc>()
                               .add(SortTeknisiEvent(columnIndex, ascending)),
@@ -149,12 +154,14 @@ class TeknisiTable extends StatelessWidget {
                         DataColumn2(
                           // fixedWidth: 120,
                           label: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               CustomText(
-                                  text: 'Kehadiran',
-                                  textAlign: TextAlign.center,
-                                  weight: FontWeight.bold),
+                                text: 'Kehadiran',
+                                textAlign: TextAlign.center,
+                                weight: FontWeight.w700,
+                                size: 13,
+                              ),
                             ],
                           ),
                           onSort: (columnIndex, ascending) => context
@@ -163,37 +170,35 @@ class TeknisiTable extends StatelessWidget {
                         ),
                         DataColumn2(
                           label: const CustomText(
-                              text: 'Keterangan',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
+                            text: 'Keterangan',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.w700,
+                            size: 13,
+                          ),
                           onSort: (columnIndex, ascending) => context
                               .read<TeknisiBloc>()
                               .add(SortTeknisiEvent(columnIndex, ascending)),
                         ),
                         DataColumn2(
                           label: const CustomText(
-                              text: 'Status',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
-                          onSort: (columnIndex, ascending) => context
-                              .read<TeknisiBloc>()
-                              .add(SortTeknisiEvent(columnIndex, ascending)),
-                        ),
-                        DataColumn2(
-                          label: const CustomText(
-                              text: 'CreatedAt',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
+                            text: 'Status',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.w700,
+                            size: 13,
+                          ),
                           onSort: (columnIndex, ascending) => context
                               .read<TeknisiBloc>()
                               .add(SortTeknisiEvent(columnIndex, ascending)),
                         ),
                         const DataColumn2(
                           label: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               CustomText(
-                                  text: 'Action', weight: FontWeight.bold),
+                                text: 'Action',
+                                weight: FontWeight.w700,
+                                size: 13,
+                              ),
                             ],
                           ),
                         ),

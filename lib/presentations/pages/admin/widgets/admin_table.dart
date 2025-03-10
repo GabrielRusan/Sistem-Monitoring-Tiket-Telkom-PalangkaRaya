@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telkom_ticket_manager/domain/entities/data_table_source_admin.dart';
 import 'package:telkom_ticket_manager/injection.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/admin_bloc/admin_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/widgets/styled_paginataed_table.dart';
 import 'package:telkom_ticket_manager/utils/responsivennes.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
@@ -36,9 +37,11 @@ class AdminTable extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomText(
-                  text: "Admin Table",
-                  color: lightGrey,
-                  weight: FontWeight.bold),
+                text: "Admin Table",
+                color: lightGrey,
+                weight: FontWeight.w700,
+                size: 13,
+              ),
               SizedBox(
                 width: ResponsiveWidget.isSmallScreen(context) ? 200 : 300,
                 child: TextField(
@@ -81,49 +84,52 @@ class AdminTable extends StatelessWidget {
                         }),
                       ),
                     ),
-                    child: PaginatedDataTable2(
-                      wrapInCard: false,
-                      renderEmptyRowsInTheEnd: false,
-                      columnSpacing: 12,
-                      horizontalMargin: 12,
-                      // minWidth: 1500,
-                      showCheckboxColumn: false,
+                    child: StyledPaginataedTable(
+                      minWidth: 0,
                       sortColumnIndex: state.sortColumnIndex,
                       sortAscending: state.sortAscending,
                       columns: [
                         DataColumn2(
                           fixedWidth: 100,
                           label: const CustomText(
-                              text: 'Id',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
+                            text: 'Id',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.w700,
+                            size: 13,
+                          ),
                           onSort: (columnIndex, ascending) => context
                               .read<AdminBloc>()
                               .add(SortAdminEvent(columnIndex, ascending)),
                         ),
                         DataColumn2(
                           label: const CustomText(
-                              text: 'Username',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
+                            text: 'Username',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.w700,
+                            size: 13,
+                          ),
                           onSort: (columnIndex, ascending) => context
                               .read<AdminBloc>()
                               .add(SortAdminEvent(columnIndex, ascending)),
                         ),
                         DataColumn2(
                           label: const CustomText(
-                              text: 'Nama',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
+                            text: 'Nama',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.w700,
+                            size: 13,
+                          ),
                           onSort: (columnIndex, ascending) => context
                               .read<AdminBloc>()
                               .add(SortAdminEvent(columnIndex, ascending)),
                         ),
                         DataColumn2(
                           label: const CustomText(
-                              text: 'CreatedAt',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
+                            text: 'CreatedAt',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.w700,
+                            size: 13,
+                          ),
                           onSort: (columnIndex, ascending) => context
                               .read<AdminBloc>()
                               .add(SortAdminEvent(columnIndex, ascending)),
@@ -133,7 +139,10 @@ class AdminTable extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CustomText(
-                                  text: 'Action', weight: FontWeight.bold),
+                                text: 'Action',
+                                weight: FontWeight.w700,
+                                size: 13,
+                              ),
                             ],
                           ),
                         ),

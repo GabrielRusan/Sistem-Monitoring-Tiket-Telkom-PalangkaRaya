@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:telkom_ticket_manager/date_converter.dart';
 import 'package:telkom_ticket_manager/domain/entities/teknisi.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/delete_teknisi_bloc/delete_teknisi_bloc.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/update_teknisi_bloc/update_teknisi_bloc.dart';
@@ -26,7 +25,7 @@ class DataTableSourceTeknisi extends DataTableSource {
           DataCell(CustomText(text: data.pass)),
           DataCell(CustomText(text: data.nama)),
           DataCell(Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomText(text: data.kehadiran),
               const SizedBox(width: 24),
@@ -34,9 +33,8 @@ class DataTableSourceTeknisi extends DataTableSource {
           )),
           DataCell(CustomText(text: data.ket)),
           DataCell(CustomText(text: data.status)),
-          DataCell(CustomText(text: dateToStringLengkap(data.createdAt))),
           DataCell(Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               InkWell(
                 onTap: () {

@@ -9,6 +9,7 @@ class DetailTiket extends Equatable {
   final String durasi;
   final String idTeknisi;
   final String namaTeknisi;
+  final String keterangan;
 
   const DetailTiket({
     required this.idDetailTiket,
@@ -19,6 +20,7 @@ class DetailTiket extends Equatable {
     required this.durasi,
     required this.idTeknisi,
     required this.namaTeknisi,
+    required this.keterangan,
   });
 
   @override
@@ -31,5 +33,6 @@ class DetailTiket extends Equatable {
         durasi,
         idTeknisi,
         namaTeknisi,
+        keterangan
       ];
 }

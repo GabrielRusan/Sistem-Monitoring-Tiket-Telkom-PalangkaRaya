@@ -21,6 +21,9 @@ const clientPageRoute = "/client";
 const authenticationPageDisplayName = "Log Out";
 const authenticationPageRoute = "/auth";
 
+const absencePageDisplayName = "Absence";
+const absencePageRoute = "/absence";
+
 class MenuItem {
   final String name;
   final String route;
@@ -32,6 +35,10 @@ List<MenuItem> sideMenuItems = [
   MenuItem(
     name: overviewPageDisplayName,
     route: overviewPageRoute,
+  ),
+  MenuItem(
+    name: absencePageDisplayName,
+    route: absencePageRoute,
   ),
   MenuItem(
     name: adminPageDisplayName,

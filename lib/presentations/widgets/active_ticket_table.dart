@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telkom_ticket_manager/domain/entities/data_table_source_tiket.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/active_tiket_bloc/active_tiket_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/widgets/styled_paginataed_table.dart';
 import 'package:telkom_ticket_manager/utils/responsivennes.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
@@ -39,9 +40,11 @@ class _ActiveTicketTableState extends State<ActiveTicketTable> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomText(
-                  text: "Active Ticket Table",
-                  color: lightGrey,
-                  weight: FontWeight.bold),
+                text: "Active Ticket Table",
+                color: lightGrey,
+                size: 13,
+                weight: FontWeight.w700,
+              ),
               SizedBox(
                 width: ResponsiveWidget.isSmallScreen(context) ? 200 : 300,
                 child: TextField(
@@ -75,118 +78,120 @@ class _ActiveTicketTableState extends State<ActiveTicketTable> {
                     child: CustomText(text: 'Data Kosong!'),
                   );
                 }
-                return Theme(
-                  data: Theme.of(context).copyWith(
-                    dataTableTheme: DataTableThemeData(
-                      headingRowColor: WidgetStateProperty.resolveWith<Color>(
-                          (Set<WidgetState> states) {
-                        // Set color for data rows
-                        return Colors.grey.shade200; // example color
-                      }),
+                return StyledPaginataedTable(
+                  minWidth: 2500,
+                  sortAscending: state.sortAscending,
+                  sortColumnIndex: state.sortColumnIndex,
+                  columns: [
+                    DataColumn2(
+                      fixedWidth: 150,
+                      label: const CustomText(
+                        text: 'No. Tiket',
+                        textAlign: TextAlign.center,
+                        size: 13,
+                        weight: FontWeight.w700,
+                      ),
+                      onSort: (columnIndex, ascending) => context
+                          .read<ActiveTiketBloc>()
+                          .add(SortActiveTiket(columnIndex, ascending)),
                     ),
-                  ),
-                  child: PaginatedDataTable2(
-                    showCheckboxColumn: false,
-                    wrapInCard: false,
-                    columnSpacing: 12,
-                    horizontalMargin: 12,
-                    minWidth: 1500,
-                    renderEmptyRowsInTheEnd: false,
-                    sortAscending: state.sortAscending,
-                    sortColumnIndex: state.sortColumnIndex,
-                    columns: [
-                      DataColumn2(
-                        fixedWidth: 100,
-                        label: const CustomText(
-                            text: 'No. Tiket',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<ActiveTiketBloc>()
-                            .add(SortActiveTiket(columnIndex, ascending)),
+                    DataColumn2(
+                      size: ColumnSize.L,
+                      label: const CustomText(
+                        text: 'Nama Pelanggan',
+                        textAlign: TextAlign.center,
+                        size: 13,
+                        weight: FontWeight.w700,
                       ),
-                      DataColumn2(
-                        size: ColumnSize.L,
-                        label: const CustomText(
-                            text: 'Nama Pelanggan',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<ActiveTiketBloc>()
-                            .add(SortActiveTiket(columnIndex, ascending)),
+                      onSort: (columnIndex, ascending) => context
+                          .read<ActiveTiketBloc>()
+                          .add(SortActiveTiket(columnIndex, ascending)),
+                    ),
+                    DataColumn2(
+                      size: ColumnSize.L,
+                      label: const CustomText(
+                        text: 'Alamat',
+                        textAlign: TextAlign.center,
+                        size: 13,
+                        weight: FontWeight.w700,
                       ),
-                      DataColumn2(
-                        size: ColumnSize.L,
-                        label: const CustomText(
-                            text: 'Alamat',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<ActiveTiketBloc>()
-                            .add(SortActiveTiket(columnIndex, ascending)),
+                      onSort: (columnIndex, ascending) => context
+                          .read<ActiveTiketBloc>()
+                          .add(SortActiveTiket(columnIndex, ascending)),
+                    ),
+                    DataColumn2(
+                      size: ColumnSize.L,
+                      label: const CustomText(
+                        text: 'Keluhan',
+                        textAlign: TextAlign.center,
+                        size: 13,
+                        weight: FontWeight.w700,
                       ),
-                      DataColumn2(
-                        size: ColumnSize.L,
-                        label: const CustomText(
-                            text: 'Keluhan',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<ActiveTiketBloc>()
-                            .add(SortActiveTiket(columnIndex, ascending)),
+                      onSort: (columnIndex, ascending) => context
+                          .read<ActiveTiketBloc>()
+                          .add(SortActiveTiket(columnIndex, ascending)),
+                    ),
+                    DataColumn2(
+                      size: ColumnSize.L,
+                      label: const CustomText(
+                        text: 'ODP',
+                        textAlign: TextAlign.center,
+                        size: 13,
+                        weight: FontWeight.w700,
                       ),
-                      DataColumn2(
-                        size: ColumnSize.L,
-                        label: const CustomText(
-                            text: 'ODP',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<ActiveTiketBloc>()
-                            .add(SortActiveTiket(columnIndex, ascending)),
+                      onSort: (columnIndex, ascending) => context
+                          .read<ActiveTiketBloc>()
+                          .add(SortActiveTiket(columnIndex, ascending)),
+                    ),
+                    DataColumn2(
+                      size: ColumnSize.L,
+                      label: const CustomText(
+                        text: 'Start Time',
+                        textAlign: TextAlign.center,
+                        size: 13,
+                        weight: FontWeight.w700,
                       ),
-                      DataColumn2(
-                        size: ColumnSize.L,
-                        label: const CustomText(
-                            text: 'Start Time',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<ActiveTiketBloc>()
-                            .add(SortActiveTiket(columnIndex, ascending)),
+                      onSort: (columnIndex, ascending) => context
+                          .read<ActiveTiketBloc>()
+                          .add(SortActiveTiket(columnIndex, ascending)),
+                    ),
+                    DataColumn2(
+                      label: const CustomText(
+                        text: 'Teknisi',
+                        textAlign: TextAlign.center,
+                        size: 13,
+                        weight: FontWeight.w700,
                       ),
-                      DataColumn2(
-                        label: const CustomText(
-                            text: 'Teknisi',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<ActiveTiketBloc>()
-                            .add(SortActiveTiket(columnIndex, ascending)),
+                      onSort: (columnIndex, ascending) => context
+                          .read<ActiveTiketBloc>()
+                          .add(SortActiveTiket(columnIndex, ascending)),
+                    ),
+                    DataColumn2(
+                      label: const CustomText(
+                        text: 'Tipe',
+                        textAlign: TextAlign.center,
+                        size: 13,
+                        weight: FontWeight.w700,
                       ),
-                      DataColumn2(
-                        label: const CustomText(
-                            text: 'Tipe',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<ActiveTiketBloc>()
-                            .add(SortActiveTiket(columnIndex, ascending)),
+                      onSort: (columnIndex, ascending) => context
+                          .read<ActiveTiketBloc>()
+                          .add(SortActiveTiket(columnIndex, ascending)),
+                    ),
+                    DataColumn2(
+                      label: const CustomText(
+                        text: 'Status',
+                        textAlign: TextAlign.center,
+                        size: 13,
+                        weight: FontWeight.w700,
                       ),
-                      DataColumn2(
-                        label: const CustomText(
-                            text: 'Status',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.bold),
-                        onSort: (columnIndex, ascending) => context
-                            .read<ActiveTiketBloc>()
-                            .add(SortActiveTiket(columnIndex, ascending)),
-                      ),
-                    ],
-                    source: state.isFiltered
-                        ? DataTableSourceTiket(state.filteredResult)
-                        : DataTableSourceTiket(state.result),
-                  ),
+                      onSort: (columnIndex, ascending) => context
+                          .read<ActiveTiketBloc>()
+                          .add(SortActiveTiket(columnIndex, ascending)),
+                    ),
+                  ],
+                  source: state.isFiltered
+                      ? DataTableSourceTiket(state.filteredResult)
+                      : DataTableSourceTiket(state.result),
                 );
               },
             ),

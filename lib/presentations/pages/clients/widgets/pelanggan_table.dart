@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telkom_ticket_manager/domain/entities/data_table_source_pelanggan.dart';
 import 'package:telkom_ticket_manager/presentations/blocs/pelanggan_bloc/pelanggan_bloc.dart';
+import 'package:telkom_ticket_manager/presentations/widgets/styled_paginataed_table.dart';
 import 'package:telkom_ticket_manager/utils/responsivennes.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
@@ -80,49 +81,52 @@ class PelangganTable extends StatelessWidget {
                         }),
                       ),
                     ),
-                    child: PaginatedDataTable2(
-                      wrapInCard: false,
-                      renderEmptyRowsInTheEnd: false,
-                      columnSpacing: 12,
-                      horizontalMargin: 12,
-                      // minWidth: 1500,
-                      showCheckboxColumn: false,
+                    child: StyledPaginataedTable(
+                      minWidth: 0,
                       sortColumnIndex: state.sortColumnIndex,
                       sortAscending: state.sortAscending,
                       columns: [
                         DataColumn2(
                           fixedWidth: 200,
                           label: const CustomText(
-                              text: 'Id',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
+                            text: 'Id',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.w700,
+                            size: 13,
+                          ),
                           onSort: (columnIndex, ascending) => context
                               .read<PelangganBloc>()
                               .add(SortPelangganEvent(columnIndex, ascending)),
                         ),
                         DataColumn2(
                           label: const CustomText(
-                              text: 'Nama',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
+                            text: 'Nama',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.w700,
+                            size: 13,
+                          ),
                           onSort: (columnIndex, ascending) => context
                               .read<PelangganBloc>()
                               .add(SortPelangganEvent(columnIndex, ascending)),
                         ),
                         DataColumn2(
                           label: const CustomText(
-                              text: 'Alamat',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
+                            text: 'Alamat',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.w700,
+                            size: 13,
+                          ),
                           onSort: (columnIndex, ascending) => context
                               .read<PelangganBloc>()
                               .add(SortPelangganEvent(columnIndex, ascending)),
                         ),
                         DataColumn2(
                           label: const CustomText(
-                              text: 'No HP',
-                              textAlign: TextAlign.center,
-                              weight: FontWeight.bold),
+                            text: 'No HP',
+                            textAlign: TextAlign.center,
+                            weight: FontWeight.w700,
+                            size: 13,
+                          ),
                           onSort: (columnIndex, ascending) => context
                               .read<PelangganBloc>()
                               .add(SortPelangganEvent(columnIndex, ascending)),

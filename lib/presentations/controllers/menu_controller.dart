@@ -29,6 +29,8 @@ class MyMenuController extends GetxController {
         return customIcon(Icons.trending_up, itemName);
       case adminPageDisplayName:
         return customIcon(Icons.admin_panel_settings_outlined, itemName);
+      case absencePageDisplayName:
+        return customIcon(Icons.fact_check_outlined, itemName);
       case teknisiPageDisplayName:
         return customIcon(Icons.person_2_outlined, itemName);
       case odpPageDisplayName:

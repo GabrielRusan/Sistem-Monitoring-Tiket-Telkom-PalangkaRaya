@@ -1,9 +1,11 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:telkom_ticket_manager/data/models/detail_tiket_model.dart';
+import 'package:telkom_ticket_manager/domain/entities/data_table_source_detail_tiket.dart';
 import 'package:telkom_ticket_manager/domain/entities/detail_tiket.dart';
 import 'package:telkom_ticket_manager/presentations/widgets/custom_text.dart';
-import 'package:telkom_ticket_manager/utils/constants.dart';
+import 'package:telkom_ticket_manager/presentations/widgets/styled_paginataed_table.dart';
 import 'package:telkom_ticket_manager/utils/routes.dart';
 import 'package:telkom_ticket_manager/utils/style.dart';
 
@@ -27,13 +29,13 @@ class DetailTiketPage extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constaint) {
-        double width = constaint.maxWidth;
+        // double width = constaint.maxWidth;
 
-        bool isLargeLaptop = width >= largeLaptopSize - 32;
-        bool isLaptop = width >= laptopSize;
-        bool isTablet = width >= tabletSize;
-        bool isCustom = width >= 625;
-        bool isMobileS = width >= mobileS;
+        // bool isLargeLaptop = width >= largeLaptopSize - 32;
+        // bool isLaptop = width >= laptopSize;
+        // bool isTablet = width >= tabletSize;
+        // bool isCustom = width >= 625;
+        // bool isMobileS = width >= mobileS;
 
         return Scaffold(
           backgroundColor: Colors.white,
@@ -49,29 +51,109 @@ class DetailTiketPage extends StatelessWidget {
           body: Padding(
             padding: const EdgeInsets.only(
               top: 16.0,
-              left: 16,
-              right: 16,
+              left: 24,
+              right: 24,
             ),
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: isLargeLaptop
-                    ? 4
-                    : isLaptop
-                        ? 3
-                        : isTablet || isCustom
-                            ? 2
-                            : 1, // Jumlah item per baris
-                crossAxisSpacing: 10.0, // Jarak horizontal antar item
-                mainAxisSpacing: 10.0, // Jarak vertikal antar item
-                mainAxisExtent: 285,
-              ),
-              itemBuilder: (context, index) {
-                final detail = detailTiket![index];
-                bool isTerpilih = index == 0;
-                return buildDetailTiketCard(detail, isTerpilih, isMobileS);
-              },
-              itemCount: detailTiket!.length,
-            ),
+            child: StyledPaginataedTable(
+                columns: const [
+                  DataColumn2(
+                    fixedWidth: 200,
+                    label: CustomText(
+                      text: 'ID Teknisi',
+                      textAlign: TextAlign.center,
+                      weight: FontWeight.w700,
+                      size: 13,
+                    ),
+                  ),
+                  DataColumn2(
+                    label: CustomText(
+                      text: 'Nama Teknisi',
+                      textAlign: TextAlign.center,
+                      weight: FontWeight.w700,
+                      size: 13,
+                    ),
+                  ),
+                  DataColumn2(
+                    label: CustomText(
+                      text: 'Tiket Aktif',
+                      textAlign: TextAlign.center,
+                      weight: FontWeight.w700,
+                      size: 13,
+                    ),
+                  ),
+                  DataColumn2(
+                    label: CustomText(
+                      text: 'Total Tiket',
+                      textAlign: TextAlign.center,
+                      weight: FontWeight.w700,
+                      size: 13,
+                    ),
+                  ),
+                  DataColumn2(
+                    label: CustomText(
+                      text: 'Durasi (menit)',
+                      textAlign: TextAlign.center,
+                      weight: FontWeight.w700,
+                      size: 13,
+                    ),
+                  ),
+                  DataColumn2(
+                    label: CustomText(
+                      text: 'Keterangan',
+                      textAlign: TextAlign.center,
+                      weight: FontWeight.w700,
+                      size: 13,
+                    ),
+                  ),
+                  DataColumn2(
+                    label: CustomText(
+                      text: 'Weighted Product (WP)',
+                      textAlign: TextAlign.center,
+                      weight: FontWeight.w700,
+                      size: 13,
+                    ),
+                    fixedWidth: 250,
+                  ),
+                  DataColumn2(
+                    label: CustomText(
+                      text: 'Normalized WP',
+                      textAlign: TextAlign.center,
+                      weight: FontWeight.w700,
+                      size: 13,
+                    ),
+                    fixedWidth: 250,
+                  ),
+                  DataColumn2(
+                    label: CustomText(
+                      text: 'Status',
+                      textAlign: TextAlign.center,
+                      weight: FontWeight.w700,
+                      size: 13,
+                    ),
+                  ),
+                ],
+                source: DataTableSourceDetailTiket(
+                    context, detailTiket!, choosenIdTeknisi!)),
+            // child: GridView.builder(
+            //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //     crossAxisCount: isLargeLaptop
+            //         ? 4
+            //         : isLaptop
+            //             ? 3
+            //             : isTablet || isCustom
+            //                 ? 2
+            //                 : 1, // Jumlah item per baris
+            //     crossAxisSpacing: 10.0, // Jarak horizontal antar item
+            //     mainAxisSpacing: 10.0, // Jarak vertikal antar item
+            //     mainAxisExtent: 285,
+            //   ),
+            //   itemBuilder: (context, index) {
+            //     final detail = detailTiket![index];
+            //     bool isTerpilih = index == 0;
+            // return buildDetailTiketCard(detail, isTerpilih, isMobileS);
+            //   },
+            //   itemCount: detailTiket!.length,
+            // ),
           ),
         );
       },

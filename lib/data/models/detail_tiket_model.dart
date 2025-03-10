@@ -21,6 +21,7 @@ class DetailTiketModel {
   final double normalizedWp;
   final String durasi;
   final String idTeknisi;
+  final String keterangan;
   final String namaTeknisi;
 
   DetailTiketModel({
@@ -31,6 +32,7 @@ class DetailTiketModel {
     required this.normalizedWp,
     required this.durasi,
     required this.idTeknisi,
+    required this.keterangan,
     required this.namaTeknisi,
   });
 
@@ -40,6 +42,7 @@ class DetailTiketModel {
         tiketAktif: int.parse(json["tiketaktif"]),
         totalTiket: int.parse(json["totaltiket"]),
         wp: double.parse(json["wp"]),
+        keterangan: json["ket"],
         normalizedWp: double.parse(json["normalized_wp"]),
         durasi: json["durasi"],
         idTeknisi: json["idteknisi"],
@@ -48,15 +51,15 @@ class DetailTiketModel {
 
   factory DetailTiketModel.fromEntity(DetailTiket detailTiket) =>
       DetailTiketModel(
-        idDetailTiket: detailTiket.idDetailTiket,
-        tiketAktif: detailTiket.tiketAktif,
-        totalTiket: detailTiket.totalTiket,
-        wp: detailTiket.wp,
-        normalizedWp: detailTiket.normalizedWp,
-        durasi: detailTiket.durasi,
-        idTeknisi: detailTiket.idTeknisi,
-        namaTeknisi: detailTiket.namaTeknisi,
-      );
+          idDetailTiket: detailTiket.idDetailTiket,
+          tiketAktif: detailTiket.tiketAktif,
+          totalTiket: detailTiket.totalTiket,
+          wp: detailTiket.wp,
+          normalizedWp: detailTiket.normalizedWp,
+          durasi: detailTiket.durasi,
+          idTeknisi: detailTiket.idTeknisi,
+          namaTeknisi: detailTiket.namaTeknisi,
+          keterangan: detailTiket.keterangan);
 
   DetailTiket toEntity() => DetailTiket(
         idDetailTiket: idDetailTiket,
@@ -67,6 +70,7 @@ class DetailTiketModel {
         durasi: durasi,
         idTeknisi: idTeknisi,
         namaTeknisi: namaTeknisi,
+        keterangan: keterangan,
       );
 
   // Map<String, dynamic> toJson() => {
