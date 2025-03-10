@@ -176,7 +176,7 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
                     pw.Expanded(
                       flex: 6,
                       child: pw.Text(
-                        ': 6',
+                        ': ${event.rekapAbsen.summary.totalHadir}',
                         style: const pw.TextStyle(
                           fontSize: 11,
                         ),
@@ -197,7 +197,7 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
                     pw.Expanded(
                       flex: 6,
                       child: pw.Text(
-                        ': 2',
+                        ': ${event.rekapAbsen.summary.totalTidakHadir}',
                         style: const pw.TextStyle(
                           fontSize: 11,
                         ),
@@ -218,7 +218,7 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
                     pw.Expanded(
                       flex: 6,
                       child: pw.Text(
-                        ': 20',
+                        ': ${event.rekapAbsen.summary.totalTeknisi}',
                         style: const pw.TextStyle(
                           fontSize: 11,
                         ),
@@ -239,7 +239,7 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
                     pw.Expanded(
                       flex: 6,
                       child: pw.Text(
-                        ': 22',
+                        ': ${event.rekapAbsen.summary.rataRataTotalTiket}',
                         style: const pw.TextStyle(
                           fontSize: 11,
                         ),
@@ -260,7 +260,7 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
                     pw.Expanded(
                       flex: 6,
                       child: pw.Text(
-                        ': 521.2 menit',
+                        ': ${event.rekapAbsen.summary.rataRataWaktuKerja} menit',
                         style: const pw.TextStyle(
                           fontSize: 11,
                         ),
@@ -281,7 +281,7 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
                     pw.Expanded(
                       flex: 6,
                       child: pw.Text(
-                        ': 30 menit',
+                        ': ${event.rekapAbsen.summary.rataRataWaktuPenyelesaian} menit',
                         style: const pw.TextStyle(
                           fontSize: 11,
                         ),
