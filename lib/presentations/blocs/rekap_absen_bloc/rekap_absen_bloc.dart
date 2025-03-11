@@ -486,7 +486,7 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
                           ),
                         ]),
                       ),
-                      pw.SizedBox(height: 6),
+                      pw.SizedBox(height: 12),
                     ],
                     pw.SizedBox(height: 12),
                   ]
