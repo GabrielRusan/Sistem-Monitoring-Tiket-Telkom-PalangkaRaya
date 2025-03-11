@@ -254,7 +254,9 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
                     pw.Expanded(
                       flex: 6,
                       child: pw.Text(
-                        ': ${event.rekapAbsen.summary.rataRataWaktuKerja} menit',
+                        event.rekapAbsen.summary.rataRataWaktuKerja == 'NaN'
+                            ? ': 0 menit'
+                            : ': ${event.rekapAbsen.summary.rataRataWaktuKerja} menit',
                         style: const pw.TextStyle(
                           fontSize: 11,
                         ),
@@ -275,7 +277,10 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
                     pw.Expanded(
                       flex: 6,
                       child: pw.Text(
-                        ': ${event.rekapAbsen.summary.rataRataWaktuPenyelesaian} menit',
+                        event.rekapAbsen.summary.rataRataWaktuPenyelesaian ==
+                                'NaN'
+                            ? ': 0 menit'
+                            : ': ${event.rekapAbsen.summary.rataRataWaktuPenyelesaian} menit',
                         style: const pw.TextStyle(
                           fontSize: 11,
                         ),
@@ -406,7 +411,9 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
                           pw.Expanded(
                             flex: 6,
                             child: pw.Text(
-                              ': ${entry.value[i].totalWaktuKerja} menit',
+                              entry.value[i].totalWaktuKerja == '00:00:00'
+                                  ? ': 0 menit'
+                                  : ': ${entry.value[i].totalWaktuKerja} menit',
                               style: const pw.TextStyle(
                                 fontSize: 11,
                               ),
@@ -454,7 +461,9 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
                           pw.Expanded(
                             flex: 6,
                             child: pw.Text(
-                              ': ${entry.value[i].rataRataPenyelesaian} menit',
+                              entry.value[i].rataRataPenyelesaian == '00:00:00'
+                                  ? ': 0 menit'
+                                  : ': ${entry.value[i].rataRataPenyelesaian} menit',
                               style: const pw.TextStyle(
                                 fontSize: 11,
                               ),
