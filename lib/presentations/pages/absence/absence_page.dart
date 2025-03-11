@@ -199,7 +199,11 @@ class AbsencePage extends StatelessWidget {
                             icon: Icons.confirmation_num_outlined,
                             title: 'Rata-rata Total Tiket',
                             value: state.rekapAbsen.summary.rataRataTotalTiket
-                                .toString(),
+                                        .toString() ==
+                                    'NaN'
+                                ? '0'
+                                : state.rekapAbsen.summary.rataRataTotalTiket
+                                    .toString(),
                             isUseChip: true,
                             chipValue: '1 tiket',
                             isArrowUpward: false,
@@ -213,7 +217,11 @@ class AbsencePage extends StatelessWidget {
                             icon: Icons.access_time_filled,
                             title: 'Rata-rata Waktu Kerja (menit)',
                             value: state.rekapAbsen.summary.rataRataWaktuKerja
-                                .toString(),
+                                        .toString() ==
+                                    'NaN'
+                                ? '0'
+                                : state.rekapAbsen.summary.rataRataWaktuKerja
+                                    .toString(),
                             isUseChip: true,
                             chipValue: '5.2 menit',
                             isArrowUpward: true,
@@ -226,9 +234,14 @@ class AbsencePage extends StatelessWidget {
                               child: AbsenceInfoCard(
                             icon: Icons.access_time_filled,
                             title: 'Rata-rata Waktu Penyelesaian (menit)',
-                            value: state
-                                .rekapAbsen.summary.rataRataWaktuPenyelesaian
-                                .toString(),
+                            value: state.rekapAbsen.summary
+                                        .rataRataWaktuPenyelesaian
+                                        .toString() ==
+                                    'NaN'
+                                ? '0'
+                                : state.rekapAbsen.summary
+                                    .rataRataWaktuPenyelesaian
+                                    .toString(),
                             isUseChip: true,
                             chipValue: '15.7 menit',
                             isArrowUpward: true,

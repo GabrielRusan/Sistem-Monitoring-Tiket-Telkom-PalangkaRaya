@@ -68,54 +68,54 @@ class AbsenceInfoCard extends StatelessWidget {
             const SizedBox(
               height: 4,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                isUseChip
-                    ? Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 1),
-                        decoration: BoxDecoration(
-                            color: isGreen
-                                ? Colors.green.shade50
-                                : Colors.red.shade50,
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              isArrowUpward
-                                  ? Icons.arrow_upward_outlined
-                                  : Icons.arrow_downward_outlined,
-                              size: 14,
-                              color: isGreen ? Colors.green : Colors.red,
-                            ),
-                            const SizedBox(
-                              width: 3,
-                            ),
-                            CustomText(
-                              text: chipValue ?? '',
-                              size: 14,
-                              color: isGreen ? Colors.green : Colors.red,
-                              weight: FontWeight.bold,
-                            )
-                          ],
-                        ),
-                      )
-                    : const SizedBox(),
-                isUseChip
-                    ? const SizedBox(
-                        width: 8,
-                      )
-                    : const SizedBox(),
-                CustomText(
-                  text: subTitle,
-                  size: 14,
-                  color: const Color(0xff777777),
-                  weight: FontWeight.w500,
-                )
-              ],
-            )
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //     isUseChip
+            //         ? Container(
+            //             padding: const EdgeInsets.symmetric(
+            //                 horizontal: 6, vertical: 1),
+            //             decoration: BoxDecoration(
+            //                 color: isGreen
+            //                     ? Colors.green.shade50
+            //                     : Colors.red.shade50,
+            //                 borderRadius: BorderRadius.circular(50)),
+            //             child: Row(
+            //               mainAxisSize: MainAxisSize.min,
+            //               children: [
+            //                 Icon(
+            //                   isArrowUpward
+            //                       ? Icons.arrow_upward_outlined
+            //                       : Icons.arrow_downward_outlined,
+            //                   size: 14,
+            //                   color: isGreen ? Colors.green : Colors.red,
+            //                 ),
+            //                 const SizedBox(
+            //                   width: 3,
+            //                 ),
+            //                 CustomText(
+            //                   text: chipValue ?? '',
+            //                   size: 14,
+            //                   color: isGreen ? Colors.green : Colors.red,
+            //                   weight: FontWeight.bold,
+            //                 )
+            //               ],
+            //             ),
+            //           )
+            //         : const SizedBox(),
+            //     isUseChip
+            //         ? const SizedBox(
+            //             width: 8,
+            //           )
+            //         : const SizedBox(),
+            //     CustomText(
+            //       text: subTitle,
+            //       size: 14,
+            //       color: const Color(0xff777777),
+            //       weight: FontWeight.w500,
+            //     )
+            //   ],
+            // )
           ],
         ),
       ),
