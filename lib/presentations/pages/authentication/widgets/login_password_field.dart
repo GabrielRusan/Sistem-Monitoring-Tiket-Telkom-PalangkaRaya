@@ -15,8 +15,11 @@ class _LoginPasswordFieldState extends State<LoginPasswordField> {
   Widget build(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
-        return TextField(
+        return TextFormField(
           obscureText: !isVisible,
+          onFieldSubmitted: (value) {
+            context.read<LoginBloc>().add(SignIn());
+          },
           decoration: InputDecoration(
               labelText: "Password",
               hintText: "123",

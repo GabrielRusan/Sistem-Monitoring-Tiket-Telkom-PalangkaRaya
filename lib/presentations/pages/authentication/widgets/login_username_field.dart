@@ -9,12 +9,15 @@ class LoginUsernameField extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
-        return TextField(
+        return TextFormField(
           decoration: InputDecoration(
               labelText: "Username",
               hintText: "admin",
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
+          onFieldSubmitted: (value) {
+            context.read<LoginBloc>().add(SignIn());
+          },
           onChanged: (value) =>
               context.read<LoginBloc>().add(UsernameChanged(value: value)),
         );
