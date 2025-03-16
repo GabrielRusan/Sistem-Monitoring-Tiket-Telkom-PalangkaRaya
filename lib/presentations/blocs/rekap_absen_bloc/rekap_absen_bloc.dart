@@ -65,6 +65,271 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
         groupedByDate.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
       );
 
+      pw.Container customRow(
+          String no,
+          String id,
+          String nama,
+          String jamMasuk,
+          String jamKeluar,
+          String totalWaktuKerja,
+          String totalTiket,
+          String rataRataPenyelesaian,
+          String status) {
+        List<String> jamMasukSplit = jamMasuk.split(':');
+        List<String> jamKeluarSplit = jamKeluar.split(':');
+
+        String newJamMasuk = '${jamMasukSplit[0]}:${jamMasukSplit[1]}';
+        String newJamKeluar = '${jamKeluarSplit[0]}:${jamKeluarSplit[1]}';
+
+        if (status == 'Tidak Hadir') {
+          newJamMasuk = '-';
+          newJamKeluar = '-';
+        }
+
+        String newRataRataPenyelesaian =
+            rataRataPenyelesaian == '00:00:00' ? '0' : rataRataPenyelesaian;
+
+        String newTotalWaktuKerja =
+            totalWaktuKerja == '00:00:00' ? '0' : totalWaktuKerja;
+
+        return pw.Container(
+            decoration: const pw.BoxDecoration(
+              // color: PdfColor.fromHex('#E6EEF7'),
+              border: pw.Border(
+                  right: pw.BorderSide(),
+                  left: pw.BorderSide(),
+                  bottom: pw.BorderSide()),
+            ),
+            height: 45,
+            child: pw.Row(children: [
+              pw.Expanded(
+                flex: 2,
+                child: pw.Text(no, textAlign: pw.TextAlign.center),
+              ),
+              pw.Container(
+                  width: 1,
+                  height: double.infinity,
+                  color: PdfColor.fromHex('#000000')),
+              pw.Expanded(
+                flex: 4,
+                child: pw.Text(id,
+                    style: const pw.TextStyle(
+                      fontSize: 11,
+                    ),
+                    textAlign: pw.TextAlign.center),
+              ),
+              pw.Container(
+                  width: 1,
+                  height: double.infinity,
+                  color: PdfColor.fromHex('#000000')),
+              pw.Expanded(
+                flex: 4,
+                child: pw.Text(nama,
+                    textAlign: pw.TextAlign.center,
+                    style: const pw.TextStyle(
+                      fontSize: 11,
+                    )),
+              ),
+              pw.Container(
+                  width: 1,
+                  height: double.infinity,
+                  color: PdfColor.fromHex('#000000')),
+              pw.Expanded(
+                flex: 3,
+                child: pw.Text(newJamMasuk,
+                    textAlign: pw.TextAlign.center,
+                    style: const pw.TextStyle(
+                      fontSize: 11,
+                    )),
+              ),
+              pw.Container(
+                  width: 1,
+                  height: double.infinity,
+                  color: PdfColor.fromHex('#000000')),
+              pw.Expanded(
+                flex: 3,
+                child: pw.Text(newJamKeluar,
+                    textAlign: pw.TextAlign.center,
+                    style: const pw.TextStyle(
+                      fontSize: 11,
+                    )),
+              ),
+              pw.Container(
+                  width: 1,
+                  height: double.infinity,
+                  color: PdfColor.fromHex('#000000')),
+              pw.Expanded(
+                flex: 4,
+                child: pw.Text(newTotalWaktuKerja,
+                    textAlign: pw.TextAlign.center,
+                    style: const pw.TextStyle(
+                      fontSize: 11,
+                    )),
+              ),
+              pw.Container(
+                  width: 1,
+                  height: double.infinity,
+                  color: PdfColor.fromHex('#000000')),
+              pw.Expanded(
+                flex: 3,
+                child: pw.Text(totalTiket,
+                    textAlign: pw.TextAlign.center,
+                    style: const pw.TextStyle(
+                      fontSize: 11,
+                    )),
+              ),
+              pw.Container(
+                  width: 1,
+                  height: double.infinity,
+                  color: PdfColor.fromHex('#000000')),
+              pw.Expanded(
+                flex: 5,
+                child: pw.Text(newRataRataPenyelesaian,
+                    textAlign: pw.TextAlign.center,
+                    style: const pw.TextStyle(
+                      fontSize: 11,
+                    )),
+              ),
+              pw.Container(
+                  width: 1,
+                  height: double.infinity,
+                  color: PdfColor.fromHex('#000000')),
+              pw.Expanded(
+                flex: 3,
+                child: pw.Text(status,
+                    textAlign: pw.TextAlign.center,
+                    style: const pw.TextStyle(
+                      fontSize: 11,
+                    )),
+              ),
+            ]));
+      }
+
+      pw.TableRow summaryTableRow(
+          {required String label,
+          bool isCustom = false,
+          bool isHadir = true,
+          required dynamic value}) {
+        if (isCustom) {
+          Map<dynamic, dynamic> data = value.map((key, value) => MapEntry(
+                key,
+                isHadir
+                    ? value
+                        .where((obj) => obj.statusKehadiran == 'Hadir')
+                        .length
+                    : value
+                        .where((obj) => obj.statusKehadiran == 'Tidak Hadir')
+                        .length,
+              ));
+          return data.isEmpty
+              ? pw.TableRow(
+                  verticalAlignment: pw.TableCellVerticalAlignment.middle,
+                  children: [
+                      pw.Padding(
+                        padding: const pw.EdgeInsets.all(8),
+                        child: pw.Text(
+                          label,
+                          style: pw.TextStyle(
+                            fontWeight: pw.FontWeight.bold,
+                            fontSize: 11,
+                          ),
+                        ),
+                      ),
+                      pw.Padding(
+                        padding: const pw.EdgeInsets.all(8),
+                        child: pw.Text(
+                          '0 Teknisi',
+                          style: const pw.TextStyle(fontSize: 11),
+                        ),
+                      ),
+                    ])
+              : pw.TableRow(
+                  verticalAlignment: pw.TableCellVerticalAlignment.middle,
+                  children: [
+                      pw.Padding(
+                        padding: const pw.EdgeInsets.all(8),
+                        child: pw.Text(
+                          label,
+                          style: pw.TextStyle(
+                            fontWeight: pw.FontWeight.bold,
+                            fontSize: 11,
+                          ),
+                        ),
+                      ),
+                      pw.Table(border: pw.TableBorder.all(), children: [
+                        pw.TableRow(
+                          children: [
+                            pw.Padding(
+                              padding: const pw.EdgeInsets.all(8),
+                              child: pw.Text(
+                                'Tanggal',
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                    fontWeight: pw.FontWeight.bold,
+                                    fontSize: 11),
+                              ),
+                            ),
+                            pw.Padding(
+                              padding: const pw.EdgeInsets.all(8),
+                              child: pw.Text(
+                                'Jumlah',
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                    fontWeight: pw.FontWeight.bold,
+                                    fontSize: 11),
+                              ),
+                            ),
+                          ],
+                        ),
+                        for (MapEntry entry in data.entries)
+                          pw.TableRow(
+                            children: [
+                              pw.Padding(
+                                padding: const pw.EdgeInsets.all(8),
+                                child: pw.Text(
+                                  dateFormat.format(entry.key),
+                                  style: const pw.TextStyle(fontSize: 11),
+                                ),
+                              ),
+                              pw.Padding(
+                                padding: const pw.EdgeInsets.all(8),
+                                child: pw.Text(
+                                  entry.value.toString(),
+                                  style: const pw.TextStyle(fontSize: 11),
+                                  textAlign: pw.TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                      ])
+                    ]);
+        }
+
+        return pw.TableRow(
+            verticalAlignment: pw.TableCellVerticalAlignment.middle,
+            children: [
+              pw.Padding(
+                padding: const pw.EdgeInsets.all(8),
+                child: pw.Text(
+                  label,
+                  style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.bold,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
+              pw.Padding(
+                padding: const pw.EdgeInsets.all(8),
+                child: pw.Text(
+                  value,
+                  style: const pw.TextStyle(
+                    fontSize: 11,
+                  ),
+                ),
+              ),
+            ]);
+      }
+
       final pdf = pw.Document();
       final img =
           await rootBundle.load('assets/icons/logo_telkom_lite_baru.png');
@@ -154,358 +419,235 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
                   pw.Text(
                     'Summary',
                     style: pw.TextStyle(
-                        fontSize: 12, fontWeight: pw.FontWeight.bold),
-                  ),
-                  pw.SizedBox(height: 8),
-                  pw.Row(children: [
-                    pw.Expanded(
-                      flex: 3,
-                      child: pw.Text(
-                        'Total Teknisi Hadir',
-                        style: const pw.TextStyle(
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    pw.Expanded(
-                      flex: 6,
-                      child: pw.Text(
-                        ': ${event.rekapAbsen.summary.totalHadir}',
-                        style: const pw.TextStyle(
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                  ]),
-                  pw.SizedBox(height: 8),
-                  pw.Row(children: [
-                    pw.Expanded(
-                      flex: 3,
-                      child: pw.Text(
-                        'Total Teknisi Tidak Hadir',
-                        style: const pw.TextStyle(
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    pw.Expanded(
-                      flex: 6,
-                      child: pw.Text(
-                        ': ${event.rekapAbsen.summary.totalTidakHadir}',
-                        style: const pw.TextStyle(
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                  ]),
-                  pw.SizedBox(height: 8),
-                  pw.Row(children: [
-                    pw.Expanded(
-                      flex: 3,
-                      child: pw.Text(
-                        'Total Teknisi',
-                        style: const pw.TextStyle(
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    pw.Expanded(
-                      flex: 6,
-                      child: pw.Text(
-                        ': ${event.rekapAbsen.summary.totalTeknisi}',
-                        style: const pw.TextStyle(
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                  ]),
-                  pw.SizedBox(height: 8),
-                  pw.Row(children: [
-                    pw.Expanded(
-                      flex: 3,
-                      child: pw.Text(
-                        'Rata-rata Total Tiket',
-                        style: const pw.TextStyle(
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    pw.Expanded(
-                      flex: 6,
-                      child: pw.Text(
-                        ': ${event.rekapAbsen.summary.rataRataTotalTiket}',
-                        style: const pw.TextStyle(
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                  ]),
-                  pw.SizedBox(height: 8),
-                  pw.Row(children: [
-                    pw.Expanded(
-                      flex: 3,
-                      child: pw.Text(
-                        'Rata-rata Waktu Kerja',
-                        style: const pw.TextStyle(
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    pw.Expanded(
-                      flex: 6,
-                      child: pw.Text(
-                        event.rekapAbsen.summary.rataRataWaktuKerja == 'NaN'
-                            ? ': 0 menit'
-                            : ': ${event.rekapAbsen.summary.rataRataWaktuKerja} menit',
-                        style: const pw.TextStyle(
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                  ]),
-                  pw.SizedBox(height: 8),
-                  pw.Row(children: [
-                    pw.Expanded(
-                      flex: 3,
-                      child: pw.Text(
-                        'Rata-rata Waktu Penyelesaian',
-                        style: const pw.TextStyle(
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    pw.Expanded(
-                      flex: 6,
-                      child: pw.Text(
-                        event.rekapAbsen.summary.rataRataWaktuPenyelesaian ==
-                                'NaN'
-                            ? ': 0 menit'
-                            : ': ${event.rekapAbsen.summary.rataRataWaktuPenyelesaian} menit',
-                        style: const pw.TextStyle(
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                  ]),
-                  // END Summary
-
-                  pw.SizedBox(height: 36),
-
-                  // START Riwayat Absensi
-                  pw.Text(
-                    'Riwayat Absensi',
-                    style: pw.TextStyle(
                         fontSize: 14, fontWeight: pw.FontWeight.bold),
                   ),
                   pw.SizedBox(height: 8),
-                  for (MapEntry entry in sortedMap.entries) ...[
-                    pw.Row(
-                        mainAxisAlignment: pw.MainAxisAlignment.end,
-                        children: [
-                          pw.Text(
-                            dateFormat.format(entry.key),
-                            style: pw.TextStyle(
-                              fontSize: 11,
-                              fontWeight: pw.FontWeight.bold,
-                            ),
-                          ),
-                        ]),
-                    pw.SizedBox(height: 6),
-                    pw.Container(
-                        decoration: const pw.BoxDecoration(
-                      border: pw.Border(bottom: pw.BorderSide(width: 1)),
-                    )),
-                    pw.SizedBox(height: 6),
-                    for (int i = 0; i < entry.value.length; i++) ...[
-                      pw.Text(
-                        "${i + 1}. ${entry.value[i].nama}",
-                        style: const pw.TextStyle(
-                          fontSize: 11,
-                        ),
-                      ),
-                      pw.SizedBox(height: 4),
-                      pw.Padding(
-                        padding: const pw.EdgeInsets.only(left: 20),
-                        child: pw.Row(children: [
-                          pw.Expanded(
-                            flex: 3,
-                            child: pw.Text(
-                              'ID Teknisi',
-                              style: const pw.TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                          pw.Expanded(
-                            flex: 6,
-                            child: pw.Text(
-                              ': ${entry.value[i].idTeknisi}',
-                              style: const pw.TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                        ]),
-                      ),
-                      pw.SizedBox(height: 4),
-                      pw.Padding(
-                        padding: const pw.EdgeInsets.only(left: 20),
-                        child: pw.Row(children: [
-                          pw.Expanded(
-                            flex: 3,
-                            child: pw.Text(
-                              'Jam Masuk',
-                              style: const pw.TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                          pw.Expanded(
-                            flex: 6,
-                            child: pw.Text(
-                              ': ${entry.value[i].jamMasuk}',
-                              style: const pw.TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                        ]),
-                      ),
-                      pw.SizedBox(height: 4),
-                      pw.Padding(
-                        padding: const pw.EdgeInsets.only(left: 20),
-                        child: pw.Row(children: [
-                          pw.Expanded(
-                            flex: 3,
-                            child: pw.Text(
-                              'Jam Keluar',
-                              style: const pw.TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                          pw.Expanded(
-                            flex: 6,
-                            child: pw.Text(
-                              ': ${entry.value[i].jamKeluar}',
-                              style: const pw.TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                        ]),
-                      ),
-                      pw.SizedBox(height: 4),
-                      pw.Padding(
-                        padding: const pw.EdgeInsets.only(left: 20),
-                        child: pw.Row(children: [
-                          pw.Expanded(
-                            flex: 3,
-                            child: pw.Text(
-                              'Total Waktu Kerja',
-                              style: const pw.TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                          pw.Expanded(
-                            flex: 6,
-                            child: pw.Text(
-                              entry.value[i].totalWaktuKerja == '00:00:00'
-                                  ? ': 0 menit'
-                                  : ': ${entry.value[i].totalWaktuKerja} menit',
-                              style: const pw.TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                        ]),
-                      ),
-                      pw.SizedBox(height: 4),
-                      pw.Padding(
-                        padding: const pw.EdgeInsets.only(left: 20),
-                        child: pw.Row(children: [
-                          pw.Expanded(
-                            flex: 3,
-                            child: pw.Text(
-                              'Total Tiket',
-                              style: const pw.TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                          pw.Expanded(
-                            flex: 6,
-                            child: pw.Text(
-                              ': ${entry.value[i].totalTiket}',
-                              style: const pw.TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                        ]),
-                      ),
-                      pw.SizedBox(height: 4),
-                      pw.Padding(
-                        padding: const pw.EdgeInsets.only(left: 20),
-                        child: pw.Row(children: [
-                          pw.Expanded(
-                            flex: 3,
-                            child: pw.Text(
-                              'Rata-rata Penyelesaian',
-                              style: const pw.TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                          pw.Expanded(
-                            flex: 6,
-                            child: pw.Text(
-                              entry.value[i].rataRataPenyelesaian == '00:00:00'
-                                  ? ': 0 menit'
-                                  : ': ${entry.value[i].rataRataPenyelesaian} menit',
-                              style: const pw.TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                        ]),
-                      ),
-                      pw.SizedBox(height: 4),
-                      pw.Padding(
-                        padding: const pw.EdgeInsets.only(left: 20),
-                        child: pw.Row(children: [
-                          pw.Expanded(
-                            flex: 3,
-                            child: pw.Text(
-                              'Status Kehadiran',
-                              style: const pw.TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                          pw.Expanded(
-                            flex: 6,
-                            child: pw.Text(
-                              ': ${entry.value[i].statusKehadiran}',
-                              style: const pw.TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                        ]),
-                      ),
-                      pw.SizedBox(height: 12),
-                    ],
-                    pw.SizedBox(height: 12),
-                  ]
-                  // END Riwayat Absensi
+                  pw.Table(border: pw.TableBorder.all(), columnWidths: {
+                    0: const pw.FlexColumnWidth(1),
+                    1: const pw.FlexColumnWidth(3),
+                  }, children: [
+                    summaryTableRow(
+                        label: 'Total Teknisi Hadir',
+                        isCustom: true,
+                        isHadir: true,
+                        value: sortedMap),
+                    summaryTableRow(
+                        label: 'Total Teknisi Tidak Hadir',
+                        isCustom: true,
+                        isHadir: false,
+                        value: sortedMap),
+                    summaryTableRow(
+                        label: 'Total Teknisi',
+                        value:
+                            '${event.rekapAbsen.summary.totalTeknisi} Teknisi'),
+                    summaryTableRow(
+                        label: 'Rata-rata Total Tiket',
+                        value:
+                            '${event.rekapAbsen.summary.rataRataTotalTiket} Tiket'),
+                    summaryTableRow(
+                        label: 'Rata-rata Waktu Kerja',
+                        value: event.rekapAbsen.summary.rataRataWaktuKerja ==
+                                'NaN'
+                            ? '0 Menit'
+                            : '${event.rekapAbsen.summary.rataRataWaktuKerja} Menit'),
+                    summaryTableRow(
+                        label: 'Rata-rata Waktu Kerja',
+                        value: event.rekapAbsen.summary
+                                    .rataRataWaktuPenyelesaian ==
+                                'NaN'
+                            ? '0 Menit'
+                            : '${event.rekapAbsen.summary.rataRataWaktuPenyelesaian} Menit'),
+                  ]),
+                  // END Summary
                 ],
               )
             ];
           },
         ),
       );
+
+      pdf.addPage(pw.MultiPage(
+          pageFormat: PdfPageFormat.a4,
+          build: (context) {
+            return [
+              // START Riwayat Absensi
+              pw.Text(
+                'Riwayat Absensi',
+                style:
+                    pw.TextStyle(fontSize: 14, fontWeight: pw.FontWeight.bold),
+              ),
+              pw.SizedBox(height: 8),
+              for (MapEntry entry in sortedMap.entries) ...[
+                pw.Row(mainAxisAlignment: pw.MainAxisAlignment.end, children: [
+                  pw.Text(
+                    dateFormat.format(entry.key),
+                    style: pw.TextStyle(
+                        fontSize: 12, fontWeight: pw.FontWeight.bold),
+                  ),
+                ]),
+                pw.SizedBox(height: 8),
+                pw.Container(
+                  decoration: pw.BoxDecoration(
+                    color: PdfColor.fromHex('#E6EEF7'),
+                    border: const pw.Border(
+                        right: pw.BorderSide(),
+                        top: pw.BorderSide(),
+                        left: pw.BorderSide(),
+                        bottom: pw.BorderSide()),
+                  ),
+                  height: 55,
+                  child: pw.Row(
+                    children: [
+                      pw.Expanded(
+                        flex: 2,
+                        child: pw.Text(
+                          'No',
+                          textAlign: pw.TextAlign.center,
+                          style: pw.TextStyle(
+                            fontSize: 11,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                          width: 1,
+                          height: double.infinity,
+                          color: PdfColor.fromHex('#000000')),
+                      pw.Expanded(
+                        flex: 4,
+                        child: pw.Text(
+                          'ID',
+                          textAlign: pw.TextAlign.center,
+                          style: pw.TextStyle(
+                            fontSize: 11,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                          width: 1,
+                          height: double.infinity,
+                          color: PdfColor.fromHex('#000000')),
+                      pw.Expanded(
+                        flex: 4,
+                        child: pw.Text(
+                          'Nama',
+                          textAlign: pw.TextAlign.center,
+                          style: pw.TextStyle(
+                            fontSize: 11,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                          width: 1,
+                          height: double.infinity,
+                          color: PdfColor.fromHex('#000000')),
+                      pw.Expanded(
+                        flex: 3,
+                        child: pw.Text(
+                          'Jam\nMasuk',
+                          textAlign: pw.TextAlign.center,
+                          style: pw.TextStyle(
+                            fontSize: 11,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                          width: 1,
+                          height: double.infinity,
+                          color: PdfColor.fromHex('#000000')),
+                      pw.Expanded(
+                        flex: 3,
+                        child: pw.Text(
+                          'Jam\nKeluar',
+                          textAlign: pw.TextAlign.center,
+                          style: pw.TextStyle(
+                            fontSize: 11,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                          width: 1,
+                          height: double.infinity,
+                          color: PdfColor.fromHex('#000000')),
+                      pw.Expanded(
+                        flex: 4,
+                        child: pw.Text(
+                          'Total Waktu\nKerja (menit)',
+                          textAlign: pw.TextAlign.center,
+                          style: pw.TextStyle(
+                            fontSize: 11,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                          width: 1,
+                          height: double.infinity,
+                          color: PdfColor.fromHex('#000000')),
+                      pw.Expanded(
+                        flex: 3,
+                        child: pw.Text(
+                          'Total\nTiket',
+                          textAlign: pw.TextAlign.center,
+                          style: pw.TextStyle(
+                            fontSize: 11,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                          width: 1,
+                          height: double.infinity,
+                          color: PdfColor.fromHex('#000000')),
+                      pw.Expanded(
+                        flex: 5,
+                        child: pw.Text(
+                          'Rata-rata\nPenyelesaian\n(menit)',
+                          textAlign: pw.TextAlign.center,
+                          style: pw.TextStyle(
+                            fontSize: 11,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                          width: 1,
+                          height: double.infinity,
+                          color: PdfColor.fromHex('#000000')),
+                      pw.Expanded(
+                        flex: 3,
+                        child: pw.Text(
+                          'Status',
+                          textAlign: pw.TextAlign.center,
+                          style: pw.TextStyle(
+                            fontSize: 11,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                for (int i = 0; i < entry.value.length; i++)
+                  customRow(
+                      '${1 + i}',
+                      '${entry.value[i].idTeknisi}',
+                      '${entry.value[i].nama}',
+                      '${entry.value[i].jamMasuk}',
+                      '${entry.value[i].jamKeluar}',
+                      '${entry.value[i].totalWaktuKerja}',
+                      '${entry.value[i].totalTiket}',
+                      '${entry.value[i].rataRataPenyelesaian}',
+                      '${entry.value[i].statusKehadiran}'),
+                pw.SizedBox(height: 24),
+              ],
+              // END Riwayat Absensi
+            ];
+          }));
 
       // Konversi PDF ke format Uint8List
       Uint8List pdfBytes = await pdf.save();
