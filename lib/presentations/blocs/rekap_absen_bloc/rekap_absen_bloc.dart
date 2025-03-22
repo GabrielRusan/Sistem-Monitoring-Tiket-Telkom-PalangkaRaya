@@ -451,7 +451,7 @@ class RekapAbsenBloc extends Bloc<RekapAbsenEvent, RekapAbsenState> {
                             ? '0 Menit'
                             : '${event.rekapAbsen.summary.rataRataWaktuKerja} Menit'),
                     summaryTableRow(
-                        label: 'Rata-rata Waktu Kerja',
+                        label: 'Rata-rata Waktu Penyelesaian',
                         value: event.rekapAbsen.summary
                                     .rataRataWaktuPenyelesaian ==
                                 'NaN'
