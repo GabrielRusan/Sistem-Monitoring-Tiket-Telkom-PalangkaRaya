@@ -123,17 +123,6 @@ class AdminTable extends StatelessWidget {
                               .read<AdminBloc>()
                               .add(SortAdminEvent(columnIndex, ascending)),
                         ),
-                        DataColumn2(
-                          label: const CustomText(
-                            text: 'CreatedAt',
-                            textAlign: TextAlign.center,
-                            weight: FontWeight.w700,
-                            size: 13,
-                          ),
-                          onSort: (columnIndex, ascending) => context
-                              .read<AdminBloc>()
-                              .add(SortAdminEvent(columnIndex, ascending)),
-                        ),
                         const DataColumn2(
                           label: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

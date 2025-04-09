@@ -105,7 +105,7 @@ class MyApp extends StatelessWidget {
       ],
       child: getx.GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        title: "Telkom",
+        title: "Telkom Admin",
         initialRoute: authenticationPageRoute,
         unknownRoute: getx.GetPage(
             name: "/not-found",
